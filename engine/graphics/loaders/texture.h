@@ -4,7 +4,7 @@
 #define THE_FOURTH_AGE_TEXTURE_H
 
 #include <GL/glew.h>
-#include <extlibs/stb_image.h>
+#include <../../../libs/external/stb_image.h>
 
 /* A texture structure which contains all necessary information to pass a texture to OpenGL */
 struct Texture {
