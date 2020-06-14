@@ -9,7 +9,7 @@ LIBS=-lSDL2 -lGLEW -lGL
 default: client
 
 client: main.c $(OBJECTFILES)
-	$(CC) main.c $(OBJECTFILES) -o fourthageclient.out $(LIBS)
+	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(LIBS)
 
 gamewindow.o: engine/gamewindow.c engine/gamewindow.h
 	$(CC) -c engine/gamewindow.c -o $@
@@ -18,3 +18,4 @@ gamewindow.o: engine/gamewindow.c engine/gamewindow.h
 
 clean:
 	rm *.o
+	rm *.out
