@@ -9,14 +9,14 @@
 #include <maths.h>
 
 /* Contains the matrix mode. 0 = Orthogonal, 1 = Perspective */
-int mode;
+int     mode;
 
 /* The matrices to be returned and calculated */
-mat4 projPerspectiveMatrix;
-mat4 projOrthogonalMatrix;
+mat4    projPerspectiveMatrix;
+mat4    projOrthogonalMatrix;
 
 /* Current FOV to be changed by zooming */
-int fov;
+int     fov;
 
 /* Initializes variables and matrices to default; to be called at start of program */
 void    PROJ_initProjection     ();

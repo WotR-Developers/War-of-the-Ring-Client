@@ -22,7 +22,7 @@
 #endif
 
 /* The game window pointer. */
-SDL_Window  *window;
+SDL_Window*     window;
 
 /* - Creates Game Window.
  * - Creates window context.
