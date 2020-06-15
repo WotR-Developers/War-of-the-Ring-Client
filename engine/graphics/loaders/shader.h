@@ -6,22 +6,22 @@
 
 /* A structure containing the shader name and the shader program ID */
 struct Shader {
-    const char  *name;          // The name of the shader
-    int         shaderProgram;  // The shader program ID
+    const char*     name;           // The name of the shader
+    int             shaderProgram;  // The shader program ID
 };
 
 /* List of shaders to be quickly used with the ID */
-struct Shader *shaderList;
+struct  Shader*     shaderList;
 
 /* Reads shader and returns the ID.
  * If it is already in the list, returns the ID */
-int  SHA_genShader          (char *path);
+int     SHA_genShader       (char *path);
 
 /* Binds a shader to OpenGL */
-void SHA_bindShader         (int  id);
+void    SHA_bindShader      (int  id);
 
 /* Pushes matrix to the shader with the given uniform
  * provided by the name parameter. */
-void SHA_pushMatrix         (char *name);
+void    SHA_pushMatrix      (char *name);
 
 #endif //THE_FOURTH_AGE_SHADER_H
