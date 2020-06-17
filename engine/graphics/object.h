@@ -25,7 +25,7 @@ int     objectCount;
 struct Object {
     vec3    position;
     vec3    scale;
-    vec4    rotation;
+    vec3    rotation;
     int     modelID;    // To get access to the correct model struct.
     int     textureID;  // To get access to the correct texture struct.
     int     shaderID;   // To get access to the correct shader struct.
@@ -53,7 +53,7 @@ void    OBJ_transformObject (int id, float x, float y, float z);
 void    OBJ_scaleObject     (int id, float x, float y, float z);
 
 /* Rotates the object with the given ID around the given axis by the given degrees. */
-void    OBJ_rotateObject    (int id, float degrees, float x, float y, float z);
+void    OBJ_rotateObject    (int id, float x, float y, float z);
 
 /* Translates the object with the given ID by the given vector. */
 void    OBJ_translateObject (int id, float x, float y, float z);
