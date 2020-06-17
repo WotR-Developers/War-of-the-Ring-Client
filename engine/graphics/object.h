@@ -29,10 +29,11 @@ struct Object {
     int     modelID;    // To get access to the correct model struct.
     int     textureID;  // To get access to the correct texture struct.
     int     shaderID;   // To get access to the correct shader struct.
+    int     existing;   // If this object is still exsisting. 0 = false, 1 = true.
 };
 
 /* A list of objects for faster access using the ID. */
-struct  Object**     objectList;
+struct  Object*         objectList;
 
 /* Fills in the Object struct for a new object using the ResourceManager and adds it to objectList.
  * Transforms it to the given location.

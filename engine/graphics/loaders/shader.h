@@ -15,13 +15,13 @@ struct  Shader*     shaderList;
 
 /* Reads shader and returns the ID.
  * If it is already in the list, returns the ID */
-int     SHA_genShader       (char *path);
+int     SHA_genShader       (char*  path);
 
 /* Binds a shader to OpenGL */
-void    SHA_bindShader      (int  id);
+void    SHA_bindShader      (int    id);
 
 /* Pushes matrix to the shader with the given uniform
  * provided by the name parameter. */
-void    SHA_pushMatrix      (char *name);
+void    SHA_pushMatrix      (char*  name, mat4  matrix);
 
 #endif //THE_FOURTH_AGE_SHADER_H

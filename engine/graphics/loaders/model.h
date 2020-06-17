@@ -23,9 +23,8 @@ struct  Model*   modelList;
 
 /* Function which gets the path of the model
  * returns the ID of the model
- * sets the vertices, indices as well as their counts
  * If it has already been loaded returns the IDs*/
-int     PMF_loadModel       (char *path, struct Vertex vertices[], unsigned int indices[], int *numVertices, unsigned int *numIndices);
+int     PMF_loadModel       (char *path);
 
 /* Internal function to load the data of a PMF file */
 void    loadPMF             (struct Model *currentModel);

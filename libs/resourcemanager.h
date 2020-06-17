@@ -30,23 +30,32 @@ int     objectCount;
 char*   basePath;
 
 /* This function sets the base path with the value returned from the console input in main.c. */
-void    RMG_setBasePath     (char *path);
+void    RMG_setBasePath     (char*  path);
 
 /* To be called upon start, fills in the arrays of paths. */
 void    RMG_loadResources   ();
 
-char*   RMG_getType         (char *objectName);
+char*   RMG_getType         (char*  objectName);
 
 /* Returns the texture path for an object name. */
-char*   RMG_getTexture      (char *objectName);
+char*   RMG_getTexture      (char*  objectName);
 
 /* Returns the model path for an object name. */
-char*   RMG_getModel        (char *objectName);
+char*   RMG_getModel        (char*  objectName);
 
 /* Returns the animation path for an object name. */
-char*   RMG_getAnimation    (char *objectName);
+char*   RMG_getAnimation    (char*  objectName);
 
 /* Returns the shader path for a shader name. */
-char*   RMG_getShader       (char *objectName);
+char*   RMG_getShader       (char*  objectName);
+
+/* Get all files in a directory. */
+char**  getFilesInDir       (char*  path);
+
+/* Get all directories in directory. */
+char**  getDirsinDir        (char*  path);
+
+/* Combine strings str1 and str2 */
+char*   combineStrings      (char*  str1, char* str2);
 
 #endif //THE_FOURTH_AGE_RESOURCEMANAGER_H
