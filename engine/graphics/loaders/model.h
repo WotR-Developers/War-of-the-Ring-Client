@@ -3,6 +3,9 @@
 #ifndef THE_FOURTH_AGE_MODEL_H
 #define THE_FOURTH_AGE_MODEL_H
 
+/* For memory management. */
+#include <alloc.h>
+
 struct Vertex {
     float   x, y, z;
     float   normalX, normalY, normalZ;
@@ -11,25 +14,28 @@ struct Vertex {
 
 /* A model structure with all necessary information to construct OpenGL data */
 struct Model {
-    const char*     path;                 // The path to the model file
-    struct Vertex*  vertices;            // Array of vertices
-    int             numVertices;          // Number of vertices
-    unsigned int*   indices;      // Array of indices
-    unsigned int    numIndices;    // Number of indices
+    const char*     path;               // The path to the model file
+    unsigned int    VAO;                // Vertex Array Object
+    unsigned int    VBO;                // Vertex Buffer Object
+    unsigned int    EBO;                // Element Buffer Object
+    int             type;               // 0 = 2D, 1 = 3D
 };
 
 /* List of models to access them quickly by ID */
 struct  Model*   modelList;
 
+/* To calculate the current ID. */
+int     numModels;
+
 /* Function which gets the path of the model
  * returns the ID of the model
  * If it has already been loaded returns the IDs*/
-int     PMF_loadModel       (char *path);
+int     PMF_loadModel       (char*  path, int   type);
 
 /* Internal function to load the data of a PMF file */
-void    loadPMF             (struct Model *currentModel);
+void    loadPMF             (int    id);
 
 /* Draws the Object and binds the OpenGl VAO */
-void    PMF_drawModel       (int ID);
+void    PMF_drawModel       (int    id);
 
 #endif //THE_FOURTH_AGE_MODEL_H
