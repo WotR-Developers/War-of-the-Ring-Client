@@ -4,13 +4,16 @@
 #define THE_FOURTH_AGE_TEXTURE_H
 
 #include <GL/glew.h>
+#include <SDL2/SDL_Image.h>
 
 /* A texture structure which contains all necessary information to pass a texture to OpenGL */
 struct Texture {
-    int         textureWidth, textureHeight, bitsPerPixel;  // Pure texture information
-    stbi_uc     *textureBuffer;                             // The texture
-    GLuint      textureBufferId;                            // The OpenGL texture ID
+    char*       path;
+    GLuint      textureBufferID;                            // The OpenGL texture ID
 };
+
+/* To generate IDs */
+int     textureCount;
 
 /* List of texture to quickly be used with the ID */
 struct      Texture*    textureList;
@@ -20,12 +23,12 @@ struct      Texture*    textureList;
 int     TEX_genTexture      (char *path);
 
 /* Internal function constructing the OpenGL buffers */
-void    constructGLTexData  (int currentID, struct Texture *currentTexture);
+void    constructGLTexData  (int currentID);
 
 /* Binds the texture to the GPU */
-void    TEX_bindTexture     (int ID);
+void    TEX_bindTexture     (int id);
 
 /* Removes the texture of the texture list */
-void    TEX_removeTexture   (int ID);
+void    TEX_removeTexture   (int id);
 
 #endif //THE_FOURTH_AGE_TEXTURE_H
