@@ -35,7 +35,7 @@ int     GWD_processInput    () {
         if  (event.type == SDL_QUIT) {
             return -1;
         }
-        else if     (event.type == SDL_kEYDOWN) {
+        else if     (event.type == SDL_KEYDOWN) {
             switch  (event.key.keysym.sym) {
                 case SDLK_w:
                     buttonW = 1;

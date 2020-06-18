@@ -21,6 +21,10 @@
 #include <SDL2/SDL.h>
 #endif
 
+/* Include cameras to call movement. */
+#include "graphics/camera2d.h"
+#include "graphics/camera3d.h"
+
 /* The game window pointer. */
 SDL_Window*     window;
 
