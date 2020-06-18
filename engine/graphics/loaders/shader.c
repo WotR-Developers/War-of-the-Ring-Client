@@ -96,6 +96,10 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
     shaderList[numShaders - 1].shaderProgram    = shaderProgram;
+    
+    /* Free dynamic memory. */
+    free(vertexShaderSource);
+    free(fragmentShaderSource);
 
     return numShaders - 1;
 }
@@ -107,4 +111,8 @@ void    SHA_bindShader      (int    id) {
 
 void    SHA_pushMatrix      (char*  name, mat4  matrix) {
     glUniformMatrix4fv(glGetUniformLocation(currentShader, name), 1, GL_FALSE, matrix[0]);
+}
+
+void    SHA_free            () {
+    free(shaderList);
 }

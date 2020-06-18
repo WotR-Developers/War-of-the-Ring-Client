@@ -59,4 +59,7 @@ void    TIM_awakeTimer          (int    id);
  * Adds the passed time to the sleeping timers. */
 void    TIM_updateTimers        ();
 
+/* Frees dynamic memory. */
+void    TIM_free                ();
+
 #endif //THE_FOURTH_AGE_TIME_H

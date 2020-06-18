@@ -62,4 +62,9 @@ int main() {
     /* Program is finished. */
     printf("Logger has taken the last ship to Valinor\n");
     GWD_closeWindow();
+
+    /* Call functions which free dynamic memory. */
+    RMG_free();
+    TIM_free();
+    OBJ_free();
 }

@@ -31,4 +31,7 @@ void    TEX_bindTexture     (int id);
 /* Removes the texture of the texture list */
 void    TEX_removeTexture   (int id);
 
+/* Free dynamic memory. */
+void    TEX_free            ();
+
 #endif //THE_FOURTH_AGE_TEXTURE_H

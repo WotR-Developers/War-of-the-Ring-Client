@@ -49,6 +49,9 @@ char*   RMG_getAnimation    (char*  objectName);
 /* Returns the shader path for a shader name. */
 char*   RMG_getShader       (char*  objectName);
 
+/* Release everything mallocated. */
+void    RMG_free            ();
+
 /* Get all files in a directory. */
 char**  getFilesInDir       (char*  path);
 

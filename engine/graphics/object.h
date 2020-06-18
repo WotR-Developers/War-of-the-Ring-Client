@@ -68,4 +68,7 @@ void    OBJ_rotateAddObject (int id, float degrees, float x, float y, float z);
  * Removes 1 from the objectCount.*/
 void    OBJ_removeObject    (int id);
 
+/* Frees dynamic memory, including loaders */
+void    OBJ_free            ();
+
 #endif //THE_FOURTH_AGE_OBJECT_H

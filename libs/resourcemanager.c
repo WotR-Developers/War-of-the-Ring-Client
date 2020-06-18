@@ -141,6 +141,12 @@ void RMG_loadResources() {
         /* Increase object count */
         objectCount++;
     }
+    free(line);
+    free(animationPath);
+    free(texturePath);
+    free(modelPath);
+    free(shaderPath);
+    free(configPath);
 }
 
 char *RMG_getType(char *objectName) {
@@ -243,6 +249,8 @@ char **getFilesInDir(char *path, int  *numContents) {
         char *t = "\0";
         return *t;
     }
+    free(currentFile);
+    free(returnList);
 }
 
 char *combineStrings(char *str1, char *str2) {
@@ -276,4 +284,8 @@ char *combineStrings(char *str1, char *str2) {
         }
     }
     return out;
+}
+
+void    RMG_free    () {
+
 }

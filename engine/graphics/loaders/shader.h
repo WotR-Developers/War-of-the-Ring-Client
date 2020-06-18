@@ -37,4 +37,7 @@ void    SHA_bindShader      (int    id);
  * provided by the name parameter. */
 void    SHA_pushMatrix      (char*  name, mat4  matrix);
 
+/* Free dynamic memory. */
+void    SHA_free            ();
+
 #endif //THE_FOURTH_AGE_SHADER_H

@@ -136,9 +136,17 @@ void    loadPMF         (int    id) {
     modelList[id].VBO   =   VBO;
     modelList[id].EBO   =   EBO;
     modelList[id].numIndices    =   numIndices;
+
+    /* Free dynamic memory. */
+    free(vertices);
+    free(indices);
 }
 
 void    PMF_drawModel   (int    id) {
     glBindVertexArray(modelList[id].VAO);
     glDrawElements(GL_TRIANGLES, modelList[id].numIndices, GL_UNSIGNED_INT, 0);
+}
+
+void    PMF_free        () {
+    free(modelList);
 }

@@ -81,4 +81,10 @@ void    OBJ_removeObject        (int id) {
     objectList[id].existing =   0;
 }
 
+void    OBJ_free                () {
+    free(objectList);
+    TEX_free();
+    SHA_free();
+    PMF_free();
+}
 

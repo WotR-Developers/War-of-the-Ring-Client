@@ -31,3 +31,7 @@ void    TEX_bindTexture     (int    id) {
 void    TEX_removeTexture   (int    id) {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+
+void    TEX_free            () {
+    free(textureList);
+}

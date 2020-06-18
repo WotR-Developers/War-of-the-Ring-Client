@@ -39,4 +39,7 @@ void    loadPMF             (int    id);
 /* Draws the Object and binds the OpenGl VAO */
 void    PMF_drawModel       (int    id);
 
+/* Frees dynamic memory. */
+void    PMF_free            ();
+
 #endif //THE_FOURTH_AGE_MODEL_H
