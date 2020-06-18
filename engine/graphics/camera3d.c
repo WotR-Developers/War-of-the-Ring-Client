@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "camera3d.h"
 
 void    CA3_initCam     () {
     cameraPosition  =   {0.0f, 1.0f, 0.0f};

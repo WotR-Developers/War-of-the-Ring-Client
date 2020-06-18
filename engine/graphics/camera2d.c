@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "camera2d.h"
 
 void    CA2_initCam     () {
     cameraPosition2d =   {0.0f, 1.0f, 0.0f};
