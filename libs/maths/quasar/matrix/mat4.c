@@ -1,6 +1,6 @@
 #include "mat4.h"
 
-void qsrInitMat4f(QsrMat4f* mat) {
+void qsrMat4fInit(QsrMat4f* mat) {
 	
 	mat->data[0][0] = 0.0f;
 	mat->data[0][1] = 0.0f;
@@ -20,7 +20,7 @@ void qsrInitMat4f(QsrMat4f* mat) {
 	mat->data[3][3] = 0.0f;
 }
 
-void qsrInitMat4fTo(QsrMat4f* mat, float number) {
+void qsrMat4fInitTo(QsrMat4f* mat, float number) {
 	
 	mat->data[0][0] = number;
 	mat->data[0][1] = number;
@@ -40,7 +40,7 @@ void qsrInitMat4fTo(QsrMat4f* mat, float number) {
 	mat->data[3][3] = number;
 }
 
-QsrMat4i qsrGetMat4fAsMat4i(QsrMat4f* toConvert) {
+QsrMat4i qsrMat4fToMat4i(QsrMat4f* toConvert) {
 	
 	QsrMat4i converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -66,7 +66,7 @@ QsrMat4i qsrGetMat4fAsMat4i(QsrMat4f* toConvert) {
 	return converted;
 }
 
-QsrMat4u qsrGetMat4fAsMat4u(QsrMat4f* toConvert) {
+QsrMat4u qsrMat4fToMat4u(QsrMat4f* toConvert) {
 	
 	QsrMat4u converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -92,10 +92,10 @@ QsrMat4u qsrGetMat4fAsMat4u(QsrMat4f* toConvert) {
 	return converted;
 }
 
-QsrMat4f qsrMultMat4f(QsrMat4f* input1, QsrMat4f* input2) {
+QsrMat4f qsrMat4fMultiply(QsrMat4f* input1, QsrMat4f* input2) {
 	
 	QsrMat4f output;
-	qsrInitMat4f(&output);
+	qsrMat4fInit(&output);
 	
 	int i, j, k;
 	
@@ -124,10 +124,10 @@ QsrMat4f qsrMultMat4f(QsrMat4f* input1, QsrMat4f* input2) {
 	
 }
 
-QsrMat4f qsrGetIdentMat4f() {
+QsrMat4f qsrMat4fGetIdent() {
 	
 	QsrMat4f mat;
-	qsrInitMat4f(&mat);
+	qsrMat4fInit(&mat);
 	
 	mat.data[0][0] = 1.0f;
 	mat.data[1][1] = 1.0f;
@@ -137,41 +137,16 @@ QsrMat4f qsrGetIdentMat4f() {
 	return mat;
 }
 
-void qsrIdentMat4f(QsrMat4f* mat) {
+void qsrMat4fSetToIdent(QsrMat4f* mat) {
 	
+	qsrMat4fInit(mat);
 	mat->data[0][0] = 1.0f;
 	mat->data[1][1] = 1.0f;
 	mat->data[2][2] = 1.0f;
 	mat->data[3][3] = 1.0f;
 }
 
-void qsrPerspectiveMat4f(QsrMat4f* mat, float FOV, float aspectRatio,
- float nearest, float farest) {
-	
-	// Making the matrix an identity matrix
-	qsrInitMat4f(mat);
-	qsrIdentMat4f(mat);
-	
-	// Checking for invalid values
-	if(FOV <= 0 && aspectRatio != 0) {
-		
-		return;
-	}
-	
-	// Calculating the perspective matrix
-	
-	float frustrumDepth = farest-nearest; // How deep the rendered area (frustrum) is
-	float oneOverDepth = 1 / frustrumDepth;
-	
-	mat->data[1][1] = 1 / tanf(0.5 * FOV);
-	mat->data[0][0] = 1 * mat->data[1][1] / aspectRatio;
-	mat->data[2][2] = farest * oneOverDepth;
-	mat->data[3][2] = (-farest * nearest) * oneOverDepth;
-	mat->data[2][3] = 1;
-	mat->data[3][3] = 0;
-}
-
-void qsrGetMat4fColumnMajor(QsrMat4f* mat, float* data) {
+void qsrMat4fWriteTransposed(QsrMat4f* mat, float* data) {
 	
 	data[0]  = mat->data[0][0];
 	data[1]  = mat->data[1][0];
@@ -194,14 +169,72 @@ void qsrGetMat4fColumnMajor(QsrMat4f* mat, float* data) {
 	data[15] = mat->data[3][3];
 }
 
-void qsrTranslateMat4fVec(QsrMat4f* mat, QsrVec3f* toTranslate) {
+void qsrMat4fTranspose(QsrMat4f* mat) {
+	
+	QsrMat4f workspace;
+	
+	workspace.data[0][0] = mat->data[0][0];
+	workspace.data[1][0] = mat->data[0][1];
+	workspace.data[2][0] = mat->data[0][2];
+	workspace.data[3][0] = mat->data[0][3];
+	
+	workspace.data[0][1] = mat->data[1][0];
+	workspace.data[1][1] = mat->data[1][1];
+	workspace.data[2][1] = mat->data[1][2];
+	workspace.data[3][1] = mat->data[1][3];
+	
+	workspace.data[0][2] = mat->data[2][0];
+	workspace.data[1][2] = mat->data[2][1];
+	workspace.data[2][2] = mat->data[2][2];
+	workspace.data[3][2] = mat->data[2][3];
+	
+	workspace.data[0][3] = mat->data[3][0];
+	workspace.data[1][3] = mat->data[3][1];
+	workspace.data[2][3] = mat->data[3][2];
+	workspace.data[3][3] = mat->data[3][3];
+	
+	(*mat) = workspace;
+}
+
+void qsrMat4fPersp(QsrMat4f* mat, float FOV, float aspectRatio,
+ float nearest, float farest) {
+	
+	// Making the matrix an identity matrix
+	qsrMat4fInit(mat);
+	qsrMat4fSetToIdent(mat);
+	
+	// Checking for invalid values
+	if(FOV <= 0 && aspectRatio != 0) {
+		
+		return;
+	}
+	
+	// Calculating the perspective matrix
+	float tanHalfFOV = tan(FOV / 2);
+	
+	mat->data[0][0] = 2 / (aspectRatio * tanHalfFOV);
+	mat->data[1][1] = 2 / tanHalfFOV;
+	mat->data[2][2] = - (farest+nearest) / (farest-nearest);
+	mat->data[2][3] = -1;
+	mat->data[3][2] = - (2 * farest * nearest) / (farest - nearest);
+}
+
+void qsrMat4fTranslateByVec(QsrMat4f* mat, QsrVec3f* toTranslate) {
 	
 	mat->data[3][0] += toTranslate->x;
 	mat->data[3][1] += toTranslate->y;
 	mat->data[3][2] += toTranslate->z;
 }
 
-void qsrRotateMat4fVec(QsrMat4f* mat, QsrVec3f* degToRotate) {
+
+void qsrMat4fScaleByVec(QsrMat4f* mat, QsrVec3f* toScale) {
+	
+	mat->data[0][0] += toScale->x;
+	mat->data[1][1] += toScale->y;
+	mat->data[2][2] += toScale->z;
+}
+
+void qsrMat4fRotateByVec(QsrMat4f* mat, QsrVec3f* degToRotate) {
 	
 	QsrMat4f rotationX;
 	QsrMat4f rotationY;
@@ -213,7 +246,7 @@ void qsrRotateMat4fVec(QsrMat4f* mat, QsrVec3f* degToRotate) {
 	
 	
 	QsrMat4f output;
-	qsrInitMat4f(&output);
+	qsrMat4fInit(&output);
 	
 	output.data[0][0] = cosf(z) * cosf(y);
 	output.data[1][0] = -sinf(z);
@@ -235,14 +268,26 @@ void qsrRotateMat4fVec(QsrMat4f* mat, QsrVec3f* degToRotate) {
 	output.data[2][3] = 0;
 	output.data[3][3] = 1;
 	
-	(*mat) = output;
+	int xIndex = 0;
+	while(xIndex < 4) {
+		
+		int yIndex = 0;
+		while(yIndex < 4) {
+			
+			mat->data[xIndex][yIndex] = output.data[xIndex][yIndex];
+			
+			yIndex++;
+		}
+		
+		xIndex++;
+	}
 }
 
-void qsrMat4fLookAt(QsrMat4f* mat, QsrVec3f* position, QsrVec3f* direction,
+void qsrMat4fSetToLookAt(QsrMat4f* mat, QsrVec3f* position, QsrVec3f* direction,
 	QsrVec3f* right, QsrVec3f* up) {
 	
 	QsrMat4f output;
-	qsrInitMat4f(&output);
+	qsrMat4fInit(&output);
 	
 	output.data[0][0] = right->x;
 	output.data[1][0] = right->y;
@@ -259,22 +304,48 @@ void qsrMat4fLookAt(QsrMat4f* mat, QsrVec3f* position, QsrVec3f* direction,
 	output.data[3][3] = 1;
 	
 	QsrMat4f positions;
-	qsrInitMat4f(&positions);
+	qsrMat4fInit(&positions);
 	
-	positions.data[3][0] = -position->x;
-	positions.data[3][1] = -position->y;
-	positions.data[3][2] = -position->z;
+	positions.data[3][0] = position->x;
+	positions.data[3][1] = position->y;
+	positions.data[3][2] = position->z;
 	
 	positions.data[3][3] = 1;
 	
-	qsrMultMat4f(&output, &positions);
+	qsrMat4fMultiply(&output, &positions);
 	
 	(*mat) = output;
 }
 
+char* qsrMat4fToChars(QsrMat4f* input) {
+	
+	
+	
+}
+
+void qsrMat4fPrint(QsrMat4f* input, char* label) {
+	
+	if(label == NULL) {
+		
+		printf("Matrix:\n %f  %f  %f  %f\n %f  %f  %f  %f\n %f  %f  %f  %f\n %f  %f  %f  %f\n",
+			input->data[0][0], input->data[0][1], input->data[0][2], input->data[0][3],
+			input->data[1][0], input->data[1][1], input->data[1][2], input->data[1][3],
+			input->data[2][0], input->data[2][1], input->data[2][2], input->data[2][3],
+			input->data[3][0], input->data[3][1], input->data[3][2], input->data[3][3]
+		);
+		
+	} else {
+		
+		
+	}
+	
+}
 
 
-void qsrInitMat4i(QsrMat4i* mat) {
+
+
+
+void qsrMat4iInit(QsrMat4i* mat) {
 	
 	mat->data[0][0] = 0;
 	mat->data[0][1] = 0;
@@ -294,7 +365,7 @@ void qsrInitMat4i(QsrMat4i* mat) {
 	mat->data[3][3] = 0;
 }
 
-void qsrInitMat4iTo(QsrMat4i* mat, int number) {
+void qsrMat4iInitTo(QsrMat4i* mat, int number) {
 	
 	mat->data[0][0] = number;
 	mat->data[0][1] = number;
@@ -314,7 +385,7 @@ void qsrInitMat4iTo(QsrMat4i* mat, int number) {
 	mat->data[3][3] = number;
 }
 
-QsrMat4f qsrGetMat4iAsMat4f(QsrMat4i* toConvert) {
+QsrMat4f qsrMat4iToMat4f(QsrMat4i* toConvert) {
 	
 	QsrMat4f converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -340,7 +411,7 @@ QsrMat4f qsrGetMat4iAsMat4f(QsrMat4i* toConvert) {
 	return converted;
 }
 
-QsrMat4u qsrGetMat4iAsMat4u(QsrMat4i* toConvert) {
+QsrMat4u qsrMat4iToMat4u(QsrMat4i* toConvert) {
 	
 	QsrMat4u converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -366,7 +437,7 @@ QsrMat4u qsrGetMat4iAsMat4u(QsrMat4i* toConvert) {
 	return converted;
 }
 
-QsrMat4i qsrMultMat4i(QsrMat4i* input1, QsrMat4i* input2) {
+QsrMat4i qsrMat4iMultiply(QsrMat4i* input1, QsrMat4i* input2) {
 	
 	QsrMat4i output;
 	
@@ -397,9 +468,10 @@ QsrMat4i qsrMultMat4i(QsrMat4i* input1, QsrMat4i* input2) {
 	
 }
 
-QsrMat4i qsrGetIdentMat4i() {
+QsrMat4i qsrMat4iGetIdent() {
 	
 	QsrMat4i mat;
+	qsrMat4iInit(&mat);
 	
 	mat.data[0][0] = 1;
 	mat.data[1][1] = 1;
@@ -409,41 +481,17 @@ QsrMat4i qsrGetIdentMat4i() {
 	return mat;
 }
 
-void qsrIdentMat4i(QsrMat4i* mat) {
+void qsrMat4iSetToIdent(QsrMat4i* mat) {
 	
+	qsrMat4iInit(mat);
 	mat->data[0][0] = 1;
 	mat->data[1][1] = 1;
 	mat->data[2][2] = 1;
 	mat->data[3][3] = 1;
 }
 
-void qsrPerspectiveMat4i(QsrMat4i* mat, float FOV, float aspectRatio,
- float nearest, float farest) {
-	
-	// Making the matrix an identity matrix
-	qsrInitMat4i(mat);
-	qsrIdentMat4i(mat);
-	
-	// Checking for invalid values
-	if(FOV <= 0 && aspectRatio != 0) {
-		
-		return;
-	}
-	
-	// Calculating the perspective matrix
-	
-	float frustrumDepth = farest-nearest; // How deep the rendered area (frustrum) is
-	float oneOverDepth = 1 / frustrumDepth;
-	
-	mat->data[1][1] = 1 / tanf(0.5 * FOV);
-	mat->data[0][0] = 1 * mat->data[1][1] / aspectRatio;
-	mat->data[2][2] = farest * oneOverDepth;
-	mat->data[3][2] = (-farest * nearest) * oneOverDepth;
-	mat->data[2][3] = 1;
-	mat->data[3][3] = 0;
-}
 
-void qsrGetMat4iColumnMajor(QsrMat4i* mat, int* data) {
+void qsrMat4iWriteTransposed(QsrMat4i* mat, int* data) {
 	
 	data[0]  = mat->data[0][0];
 	data[1]  = mat->data[1][0];
@@ -466,14 +514,86 @@ void qsrGetMat4iColumnMajor(QsrMat4i* mat, int* data) {
 	data[15] = mat->data[3][3];
 }
 
-void qsrTranslateMat4iVec(QsrMat4i* mat, QsrVec3i* toTranslate) {
+void qsrMat4iTranspose(QsrMat4i* mat) {
+	
+	QsrMat4i workspace;
+	
+	workspace.data[0][0] = mat->data[0][0];
+	workspace.data[1][0] = mat->data[0][1];
+	workspace.data[2][0] = mat->data[0][2];
+	workspace.data[3][0] = mat->data[0][3];
+	
+	workspace.data[0][1] = mat->data[1][0];
+	workspace.data[1][1] = mat->data[1][1];
+	workspace.data[2][1] = mat->data[1][2];
+	workspace.data[3][1] = mat->data[1][3];
+	
+	workspace.data[0][2] = mat->data[2][0];
+	workspace.data[1][2] = mat->data[2][1];
+	workspace.data[2][2] = mat->data[2][2];
+	workspace.data[3][2] = mat->data[2][3];
+	
+	workspace.data[0][3] = mat->data[3][0];
+	workspace.data[1][3] = mat->data[3][1];
+	workspace.data[2][3] = mat->data[3][2];
+	workspace.data[3][3] = mat->data[3][3];
+	
+	(*mat) = workspace;
+}
+
+void qsrMat4iPersp(QsrMat4i* mat, float FOV, float aspectRatio,
+ float nearest, float farest) {
+	
+	// Making the matrix an identity matrix
+	qsrMat4iInit(mat);
+	qsrMat4iSetToIdent(mat);
+	
+	// Checking for invalid values
+	if(FOV <= 0 && aspectRatio != 0) {
+		
+		return;
+	}
+	
+	// Calculating the perspective matrix
+	
+	float frustrumDepth = farest-nearest; // How deep the rendered area (frustrum) is
+	float oneOverDepth = 1 / frustrumDepth;
+	
+	mat->data[1][1] = 1 / tanf(0.5 * FOV);
+	mat->data[0][0] = 1 * mat->data[1][1] / aspectRatio;
+	mat->data[2][2] = farest * oneOverDepth;
+	mat->data[3][2] = (-farest * nearest) * oneOverDepth;
+	mat->data[2][3] = 1;
+	mat->data[3][3] = 0;
+}
+
+void qsrMat4iTranslateByVec(QsrMat4i* mat, QsrVec3i* toTranslate) {
 	
 	mat->data[3][0] += toTranslate->x;
 	mat->data[3][1] += toTranslate->y;
 	mat->data[3][2] += toTranslate->z;
 }
 
-void qsrMat4iLookAt(QsrMat4i* mat, QsrVec3f* position, QsrVec3f* direction, QsrVec3f* right, QsrVec3f* up) {
+void qsrMat4iScaleByVec(QsrMat4i* mat, QsrVec3i* toScale) {
+	
+	mat->data[0][0] += toScale->x;
+	mat->data[1][1] += toScale->y;
+	mat->data[2][2] += toScale->z;
+}
+
+void qsrMat4iSetToLookAt(QsrMat4i* mat, QsrVec3f* position, QsrVec3f* direction, QsrVec3f* right, QsrVec3f* up) {
+	
+	
+	
+}
+
+char* qsrMat4iToChars(QsrMat4i* input) {
+	
+	
+	
+}
+
+void qsrMat4iPrint(QsrMat4i* input, char* label) {
 	
 	
 	
@@ -481,7 +601,9 @@ void qsrMat4iLookAt(QsrMat4i* mat, QsrVec3f* position, QsrVec3f* direction, QsrV
 
 
 
-void qsrInitMat4u(QsrMat4u* mat) {
+
+
+void qsrMat4uInit(QsrMat4u* mat) {
 	
 	mat->data[0][0] = 0;
 	mat->data[0][1] = 0;
@@ -501,7 +623,7 @@ void qsrInitMat4u(QsrMat4u* mat) {
 	mat->data[3][3] = 0;
 }
 
-void qsrInitMat4uTo(QsrMat4u* mat, unsigned int number) {
+void qsrMat4uInitTo(QsrMat4u* mat, unsigned int number) {
 	
 	mat->data[0][0] = number;
 	mat->data[0][1] = number;
@@ -521,7 +643,7 @@ void qsrInitMat4uTo(QsrMat4u* mat, unsigned int number) {
 	mat->data[3][3] = number;
 }
 
-QsrMat4f qsrGetMat4uAsMat4f(QsrMat4u* toConvert) {
+QsrMat4f qsrMat4uToMat4f(QsrMat4u* toConvert) {
 	
 	QsrMat4f converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -547,7 +669,7 @@ QsrMat4f qsrGetMat4uAsMat4f(QsrMat4u* toConvert) {
 	return converted;
 }
 
-QsrMat4i qsrGetMat4uAsMat4i(QsrMat4u* toConvert) {
+QsrMat4i qsrMat4uToMat4i(QsrMat4u* toConvert) {
 	
 	QsrMat4i converted;
 	converted.data[0][0] = toConvert->data[0][0];
@@ -573,7 +695,7 @@ QsrMat4i qsrGetMat4uAsMat4i(QsrMat4u* toConvert) {
 	return converted;
 }
 
-QsrMat4u qsrMultMat4u(QsrMat4u* input1, QsrMat4u* input2) {
+QsrMat4u qsrMat4uMultiply(QsrMat4u* input1, QsrMat4u* input2) {
 	
 	QsrMat4u output;
 	
@@ -604,9 +726,10 @@ QsrMat4u qsrMultMat4u(QsrMat4u* input1, QsrMat4u* input2) {
 	
 }
 
-QsrMat4u qsrGetIdentMat4u() {
+QsrMat4u qsrMat4uGetIdent() {
 	
 	QsrMat4u mat;
+	qsrMat4uInit(&mat);
 	
 	mat.data[0][0] = 1;
 	mat.data[1][1] = 1;
@@ -616,41 +739,17 @@ QsrMat4u qsrGetIdentMat4u() {
 	return mat;
 }
 
-void qsrIdentMat4u(QsrMat4u* mat) {
+void qsrMat4uSetToIdent(QsrMat4u* mat) {
 	
+	qsrMat4uInit(mat);
 	mat->data[0][0] = 1;
 	mat->data[1][1] = 1;
 	mat->data[2][2] = 1;
 	mat->data[3][3] = 1;
 }
 
-void qsrPerspectiveMat4u(QsrMat4u* mat, float FOV, float aspectRatio,
- float nearest, float farest) {
-	
-	// Making the matrix an identity matrix
-	qsrInitMat4u(mat);
-	qsrIdentMat4u(mat);
-	
-	// Checking for invalid values
-	if(FOV <= 0 && aspectRatio != 0) {
-		
-		return;
-	}
-	
-	// Calculating the perspective matrix
-	
-	float frustrumDepth = farest-nearest; // How deep the rendered area (frustrum) is
-	float oneOverDepth = 1 / frustrumDepth;
-	
-	mat->data[1][1] = 1 / tanf(0.5 * FOV);
-	mat->data[0][0] = 1 * mat->data[1][1] / aspectRatio;
-	mat->data[2][2] = farest * oneOverDepth;
-	mat->data[3][2] = (-farest * nearest) * oneOverDepth;
-	mat->data[2][3] = 1;
-	mat->data[3][3] = 0;
-}
 
-void qsrGetMat4uColumnMajor(QsrMat4u* mat, unsigned int* data) {
+void qsrMat4uWriteTransposed(QsrMat4u* mat, unsigned int* data) {
 	
 	data[0]  = mat->data[0][0];
 	data[1]  = mat->data[1][0];
@@ -673,14 +772,86 @@ void qsrGetMat4uColumnMajor(QsrMat4u* mat, unsigned int* data) {
 	data[15] = mat->data[3][3];
 }
 
-void qsrTranslateMat4uVec(QsrMat4u* mat, QsrVec3u* toTranslate) {
+void qsrMat4uTranspose(QsrMat4u* mat) {
+	
+	QsrMat4u workspace;
+	
+	workspace.data[0][0] = mat->data[0][0];
+	workspace.data[1][0] = mat->data[0][1];
+	workspace.data[2][0] = mat->data[0][2];
+	workspace.data[3][0] = mat->data[0][3];
+	
+	workspace.data[0][1] = mat->data[1][0];
+	workspace.data[1][1] = mat->data[1][1];
+	workspace.data[2][1] = mat->data[1][2];
+	workspace.data[3][1] = mat->data[1][3];
+	
+	workspace.data[0][2] = mat->data[2][0];
+	workspace.data[1][2] = mat->data[2][1];
+	workspace.data[2][2] = mat->data[2][2];
+	workspace.data[3][2] = mat->data[2][3];
+	
+	workspace.data[0][3] = mat->data[3][0];
+	workspace.data[1][3] = mat->data[3][1];
+	workspace.data[2][3] = mat->data[3][2];
+	workspace.data[3][3] = mat->data[3][3];
+	
+	(*mat) = workspace;
+}
+
+void qsrMat4uPersp(QsrMat4u* mat, float FOV, float aspectRatio,
+ float nearest, float farest) {
+	
+	// Making the matrix an identity matrix
+	qsrMat4uInit(mat);
+	qsrMat4uGetIdent(mat);
+	
+	// Checking for invalid values
+	if(FOV <= 0 && aspectRatio != 0) {
+		
+		return;
+	}
+	
+	// Calculating the perspective matrix
+	
+	float frustrumDepth = farest-nearest; // How deep the rendered area (frustrum) is
+	float oneOverDepth = 1 / frustrumDepth;
+	
+	mat->data[1][1] = 1 / tanf(0.5 * FOV);
+	mat->data[0][0] = 1 * mat->data[1][1] / aspectRatio;
+	mat->data[2][2] = farest * oneOverDepth;
+	mat->data[3][2] = (-farest * nearest) * oneOverDepth;
+	mat->data[2][3] = 1;
+	mat->data[3][3] = 0;
+}
+
+void qsrMat4uTranslateByVec(QsrMat4u* mat, QsrVec3u* toTranslate) {
 	
 	mat->data[3][0] += toTranslate->x;
 	mat->data[3][1] += toTranslate->y;
 	mat->data[3][2] += toTranslate->z;
 }
 
-void qsrMat4uLookAt(QsrMat4u* mat, QsrVec3f* position, QsrVec3f* direction, QsrVec3f* right, QsrVec3f* up) {
+void qsrMat4uScaleByVec(QsrMat4u* mat, QsrVec3u* toScale) {
+	
+	mat->data[0][0] += toScale->x;
+	mat->data[1][1] += toScale->y;
+	mat->data[2][2] += toScale->z;
+}
+
+void qsrMat4uSetToLookAt(QsrMat4u* mat, QsrVec3f* position, QsrVec3f* direction, QsrVec3f* right, QsrVec3f* up) {
+	
+	
+	
+}
+
+char* qsrMat4uToChars(QsrMat4u* input) {
+	
+	
+	
+}
+
+void qsrMat4uPrint(QsrMat4u* input, char* label) {
 	
 	
 	
