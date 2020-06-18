@@ -19,6 +19,7 @@ void    constructGLTexData  (int    currentID) {
 }
 
 void    TEX_bindTexture     (int    id) {
+    glActiveTexture(GL_TEXTURE0);
     glBindtexture(GL_TEXTURE_2D, textureList[id].textureBufferID);
 }
 

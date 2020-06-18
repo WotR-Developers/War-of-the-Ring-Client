@@ -19,6 +19,7 @@ struct Model {
     unsigned int    VBO;                // Vertex Buffer Object
     unsigned int    EBO;                // Element Buffer Object
     int             type;               // 0 = 2D, 1 = 3D
+    unsigned int    numIndices;
 };
 
 /* List of models to access them quickly by ID */

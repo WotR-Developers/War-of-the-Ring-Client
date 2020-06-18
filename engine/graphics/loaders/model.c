@@ -5,6 +5,7 @@ int     PMF_loadModel   (char*  path, int   type) {
     modelList   =   realloc(modelList, numModels * sizeof(struct Model));
     modelList[numModels - 1].path   =   path;
     modelList[numModels - 1].type   =   type;
+    loadPMF(numModels - 1);
     return numModels - 1;
 }
 
@@ -94,8 +95,34 @@ void    loadPMF         (int    id) {
             printf("[ERROR] Unexpected loadMode in Model loader. How could this even happen?\n");
         }
     }
+
+    /* Construct the OpenGL data of the vertices and indices. */
+    unsigned int VAO;
+    unsigned int VBO;
+    unsigned int EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * sizeof(struct Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, normalX));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(struct Vertex), (void*)offsetof(struct Vertex, textureX));
+    glEnableVertexAttribArray(2);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); // Unneccessary?
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+
+    /* Push back GL data. */
+    modelList[id].VAO   =   VAO;
+    modelList[id].VBO   =   VBO;
+    modelList[id].EBO   =   EBO;
+    modelList[id].numIndices    =   numIndices;
 }
 
 void    PMF_drawModel   (int    id) {
-
+    glBindVertexArray(modelList[id].VAO);
+    glDrawElements(GL_TRIANGLES, modelList[id].numIndices, GL_UNSIGNED_INT, 0);
 }
