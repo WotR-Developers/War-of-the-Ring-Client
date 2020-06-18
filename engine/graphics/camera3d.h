@@ -25,30 +25,30 @@ float   xOffSet;
 float   yOffSet;
 
 /* Initializes variables and matrices to default; to be called at start of program */
-void    CAM_initCamera      ();
+void    CA3_initCamera      ();
 
 /* Moves the camera forwards */
-void    CAM_moveForward     ();
+void    CA3_moveForward     ();
 
 /* Moves the camera backwards. */
-void    CAM_moveBackward    ();
+void    CA3_moveBackward    ();
 
 /* Moves the camera leftwards. */
-void    CAM_strafeLeft      ();
+void    CA3_strafeLeft      ();
 
 /* Moves the camera rightwards. */
-void    CAM_strafeRight     ();
+void    CA3_strafeRight     ();
 
 /* Rotates the camera to the left. Only called in 2D mode. */
-void    CAM_rotateLeft      ();
+void    CA3_rotateLeft      ();
 
 /* Rotates the camera to the right. Only called in 2D mode. */
-void    CAM_rotateRight     ();
+void    CA3_rotateRight     ();
 
 /* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
-void    CAM_resetCamera     ();
+void    CA3_resetCamera     ();
 
 /* Calculates and returns the view matrix */
-mat4    CAM_getViewMatrix   ();
+mat4    CA3_getViewMatrix   ();
 
 #endif //THE_FOURTH_AGE_CAMERA_H
