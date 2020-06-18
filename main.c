@@ -40,11 +40,17 @@ int main() {
     /* Init everything. */
     PRJ_initProjection(1920.0f/1080.0f);
     PRJ_setPerspective();
+    CA2_initCamera();
+    CA3_initCamera();
+    GWD_set3d();
+    RMG_setBasePath("/assets");
+    RMG_loadResources();
 
     /* Main game loop. */
     while   (closeGame == 0) {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        TIM_updateTimers();
         GWD_updateWindow();
         OBJ_drawObjects(1);
         int processReturn = GWD_processInput();
