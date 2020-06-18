@@ -27,6 +27,14 @@ SDL_Window*     window;
 /* 0 = 2D, 1 = 3D. */
 int             mode;
 
+/* Booleans if keys are pressed. */
+int     buttonW;
+int     buttonS;
+int     buttonA;
+int     buttonD;
+int     buttonQ;
+int     buttonE;
+
 /* - Creates Game Window.
  * - Creates window context.
  * - Initializes SDL.

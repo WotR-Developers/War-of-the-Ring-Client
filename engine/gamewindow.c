@@ -38,38 +38,76 @@ int     GWD_processInput    () {
         else if     (event.type == SDL_kEYDOWN) {
             switch  (event.key.keysym.sym) {
                 case SDLK_w:
-                    if  (mode == 0)
-                        CA2_moveForward();
-                    else if     (mode == 1)
-                        CA3_moveForward();
+                    buttonW = 1;
                     break;
                 case SDLK_s:
-                    if  (mode == 0)
-                        CA2_moveBackward();
-                    else if     (mode == 1)
-                        CA3_moveBackward();
+                    buttonS = 1;
                     break;
                 case SDLK_a:
-                    if  (mode == 0) 
-                        CA2_strafeLeft();
-                    else if     (mode == 1)
-                        CA3_strafeLeft();
+                    buttonA = 1;
                     break;
                 case SDLK_d:
-                    if  (mode == 0)
-                        CA2_strafeRight();
-                    else if     (mode == 1)
-                        CA3_strafeRight();
+                    buttonD = 1;
                     break;
                 case SDLK_q:
-                    if  (mode == 0)
-                        CA2_rotateLeft();
+                    buttonQ = 1;
                     break;
                 case SDLK_e:
-                    if  (mode == 0) 
-                        CA2_rotateRight();
+                    buttonE = 1;
                     break;
             }
+        }
+        else if     (event.type == SDL_KEYUP) {
+            switch      (event.key.keysym.sym) {
+                case SDLK_w:
+                    buttonW = 0;
+                    break;
+                case SDLK_s:
+                    buttonS = 0;
+                    break;
+                case SDLK_a:
+                    buttonA = 0;
+                    break;
+                case SDLK_d:
+                    buttonD = 0;
+                case SDLK_q:
+                    buttonQ = 0;
+                case SDLK_e:
+                    buttonE = 0;
+            }
+        }
+        /* Call functions if keys are still pressed. */
+        if  (buttonW) {
+            if  (mode == 0)
+                CA2_moveForward();
+            else if     (mode == 1)
+                CA3_moveForward();
+        }
+        if  (buttonS) {
+            if  (mode == 0)
+                CA2_moveBackward();
+            else if     (mode == 1)
+                CA3_moveBackward();
+        }
+        if  (buttonA) {
+            if  (mode == 0) 
+                CA2_strafeLeft();
+            else if     (mode == 1)
+                CA3_strafeLeft();
+        }
+        if  (buttonD) {
+            if  (mode == 0)
+                CA2_strafeRight();
+            else if     (mode == 1)
+                CA3_strafeRight();
+        }
+        if  (buttonQ) {
+            if  (mode == 0)
+                CA2_rotateLeft();
+        }
+        if  (buttonE) {
+            if  (mode == 0) 
+                CA2_rotateRight();
         }
     }
     return 0;
