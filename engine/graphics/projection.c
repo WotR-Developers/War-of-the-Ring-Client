@@ -30,7 +30,7 @@ void    PRJ_zoom            (float  yoffset) {
 QsrMat4f    PRJ_returnProjection    () {
     if      (mode == 0) {
         /* Return and recalculate orthogonal matrix. */
-        //qsrOrthogonalMat4f(*projOrthogonalMatrix, fov, aspectRatio, NEAREST, FAREST);
+        qsrOrthogonalMat4f(*projOrthogonalMatrix, fov, aspectRatio, NEAREST, FAREST);
         return projOrthogonalMatrix;
     }
     else if     (mode == 1) {   

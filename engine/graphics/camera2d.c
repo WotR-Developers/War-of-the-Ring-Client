@@ -41,14 +41,14 @@ mat4    CA2_getViewMatrix   () {
     cameraFront2d.x     =   cosf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
     cameraFront2d.y     =   sinf(qsrDegRoRadf(pitch2d));
     cameraFront2d.z     =   sinf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
-    cameraFront2d       =   qsrNormalizeVec3f(&cameraFront2d);
-    cameraRight2d       =   qsrNormalizeVec3f(cross(cameraFront2d, worldUp2d));
-    qsrNormalizeVec3f(cameraRight2d);
-    cameraUp2d          =   qsrNormalizeVec3f(cross(cameraRight2d, cameraFront2d));
-    qsrNormalizeVec3f(cameraUp2d);
-    qsrVec3f tempVector;
-    tempVector          =   add(cameraPosition2d, cameraFront2d);
-    qsrMat4f lookAt;
+    cameraFront2d       =   qsrNormalizeVec3f(cameraFront2d);
+    cameraRight2d       =   qsrNormalizeVec3f(qsrCrossVec3f(cameraFront2d, worldUp2d));
+    cameraRight2d       =   qsrNormalizeVec3f(cameraRight2d);
+    cameraUp2d          =   qsrNormalizeVec3f(qsrCrossVec3f(cameraRight2d, cameraFront2d));
+    cameraUp2d          =   qsrNormalizeVec3f(cameraUp2d);
+    QsrVec3f tempVector;
+    tempVector          =   qsrAddVec3f(cameraPosition2d, cameraFront2d);
+    QsrMat4f lookAt;
     qsrMat4fSetToLookAt(lookAt, cameraPosition2d, cameraFront2d, cameraRight2d, cameraUp2d);
     return lookAt;
 }

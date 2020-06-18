@@ -10,27 +10,27 @@ void    CA3_initCam     () {
 }
 
 void    CA3_moveForward () {
-    cameraFront     =   scale(cameraFront, movementSpeed);
-    cameraPosition  =   add(cameraPosition, cameraFront);
+    cameraFront     =   qsrScaleVec3f(cameraFront, movementSpeed);
+    cameraPosition  =   qsrAddVec3f(cameraPosition, cameraFront);
 }
 
 void    CA3_moveBack    () {
-    cameraFront     =   scale(cameraFront, movementSpeed);
-    cameraPosition  =   sub(cameraPosition, cameraFront);
+    cameraFront     =   qsrScaleVec3f(cameraFront, movementSpeed);
+    cameraPosition  =   qsrSubVec3f(cameraPosition, cameraFront);
 }
 
 void    CA3_strafeRight () {
-    vec3 temp;
-    temp = normalize(cross(cameraFront, cameraUp));
-    temp = scale(temp, movementSpeed);
-    cameraPosition = add(cameraPosition, temp);
+    QsrVec3f temp;
+    temp = qsrNormalizeVec3f(qsrCrossVec3f(cameraFront, cameraUp));
+    temp = qsrScaleVec3f(temp, movementSpeed);
+    cameraPosition = qsrAddVec3f(cameraPosition, temp);
 }
 
 void    CA3_strafeLeft  () {
-    vec3 temp;
-    temp = normalize(cross(cameraFront, cameraUp));
-    temp = scale(temp, movementSpeed);
-    cameraPosition = sub(cameraPosition, temp);
+    QsrVec3f temp;
+    temp = qsrNormalizeVec3f(qsrCrossVec3f(cameraFront, cameraUp));
+    temp = qsrScaleVec3f(temp, movementSpeed);
+    cameraPosition = qsrSubVec3f(cameraPosition, temp);
 }
 
 void    CA3_rotateRight () {
@@ -56,16 +56,18 @@ void    CA3_processMouse    (double     xpos, double    ypos) {
         pitch = -89.0f; 
 }
 
-mat4    CA3_getViewMatrix   () {
-    cameraFront[0]      =   cos(radians(yaw)) * cos(radians(pitch));
-    cameraFront[1]      =   sin(radians(pitch));
-    cameraFront[2]      =   sin(radians(yaw)) * cos(radians(pitch));
-    normalize(cameraFront);
-    cameraRight         =   normalize(cross(cameraFront, worldUp));
-    normalize(cameraRight);
-    cameraUp            =   normalize(cross(cameraRight, cameraFront));
-    normalize(cameraUp);
-    vec3 tempVector;
-    tempVector      =   add(cameraPosition, cameraFront);
-    return  lookAt(cameraPosition, tempVector, cameraUp);
+QsrMat4f    CA3_getViewMatrix   () {
+    cameraFront.x       =   cosf(qsrDegToRadf(yaw)) * cosf(qsrDegToRadf(pitch));
+    cameraFront.y       =   sinf(qsrDegToRadf(pitch));
+    cameraFront.z       =   sinf(qsrDegToRadf(yaw)) * cosf(qsrDegToRadf(pitch));
+    cameraFront         =   qsrNormalizeVec3f(cameraFront);
+    cameraRight         =   qsrNormalizeVec3f(qsrCrossVec3f(cameraFront, worldUp));
+    cameraRight         =   qsrNormalizeVec3f(cameraRight);
+    cameraUp            =   qsrNormalizeVec3f(qsrCrossVec3f(cameraRight, cameraFront));
+    cameraUp            =   qsrNormalizeVec3f(cameraUp);
+    QsrVec3f tempVector;
+    tempVector      =   qsrAddVec3f(cameraPosition, cameraFront);
+    QsrMat4f lookAt;
+    qsrMat4fSetToLookAt(lookAt, cameraPosition, cameraFront, cameraRight, cameraUp);
+    return lookAt;
 }
