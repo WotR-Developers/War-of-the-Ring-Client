@@ -37,11 +37,16 @@ int main() {
     printf("[INFO] Available shader language version: %s. \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
     printf("[INFO] Available renderer: %s. \n", glGetString(GL_RENDERER));
 
+    /* Init everything. */
+    PRJ_initProjection(1920.0f/1080.0f);
+    PRJ_setPerspective();
+
     /* Main game loop. */
     while   (closeGame == 0) {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         GWD_updateWindow();
+        OBJ_drawObjects(1);
         int processReturn = GWD_processInput();
         if  (processReturn == -1) {
             closeGame = 1;

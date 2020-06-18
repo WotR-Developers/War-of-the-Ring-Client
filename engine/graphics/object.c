@@ -18,11 +18,30 @@ void    OBJ_drawObjects     (int    mode){
         if  (objectList[i].existing == 0) 
             continue;
         PMF_bindShader  (objectList[i].shaderID);
+        int     shaderCache[objectCount - 1];
+        newShader = 1;
+        for     (int j = 0; j < (i-1); j++) {
+            if  (shaderCache[j] == objectList[i].shaderID)
+                newShader = 0;
+        }
+        shaderCache[i] = objectList[i].shaderID;
         mat4 modelMatrix;
         qsrTranslateMat4fVec(modelMatrix, *objectList[i].position);
         qsrRotateMat4fVec   (modelMatrix, *objectList[i].rotate);
         qsrScaleMat4fVec    (modelMatrix, *objectList[i].scale);
         SHA_pushMatrix  ("modelMatrix", modelMatrix);
+        if  (newShader) {
+            SHA_pushMatrix  ("projectionMatrix", PRJ_returnProjection());
+            if  (mode == 0) {
+                SHA_pushMatrix("viewMatrix", CA2_getViewMatrix());
+            }
+            else if     (mode == 1) {
+                SHA_pushMatrix("viewMatrix", CA3_getViewMatrix());
+            }
+            else {
+                printf("[ERROR] Unknown mode in object source\n");
+            }
+        }
         TEX_bindTexture (objectList[i].textureID);
         PMF_drawModel   (objectList[i].modelID); 
     }
