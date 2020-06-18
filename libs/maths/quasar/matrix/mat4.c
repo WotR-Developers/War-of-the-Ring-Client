@@ -219,6 +219,11 @@ void qsrMat4fPersp(QsrMat4f* mat, float FOV, float aspectRatio,
 	mat->data[3][2] = - (2 * farest * nearest) / (farest - nearest);
 }
 
+void qsrMat4fOrtho(QsrMat4f* mat, float FOV, float aspectRatio,
+ float nearest, float farest) {
+
+}
+
 void qsrMat4fTranslateByVec(QsrMat4f* mat, QsrVec3f* toTranslate) {
 	
 	mat->data[3][0] += toTranslate->x;

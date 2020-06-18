@@ -38,6 +38,8 @@ void qsrMat4fSetToIdent(QsrMat4f* input);
 
 void qsrMat4fPersp(QsrMat4f* mat, float FOV, float aspectRatio,
  float nearest, float farest);
+void qsrMat4fOrtho(QsrMat4f* mat, float FOV, float aspectRatio,
+ float nearest, float farest);
 void qsrMat4fWriteTransposed(QsrMat4f* mat, float* data);
 void qsrMat4fTranspose(QsrMat4f* mat); // TODO
 void qsrMat4fTranslateByVec(QsrMat4f* mat, QsrVec3f* toTranslate);

@@ -3,7 +3,7 @@
 void    PRJ_initProjection  (float  aspRat) {
     fov = 45.0f;
     aspectRatio = aspRat;
-    qsrPerspectiveMat4f(&projPerspectiveMatrix, FOV_3D, aspRat, NEAREST, FAREST);
+    qsrMat4fPersp(&projPerspectiveMatrix, FOV_3D, aspRat, NEAREST, FAREST);
 }
 
 void    PRJ_setOrthogonal   () {
@@ -30,7 +30,7 @@ void    PRJ_zoom            (float  yoffset) {
 QsrMat4f    PRJ_returnProjection    () {
     if      (mode == 0) {
         /* Return and recalculate orthogonal matrix. */
-        qsrOrthogonalMat4f(*projOrthogonalMatrix, fov, aspectRatio, NEAREST, FAREST);
+        qsrMat4fOrtho(*projOrthogonalMatrix, fov, aspectRatio, NEAREST, FAREST);
         return projOrthogonalMatrix;
     }
     else if     (mode == 1) {   
