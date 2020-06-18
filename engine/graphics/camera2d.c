@@ -10,23 +10,23 @@ void    CA2_initCam     () {
 }
 
 void    CA2_moveForward () {
-    cameraPosition2d[0] += cameraFront2d[0] * movementSpeed2d;
-    cameraPosition2d[2] += cameraFront2d[2] * movementSpeed2d;
+    cameraPosition2d.x  += cameraFront2d.x * movementSpeed2d;
+    cameraPosition2d.z  += cameraFront2d.z * movementSpeed2d;
 }
 
 void    CA2_moveBack    () {
-    cameraPosition2d[0] -= cameraFront2d[0] * movementSpeed2d;
-    cameraPosition2d[2] -= cameraFront2d[2] * movementSpeed2d;
+    cameraPosition2d.x  -= cameraFront2d.x * movementSpeed2d;
+    cameraPosition2d.z  -= cameraFront2d.z * movementSpeed2d;
 }
 
 void    CA2_strafeRight () {
-    cameraPosition2d[0] += cameraRight2d[0] * movementSpeed2d;
-    cameraPosition2d[2] += cameraRight2d[2] * movementSpeed2d;
+    cameraPosition2d.x  += cameraRight2d.x * movementSpeed2d;
+    cameraPosition2d.z  += cameraRight2d.z * movementSpeed2d;
 }
 
 void    CA2_strafeLeft  () {
-    cameraPosition2d[0] -= cameraRight2d[0] * movementSpeed2d;
-    cameraPosition2d[2] -= cameraRight2d[2] * movementSpeed2d;
+    cameraPosition2d.x  -= cameraRight2d.x * movementSpeed2d;
+    cameraPosition2d.z  -= cameraRight2d.z * movementSpeed2d;
 }
 
 void    CA2_rotateRight () {
@@ -38,15 +38,17 @@ void    CA2_rotateLeft  (){
 }
 
 mat4    CA2_getViewMatrix   () {
-    cameraFront2d[0]    =   cos(radians(yaw2d)) * cos(radians(pitch2d));
-    cameraFront2d[1]    =   sin(radians(pitch2d));
-    cameraFront2d[2]    =   sin(radians(yaw2d)) * cos(radians(pitch2d));
-    normalize(cameraFront2d);
-    cameraRight2d       =   normalize(cross(cameraFront2d, worldUp2d));
-    normalize(cameraRight2d);
-    cameraUp2d          =   normalize(cross(cameraRight2d, cameraFront2d));
-    normalize(cameraUp2d);
-    vec3 tempVector;
-    tempVector      =   add(cameraPosition2d, cameraFront2d);
-    return  lookAt(cameraPosition2d, tempVector, cameraUp2d);
+    cameraFront2d.x     =   cosf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
+    cameraFront2d.y     =   sinf(qsrDegRoRadf(pitch2d));
+    cameraFront2d.z     =   sinf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
+    cameraFront2d       =   qsrNormalizeVec3f(&cameraFront2d);
+    cameraRight2d       =   qsrNormalizeVec3f(cross(cameraFront2d, worldUp2d));
+    qsrNormalizeVec3f(cameraRight2d);
+    cameraUp2d          =   qsrNormalizeVec3f(cross(cameraRight2d, cameraFront2d));
+    qsrNormalizeVec3f(cameraUp2d);
+    qsrVec3f tempVector;
+    tempVector          =   add(cameraPosition2d, cameraFront2d);
+    qsrMat4f lookAt;
+    qsrMat4fSetToLookAt(lookAt, cameraPosition2d, cameraFront2d, cameraRight2d, cameraUp2d);
+    return lookAt;
 }

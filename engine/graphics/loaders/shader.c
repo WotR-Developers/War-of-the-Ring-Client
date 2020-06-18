@@ -3,7 +3,7 @@
 int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) {
     /* Check if already exists. */
     for     (int i = 0; i <= numShaders; i++) {
-        if  (strcpy(shaderList[i].vertexName, vertexShaderPath) == 0)
+        if  (strcmp(shaderList[i].vertexName, vertexShaderPath) == 0)
             return i;
     }
 

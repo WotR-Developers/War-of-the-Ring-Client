@@ -19,8 +19,8 @@
 int     mode;
 
 /* The matrices to be returned and calculated */
-mat4    projPerspectiveMatrix;
-mat4    projOrthogonalMatrix;
+QsrMat4f    projPerspectiveMatrix;
+QsrMat4f    projOrthogonalMatrix;
 
 /* Current FOV to be changed by zooming */
 float   fov;
@@ -41,6 +41,6 @@ void    PRJ_setPerspective      ();
 void    PRJ_zoom                (float  yoffset);
 
 /* Returns the current projection matrix only if mode = 0 */
-mat4    PRJ_returnProjection    ();
+QsrMat4f    PRJ_returnProjection    ();
 
 #endif //THE_FOURTH_AGE_PROJECTION_H

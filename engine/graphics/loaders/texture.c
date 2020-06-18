@@ -3,7 +3,7 @@
 int     TEX_genTexture      (char*  path) {
     /* Check if already existing. */
     for (int i = 0; i <= textureCount; i++) {
-        if  (strcpy(textureList[i].path, path) == 0) 
+        if  (strcmp(textureList[i].path, path) == 0) 
             return i;
     }
     ++textureCount;

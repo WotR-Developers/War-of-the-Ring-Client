@@ -5,7 +5,7 @@ int     PMF_loadModel   (char*  path, int   type) {
     int     numExisting     = 0;
     /* Check if model is already existing. */
     for (int i = 0; i <= numModels; i++) {
-        if  (strcpy(modelList[i].path == path) == 0) {
+        if  (strcmp(modelList[i].path, path) == 0) {
             alreadyExisting = 1;
             numExisting = 1;
             break;
