@@ -6,9 +6,9 @@ int     OBJ_addObject       (char* name, float x, float y, float z) {
     objectList[objectCount - 1].position    =   {x, y, z};
     objectList[objectCount - 1].scale       =   {1.0f, 1.0f, 1.0f};
     objectList[objectCount - 1].rotation    =   {0.0f, 0.0f, 0.0f};
-    objectList[objectCount - 1].textureID   =   TEX_genTexture  (path);
-    objectList[objectCount - 1].shaderID    =   SHA_genShader   (path);
-    objectList[objectCount - 1].modelID     =   PMF_loadModel   (path);
+    objectList[objectCount - 1].textureID   =   TEX_genTexture  (RMG_getTexture(name));
+    objectList[objectCount - 1].shaderID    =   SHA_genShader   (RMG_getShader(name));
+    objectList[objectCount - 1].modelID     =   PMF_loadModel   (RMG_getModel(name));
     objectList[objectCount - 1].existing    =   1;
     return objectCount - 1;
 }
