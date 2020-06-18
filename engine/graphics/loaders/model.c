@@ -1,12 +1,28 @@
 #include "model.h"
 
 int     PMF_loadModel   (char*  path, int   type) {
-    ++numModels;
-    modelList   =   realloc(modelList, numModels * sizeof(struct Model));
-    modelList[numModels - 1].path   =   path;
-    modelList[numModels - 1].type   =   type;
-    loadPMF(numModels - 1);
-    return numModels - 1;
+    int     alreadyExisting = 0;
+    int     numExisting     = 0;
+    /* Check if model is already existing. */
+    for (int i = 0; i <= numModels; i++) {
+        if  (strcpy(modelList[i].path == path) == 0) {
+            alreadyExisting = 1;
+            numExisting = 1;
+            break;
+        }
+    }
+
+    if  (alreadyExisting == 0) {
+        ++numModels;
+        modelList   =   realloc(modelList, numModels * sizeof(struct Model));
+        modelList[numModels - 1].path   =   path;
+        modelList[numModels - 1].type   =   type;
+        loadPMF(numModels - 1);
+        return numModels - 1;
+    }
+    else {
+        return numExisting;
+    }
 }
 
 void    loadPMF         (int    id) {
