@@ -8,7 +8,7 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     }
 
     ++numShaders;
-    shaderList  =   realloc(shaderList, numShaders * sizeof(Shader));
+    shaderList  =   realloc(shaderList, numShaders * sizeof(struct Shader));
 
     char*           vertexShaderSource  =   " ";
     char*           fragmentShaderSource    =   " ";

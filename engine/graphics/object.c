@@ -2,7 +2,7 @@
 
 int     OBJ_addObject       (char* name, float x, float y, float z) {
     ++objectCount;
-    objectList   =   realloc(objectList, objectCount * sizeof(Object));
+    objectList   =   realloc(objectList, objectCount * sizeof(struct Object));
     objectList[objectCount - 1].position    =   {x, y, z};
     objectList[objectCount - 1].scale       =   {1.0f, 1.0f, 1.0f};
     objectList[objectCount - 1].rotation    =   {0.0f, 0.0f, 0.0f};

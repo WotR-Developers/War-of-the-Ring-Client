@@ -7,7 +7,7 @@ int     TEX_genTexture      (char*  path) {
             return i;
     }
     ++textureCount;
-    textureList     =   realloc(textureList, textureCount * sizeof(Texture));
+    textureList     =   realloc(textureList, textureCount * sizeof(struct Texture));
     textureList[textureCount - 1].path = path; 
     constructGLTexData(textureCount - 1);
     return textureCount - 1;
