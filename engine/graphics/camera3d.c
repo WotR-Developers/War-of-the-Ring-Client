@@ -41,6 +41,21 @@ void    CA3_rotateLeft  (){
     yaw -= 1.0f;
 }
 
+void    CA3_processMouse    (double     xpos, double    ypos) {
+    xOffSet = xpos - lastX;
+    yOffSet = lastY - ypos;
+    lastX = xpos;
+    lastY = ypos;
+    xOffSet *= mouseSensitivity;
+    yOffSet *= mouseSensitivity;
+    yaw += xOffSet;
+    pitch += yOffSet;
+    if(pitch > 89.0f)
+        pitch = 89.0f;
+    if(pitch < -89.0f)
+        pitch = -89.0f; 
+}
+
 mat4    CA3_getViewMatrix   () {
     cameraFront[0]      =   cos(radians(yaw)) * cos(radians(pitch));
     cameraFront[1]      =   sin(radians(pitch));

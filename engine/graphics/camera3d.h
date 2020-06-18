@@ -23,6 +23,8 @@ float   movementSpeed;
 float   mouseSensitivity;
 float   xOffSet;
 float   yOffSet;
+float   lastX;
+float   lastY;
 
 /* Initializes variables and matrices to default; to be called at start of program */
 void    CA3_initCamera      ();
@@ -47,6 +49,9 @@ void    CA3_rotateRight     ();
 
 /* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
 void    CA3_resetCamera     ();
+
+/* Calculates camera for mouse movement. */
+void    CA3_processMouse    (double     xpos, double    ypos);
 
 /* Calculates and returns the view matrix */
 mat4    CA3_getViewMatrix   ();

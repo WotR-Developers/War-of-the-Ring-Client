@@ -76,6 +76,9 @@ int     GWD_processInput    () {
                     buttonE = 0;
             }
         }
+        else if     (event.type == SDL_MOUSEMOTION) {
+           CA3_processMouse(event.motion.xrel, event.motion.yrel); 
+        }
         /* Call functions if keys are still pressed. */
         if  (buttonW) {
             if  (mode == 0)
