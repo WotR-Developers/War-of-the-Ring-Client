@@ -24,10 +24,14 @@
 /* The game window pointer. */
 SDL_Window*     window;
 
+/* 0 = 2D, 1 = 3D. */
+int             mode;
+
 /* - Creates Game Window.
  * - Creates window context.
  * - Initializes SDL.
- * - Returns success. */
+ * - Returns success.
+ * - Initializes cameras.*/
 int     GWD_createWindow    (char  *title, int   resX, int   resY);
 
 /* - Swaps the buffers. */
@@ -36,6 +40,14 @@ void    GWD_updateWindow    ();
 /* - Processes input and calls appropriate functions
  * - Returns -1 if game should close. */
 int     GWD_processInput    ();
+
+/* - Updates SDL2 to 2D
+ * - Calls 2D movement functions */
+void    GWD_set2d           ();
+
+/* - Updates SDL2 to 3D
+ * - Calls 2D movement functions */
+void    GWD_set3d           ();
 
 /* Closes the game window. */
 void    GWD_closeWindow     ();
