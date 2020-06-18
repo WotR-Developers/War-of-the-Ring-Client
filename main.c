@@ -9,6 +9,22 @@
 #define SDL_MAIN_HANDLED
 #include "engine/gamewindow.h"
 
+/* To initialize projection. */
+#include "engine/graphics/projection.h"
+
+/* To initialize cameras. */
+#include "engine/graphics/camera2d.h"
+#include "engine/graphics/camera3d.h"
+
+/* To set ResourceManager base path and fire it up. */
+#include "libs/resourcemanager.h"
+
+/* To load and update time library. */
+#include "engine/time.h"
+
+/* To draw the objects and call the free method. */
+#include "engine/graphics/object.h"
+
 /* Gets 1 if the game should close. */
 int closeGame   =   0; 
 

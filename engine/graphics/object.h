@@ -13,10 +13,11 @@
 #include "loaders/texture.h"
 
 /* Include the ResourceManager to retrieve the paths to pass them to the loaders. */
-#include <resourcemanager.h>
+#include "../../libs/resourcemanager.h"
 
 /* Include the maths library to calculate the model matrix. */
-#include <maths.h>
+#include "../../libs/maths/quasar/matrix/mat4.h"
+#include "../../libs/maths/quasar/vector/vec3.h"
 
 /* The number of objects. */
 int     objectCount;

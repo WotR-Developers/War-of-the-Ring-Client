@@ -3,8 +3,20 @@
 #ifndef THE_FOURTH_AGE_TEXTURE_H
 #define THE_FOURTH_AGE_TEXTURE_H
 
+/* To construct GL data. */
 #include <GL/glew.h>
+
+/* To load images. */
 #include <SDL2/SDL_Image.h>
+
+/* For dynamic memory. */
+#include <alloc.h>
+
+/* For string comparisons. */
+#include <string.h>
+
+/* For debug log. */
+#include <stdio.h>
 
 /* A texture structure which contains all necessary information to pass a texture to OpenGL */
 struct Texture {

@@ -4,7 +4,7 @@
 #define THE_FOURTH_AGE_TIME_H
 
 /* To get access to the GLFW high-precision timer */
-#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
 
 /* To get access to memory management functions */
 #include <stdlib.h>

@@ -4,7 +4,8 @@
 #define THE_FOURTH_AGE_CAMERA_H
 
 /* Includes the maths file to be able to make vector and matrix calculations */
-#include <maths.h>
+#include "../../libs/maths/quasar/math/matrix/mat4.h"
+#include "../../libs/maths/quasar/math/vector/vec3.h"
 
 /* The matrices to be calculated and returned */
 mat4    viewMatrix2d;

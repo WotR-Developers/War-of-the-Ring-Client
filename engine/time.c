@@ -44,7 +44,7 @@ void    TIM_awakeTimer              (int id) {
 
 void    TIM_updateTimers            () {
     // Update the application time.
-    applicationTime = glfwGetTime();
+    applicationTime = SDL_GetTicks();
     // If a timer is sleeping, add the passed time to its start time.
     for     (int i = 0; i < timerCount; i++) {
         if      (timers[i].isSleeping == 1) {

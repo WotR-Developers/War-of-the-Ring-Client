@@ -10,7 +10,10 @@
 #define FOV_3D  90.0f
 
 /* Includes the math library to be able to make vector and matrix calculations */
-#include <maths.h>
+#include "../../libs/maths/quasar/matrix/mat4.h"
+
+/* For debug log. */
+#include <stdio.h>
 
 /* Contains the matrix mode. 0 = Orthogonal, 1 = Perspective */
 int     mode;

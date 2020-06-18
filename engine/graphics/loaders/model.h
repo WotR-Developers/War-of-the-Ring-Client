@@ -6,6 +6,15 @@
 /* For memory management. */
 #include <alloc.h>
 
+/* To create GL data. */
+#include <GL/glew.h>
+
+/* To make string comparisons. */
+#include <string.h>
+
+/* To read from file and write debug log. */
+#include <stdio.h>
+
 struct Vertex {
     float   x, y, z;
     float   normalX, normalY, normalZ;

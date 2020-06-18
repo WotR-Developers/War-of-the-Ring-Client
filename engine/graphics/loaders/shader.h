@@ -6,9 +6,16 @@
 
 /* To have access to OpenGL functions. */
 #include <GL/glew.h>
+
 /* To have aceess to memory management. */
 #include <alloc.h>
 #include <cstring.h>
+
+/* To do string comparisons. */
+#include <string.h>
+
+/* To read files and make debug log. */
+#include <stdio.h>
 
 /* A structure containing the shader name and the shader program ID */
 struct Shader {
