@@ -1,12 +1,20 @@
 #include "camera2d.h"
 
 void    CA2_initCam     () {
-    cameraPosition2d =   {0.0f, 1.0f, 0.0f};
-    cameraFront2d    =   {0.0f, 0.0f, -1.0f};
-    cameraUp2d       =   {0.0f, 1.0f, 0.0f};
-    worldUp2d        =   {0.0f, 1.0f, 0.0f};
+    cameraPosition2d.x  =   0.0f;
+    cameraPosition2d.y  =   1.0f;
+    cameraPosition2d.z  =   0.0f;
+    cameraFront2d.x     =   0.0f;
+    cameraFront2d.y     =   0.0f;
+    cameraFront2d.z     =   -1.0f;
+    cameraUp2d.x        =   0.0f;
+    cameraUp2d.y        =   1.0f;
+    cameraUp2d.z        =   0.0f;
+    worldUp2d.x         =   0.0f;
+    worldUp2d.y         =   1.0f;
+    worldUp2d.z         =   0.0f;
     movementSpeed2d  =   0.05f;
-    mouseSensitivity2D   =   0.1f;
+    mouseSensitivity2d   =   0.1f;
 }
 
 void    CA2_moveForward () {
@@ -37,9 +45,9 @@ void    CA2_rotateLeft  (){
     yaw2d -= 1.0f;
 }
 
-mat4    CA2_getViewMatrix   () {
+QsrMat4f    CA2_getViewMatrix   () {
     cameraFront2d.x     =   cosf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
-    cameraFront2d.y     =   sinf(qsrDegRoRadf(pitch2d));
+    cameraFront2d.y     =   sinf(qsrDegToRadf(pitch2d));
     cameraFront2d.z     =   sinf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
     cameraFront2d       =   qsrNormalizeVec3f(cameraFront2d);
     cameraRight2d       =   qsrNormalizeVec3f(qsrCrossVec3f(cameraFront2d, worldUp2d));
@@ -49,6 +57,6 @@ mat4    CA2_getViewMatrix   () {
     QsrVec3f tempVector;
     tempVector          =   qsrAddVec3f(cameraPosition2d, cameraFront2d);
     QsrMat4f lookAt;
-    qsrMat4fSetToLookAt(lookAt, cameraPosition2d, cameraFront2d, cameraRight2d, cameraUp2d);
+    qsrMat4fSetToLookAt(&lookAt, &cameraPosition2d, &cameraFront2d, &cameraRight2d, &cameraUp2d);
     return lookAt;
 }

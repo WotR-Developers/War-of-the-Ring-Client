@@ -53,7 +53,7 @@ char*   RMG_getShader       (char*  objectName);
 void    RMG_free            ();
 
 /* Get all files in a directory. */
-char**  getFilesInDir       (char*  path);
+char**  getFilesInDir       (char*  path, int   *numContents);
 
 /* Get all directories in directory. */
 char**  getDirsinDir        (char*  path);

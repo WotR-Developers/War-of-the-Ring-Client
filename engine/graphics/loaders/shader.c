@@ -109,7 +109,7 @@ void    SHA_bindShader      (int    id) {
     currentShader   =   id;
 }
 
-void    SHA_pushMatrix      (char*  name, mat4  matrix) {
+void    SHA_pushMatrix      (char*  name, QsrMat4f  matrix) {
     glUniformMatrix4fv(glGetUniformLocation(currentShader, name), 1, GL_FALSE, matrix[0]);
 }
 

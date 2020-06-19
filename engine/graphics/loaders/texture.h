@@ -7,10 +7,10 @@
 #include <GL/glew.h>
 
 /* To load images. */
-#include <SDL2/SDL_Image.h>
+#include <SDL2/SDL_surface.h>
 
 /* For dynamic memory. */
-#include <alloc.h>
+#include <stdlib.h>
 
 /* For string comparisons. */
 #include <string.h>

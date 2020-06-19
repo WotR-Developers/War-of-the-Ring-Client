@@ -8,14 +8,17 @@
 #include <GL/glew.h>
 
 /* To have aceess to memory management. */
-#include <alloc.h>
-#include <cstring.h>
+#include <stdlib.h>
+#include <string.h>
 
 /* To do string comparisons. */
 #include <string.h>
 
 /* To read files and make debug log. */
 #include <stdio.h>
+
+/* To get access to matrices. */
+#include "../../../libs/maths/quasar/matrix/mat4.h"
 
 /* A structure containing the shader name and the shader program ID */
 struct Shader {
@@ -42,7 +45,7 @@ void    SHA_bindShader      (int    id);
 
 /* Pushes matrix to the shader with the given uniform
  * provided by the name parameter. */
-void    SHA_pushMatrix      (char*  name, mat4  matrix);
+void    SHA_pushMatrix      (char*  name, QsrMat4f  matrix);
 
 /* Free dynamic memory. */
 void    SHA_free            ();

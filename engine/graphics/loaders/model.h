@@ -4,7 +4,7 @@
 #define THE_FOURTH_AGE_MODEL_H
 
 /* For memory management. */
-#include <alloc.h>
+#include <stdlib.h>
 
 /* To create GL data. */
 #include <GL/glew.h>

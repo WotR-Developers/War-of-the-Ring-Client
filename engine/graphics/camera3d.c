@@ -1,10 +1,18 @@
 #include "camera3d.h"
 
 void    CA3_initCamera     () {
-    cameraPosition  =   {0.0f, 1.0f, 0.0f};
-    cameraFront     =   {0.0f, 0.0f, -1.0f};
-    cameraUp        =   {0.0f, 1.0f, 0.0f};
-    worldUp         =   {0.0f, 1.0f, 0.0f};
+    cameraPosition.x    =   0.0f;
+    cameraPosition.y    =   1.0f;
+    cameraPosition.z    =   0.0f;
+    cameraFront.x       =   0.0f;
+    cameraFront.y       =   0.0f;
+    cameraFront.z       =   -1.0f;
+    cameraUp.x          =   0.0f;
+    cameraUp.y          =   1.0f;
+    cameraUp.z          =   0.0f;
+    worldUp.x           =   0.0f;
+    worldUp.y           =   1.0f;
+    worldUp.z           =   0.0f;
     movementSpeed   =   0.05f;
     mouseSensitivity   =   0.1f;
 }
@@ -68,6 +76,6 @@ QsrMat4f    CA3_getViewMatrix   () {
     QsrVec3f tempVector;
     tempVector      =   qsrAddVec3f(cameraPosition, cameraFront);
     QsrMat4f lookAt;
-    qsrMat4fSetToLookAt(lookAt, cameraPosition, cameraFront, cameraRight, cameraUp);
+    qsrMat4fSetToLookAt(&lookAt, &cameraPosition, &cameraFront, &cameraRight, &cameraUp);
     return lookAt;
 }

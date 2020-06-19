@@ -48,7 +48,7 @@ void RMG_loadResources() {
      * else pushes it back in appropriate array */
     for     (int i = 0; i < objectCount; i++) {
         FILE *tmpFile;      // A temporary file to open the config path.
-        char*   fileToOpen  =   combineStrings(configPath, &objectList[i]);
+        char*   fileToOpen  =   combineStrings(configPath, objectList[i][0]);
         tmpFile = fopen(fileToOpen, "r");
         free(fileToOpen);
         /* Check if file could be opened */
@@ -117,19 +117,19 @@ void RMG_loadResources() {
         // Test the animation path.
         char*   aniPath    =   combineStrings(animationPath, objectAnimationName);
         tmpFileAnimationPath = fopen(aniPath, "r");
-        free(path);
+        free(aniPath);
         if      (!tmpFileAnimationPath) {
             printf("[ResourceManager]\tcould not open animation file of %s\n", objectName);
             return;
         }
 
         /* Push the values back to the appropriate lists */
-        names[i] = *objectName;
-        types[i] = *objectType;
-        textureNames[i] = *texPath;
-        animationNames[i] = *aniPath;
-        modelNames[i] = *pmfPath;
-        shaderNames[i] = *shaPath;
+        names[i][0] = objectName;
+        types[i][0] = objectType;
+        textureNames[i][0] = texPath;
+        animationNames[i][0] = aniPath;
+        modelNames[i][0] = pmfPath;
+        shaderNames[i][0] = shaPath;
 
         /* Clean up the variables */
         line = '\0';
