@@ -24,9 +24,9 @@ int     objectCount;
 
 /* Contains all the necessary object information and OpenGL data. */
 struct Object {
-    vec3    position;
-    vec3    scale;
-    vec3    rotation;
+    QsrVec3f    position;
+    QsrVec3f    scale;
+    QsrVec3f    rotation;
     int     modelID;    // To get access to the correct model struct.
     int     textureID;  // To get access to the correct texture struct.
     int     shaderID;   // To get access to the correct shader struct.

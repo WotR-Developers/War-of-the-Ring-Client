@@ -1,6 +1,6 @@
 #include "camera3d.h"
 
-void    CA3_initCam     () {
+void    CA3_initCamera     () {
     cameraPosition  =   {0.0f, 1.0f, 0.0f};
     cameraFront     =   {0.0f, 0.0f, -1.0f};
     cameraUp        =   {0.0f, 1.0f, 0.0f};

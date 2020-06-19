@@ -1,7 +1,7 @@
 /* Contains the movement/strafe and functions of the camera */
 
-#ifndef THE_FOURTH_AGE_CAMERA_H
-#define THE_FOURTH_AGE_CAMERA_H
+#ifndef THE_FOURTH_AGE_CAMERA3D_H
+#define THE_FOURTH_AGE_CAMERA3D_H
 
 /* Includes the maths file to be able to make vector and matrix calculations */
 #include "../../libs/maths/quasar/matrix/mat4.h"
@@ -59,4 +59,4 @@ void    CA3_processMouse    (double     xpos, double    ypos);
 /* Calculates and returns the view matrix */
 QsrMat4f    CA3_getViewMatrix   ();
 
-#endif //THE_FOURTH_AGE_CAMERA_H
+#endif //THE_FOURTH_AGE_CAMERA3D_H

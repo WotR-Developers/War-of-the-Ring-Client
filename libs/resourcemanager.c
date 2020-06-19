@@ -48,7 +48,9 @@ void RMG_loadResources() {
      * else pushes it back in appropriate array */
     for     (int i = 0; i < objectCount; i++) {
         FILE *tmpFile;      // A temporary file to open the config path.
-        tmpFile = fopen(combineStrings(configPath, &objectList[i]), "r");
+        char*   fileToOpen  =   combineStrings(configPath, &objectList[i]);
+        tmpFile = fopen(fileToOpen, "r");
+        free(fileToOpen);
         /* Check if file could be opened */
         if  (!tmpFile) {
             printf("[ResourceManager]\treturned critical error: Calculated config path could not be found!\n");
@@ -92,25 +94,30 @@ void RMG_loadResources() {
         /* Test if the files are existing.
          * For this create the test paths.*/
         // Test the model path.
-        tmpFileModelPath = fopen(combineStrings(modelPath, objectModelName), "r");
+        char*   pmfPath    =   combineStrings(modelPath, objectModelName);
+        tmpFileModelPath = fopen(pmfPath, "r");
         if      (!tmpFileModelPath) {
             printf("[ResourceManager]\tcould not open model file of %s\n", objectName);
             return;
         }
         // Test the texture path.
-        tmpFileTexturePath = fopen(combineStrings(texturePath, objectTextureName), "r");
+        char*   texPath    =   combineStrings(texturePath, objectTextureName);
+        tmpFileTexturePath = fopen(texPath, "r");
         if      (!tmpFileTexturePath) {
             printf("[ResourceManager]\tcould not open texture file of %s\n", objectName);
             return;
         }
         // Test the shader path.
-        tmpFileShaderPath = fopen(combineStrings(shaderPath, objectShaderName), "r");
+        char*   shaPath    =   combineStrings(shaderPath, objectShaderName);
+        tmpFileShaderPath = fopen(shaPath, "r");
         if      (!tmpFileShaderPath) {
             printf("[ResourceManager]\tcould not open shader file of %s\n", objectName);
             return;
         }
         // Test the animation path.
-        tmpFileAnimationPath = fopen(combineStrings(animationPath, objectAnimationName), "r");
+        char*   aniPath    =   combineStrings(animationPath, objectAnimationName);
+        tmpFileAnimationPath = fopen(aniPath, "r");
+        free(path);
         if      (!tmpFileAnimationPath) {
             printf("[ResourceManager]\tcould not open animation file of %s\n", objectName);
             return;
@@ -119,10 +126,10 @@ void RMG_loadResources() {
         /* Push the values back to the appropriate lists */
         names[i] = *objectName;
         types[i] = *objectType;
-        textureNames[i] = *objectTextureName;
-        animationNames[i] = *objectAnimationName;
-        modelNames[i] = *objectModelName;
-        shaderNames[i] = *objectShaderName;
+        textureNames[i] = *texPath;
+        animationNames[i] = *aniPath;
+        modelNames[i] = *pmfPath;
+        shaderNames[i] = *shaPath;
 
         /* Clean up the variables */
         line = '\0';
@@ -287,5 +294,12 @@ char *combineStrings(char *str1, char *str2) {
 }
 
 void    RMG_free    () {
-
+    for     (int i = 0; i < objectCount; ++i) {
+        free(names[i]);
+        free(types[i]);
+        free(textureNames[i]);
+        free(animationNames[i]);
+        free(modelNames[i]);
+        free(shaderNames[i]);
+    }
 }
