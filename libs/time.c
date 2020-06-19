@@ -13,6 +13,10 @@ double  TIM_getApplicationTime      () {
     return applicationTime;
 }
 
+double  TIM_getFPS                  () {
+    return (1 / TIM_getDeltaTime() * 1000);
+}
+
 int     TIM_addTimer                () {
     // Add 1 to the timer count.
     timerCount += 1;
@@ -44,7 +48,7 @@ void    TIM_awakeTimer              (int id) {
 
 void    TIM_updateTimers            () {
     // Update the application time.
-    applicationTime = SDL_GetTicks() / 60;
+    applicationTime = SDL_GetTicks();
     // If a timer is sleeping, add the passed time to its start time.
     for     (int i = 0; i < timerCount; i++) {
         if      (timers[i].isSleeping == 1) {

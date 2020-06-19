@@ -37,6 +37,9 @@ void    TIM_updateDeltaTime     ();
 /* Returns the time since the application has been started. */
 double  TIM_getApplicationTime  ();
 
+/* Returns the FPS calculated with the deltaTime. */
+double  TIM_getFPS              ();
+
 /* Adds a new timer to the timers list and sets it to the current application time
  * and returns the ID of the timer.*/
 int     TIM_addTimer            ();

@@ -12,6 +12,9 @@
 /* For error and info handling. */
 #include "libs/logger.h"
 
+/* To update timers and pass deltaTime. */
+#include "libs/time.h"
+
 int     closeGame   =   0;
 
 int main() {
@@ -49,6 +52,8 @@ int main() {
     while   (closeGame == 0) {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+        TIM_updateTimers();
+        TIM_updateDeltaTime();
         GWD_updateWindow();
         int processReturn = GWD_processInput();
         if  (processReturn == -1) {
