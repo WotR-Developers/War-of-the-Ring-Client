@@ -9,7 +9,8 @@ void RMG_loadResources() {
     char *animationPath;
     char *texturePath;
     char *modelPath;
-    char *shaderPath;
+    char *vShaderPath;
+    char *fShaderPath
     char *configPath;
 
     /* Contains a list of objects constructed through the configs and
@@ -21,8 +22,9 @@ void RMG_loadResources() {
     animationPath   = combineStrings(basePath, "animations/");
     texturePath     = combineStrings(basePath, "textures/");
     modelPath       = combineStrings(basePath, "models/");
-    shaderPath      = combineStrings(basePath, "/shaders");
-    configPath      = combineStrings(basePath, "/configs");
+    vShaderPath     = combineStrings(basePath, "vShaders/");
+    fShaderPath     = combineStrings(basePath, "fShaders/");
+    configPath      = combineStrings(basePath, "configs/");
 
     /* Fill in the objectList */
     objectList = getFilesInDir(configPath, &objectCount);
@@ -35,11 +37,13 @@ void RMG_loadResources() {
     char *objectType;
     char *objectModelName;
     char *objectTextureName;
-    char *objectShaderName;
+    char *objectvShaderName;
+    char *objectfShaderName;
     char *objectAnimationName;
     FILE *tmpFileModelPath;
     FILE *tmpFileTexturePath;
-    FILE *tmpFileShaderPath;
+    FILE *tmpFilevShaderPath;
+    FILE *tmpFilefShaderPath;
     FILE *tmpFileAnimationPath;
 
     /* Reads the config files in object lists,
@@ -77,11 +81,14 @@ void RMG_loadResources() {
                     sscanf(line, "%s", &objectTextureName);
                     currentLine++;
                 case 4:
-                    /* Line 5, here is the shader name. */
-                    sscanf(line, "%s", &objectShaderName);
+                    /* Line 5, here is the vertex shader name. */
+                    sscanf(line, "%s", &objectvShaderName);
                     currentLine++;
                 case 5:
-                    /* Line 6, here is the animation name. */
+                    /* Line 6, here is the fragment shader name. */
+                    sscanf(line, "%s", &objectfShaderName);
+                case 6:
+                    /* Line 7, here is the animation name. */
                     sscanf(line, "%s", &objectAnimationName);
                     currentLine++;
                 default:
@@ -107,11 +114,18 @@ void RMG_loadResources() {
             printf("[ResourceManager]\tcould not open texture file of %s\n", objectName);
             return;
         }
-        // Test the shader path.
-        char*   shaPath    =   combineStrings(shaderPath, objectShaderName);
-        tmpFileShaderPath = fopen(shaPath, "r");
-        if      (!tmpFileShaderPath) {
-            printf("[ResourceManager]\tcould not open shader file of %s\n", objectName);
+        // Test the vertex shader path.
+        char*   shavPath    =   combineStrings(vshaderPath, objectvShaderName);
+        tmpFilevShaderPath = fopen(shavPath, "r");
+        if      (!tmpFilevShaderPath) {
+            printf("[ResourceManager]\tcould not open vertex shader file of %s\n", objectName);
+            return;
+        }
+        // Test the fragment shader path.
+        char*   shafPath    =   combineStrings(fShaderPath, objectfShaderName);
+        tmpFilefShaderPath = fopen(shafPath, "r");
+        if      (!tmpFilefShaderPath) {
+            printf("[ResourceManager]\tcould not open fragment shader file of %s\n", objectName);
             return;
         }
         // Test the animation path.
@@ -163,7 +177,7 @@ char *RMG_getType(char *objectName) {
             return &types[id];
         }
     }
-    printf("[ResourceManager]\tTexture of %s could not be found!\n", objectName);
+    printf("[ResourceManager]\tType of %s could not be found!\n", objectName);
     return '\0';
 }
 
@@ -185,7 +199,7 @@ char *RMG_getModel(char *objectName) {
             return &modelNames[id];
         }
     }
-    printf("[ResourceManager]\tTexture of %s could not be found!\n", objectName);
+    printf("[ResourceManager]\tModel of %s could not be found!\n", objectName);
     return '\0';
 }
 
@@ -196,18 +210,29 @@ char *RMG_getAnimation(char *objectName) {
             return &animationNames[id];
         }
     }
-    printf("[ResourceManager]\tTexture of %s could not be found!\n", objectName);
+    printf("[ResourceManager]\tAnimation of %s could not be found!\n", objectName);
     return '\0';
 }
 
-char *RMG_getShader(char *objectName) {
+char *RMG_getVertexShader(char *objectName) {
     int id;
     for     (id = 0; id < objectCount; id++) {
         if      (strcmp(objectName, &names[id]) == 0) {
-            return &shaderNames[id];
+            return &vShaderNames[id];
         }
     }
-    printf("[ResourceManager]\tTexture of %s could not be found!\n", objectName);
+    printf("[ResourceManager]\tVertex Shader of %s could not be found!\n", objectName);
+    return '\0';
+}
+
+char *RMG_getFragmentShader(char *objectName) {
+    int id;
+    for     (id = 0; id < objectCount; id++) {
+        if      (strcmp(objectName, &names[id]) == 0) {
+            return &fShaderNames[id];
+        }
+    }
+    printf("[ResourceManager]\tFragment Shader of %s could not be found!\n", objectName);
     return '\0';
 }
 

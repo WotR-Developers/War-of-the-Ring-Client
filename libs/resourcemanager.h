@@ -21,7 +21,8 @@ char    **types;            // Contains the type of the object.
 char    **textureNames;     // The path to the appropriate texture.
 char    **animationNames;   // The path to the appropriate EAF.
 char    **modelNames;       // The path to the appropriate PMF.
-char    **shaderNames;      // The path to the appropriate shader.
+char    **vShaderNames;     // The path to the appropriate vertex shader.
+char    **fShaderNames;     // The path to the appropriate fragment shader.
 
 /* Object count to iterate through arrays */
 int     objectCount;
@@ -46,8 +47,11 @@ char*   RMG_getModel        (char*  objectName);
 /* Returns the animation path for an object name. */
 char*   RMG_getAnimation    (char*  objectName);
 
-/* Returns the shader path for a shader name. */
-char*   RMG_getShader       (char*  objectName);
+/* Returns the vertex shader path for a shader name. */
+char*   RMG_getVertexShader (char*  objectName);
+
+/* Returns the fragment shader path for a shader name. */
+char*   RMG_getFragmentShader   (char*  objectName);
 
 /* Release everything mallocated. */
 void    RMG_free            ();

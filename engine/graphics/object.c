@@ -3,9 +3,15 @@
 int     OBJ_addObject       (char* name, float x, float y, float z) {
     ++objectCount;
     objectList   =   realloc(objectList, objectCount * sizeof(struct Object));
-    objectList[objectCount - 1].position    =   {x, y, z};
-    objectList[objectCount - 1].scale       =   {1.0f, 1.0f, 1.0f};
-    objectList[objectCount - 1].rotation    =   {0.0f, 0.0f, 0.0f};
+    objectList[objectCount - 1].position.x  =   x;
+    objectList[objectCount - 1].position.y  =   y;
+    objectList[objectCount - 1].position.z  =   z;
+    objectList[objectCount - 1].scale.x     =   1.0f;
+    objectList[objectCount - 1].scale.y     =   1.0f;
+    objectList[objectCount - 1].scale.z     =   1.0f;
+    objectList[objectCount - 1].rotation.x  =   0.0f;
+    objectList[objectCount - 1].rotation.y  =   0.0f;
+    objectList[objectCount - 1].rotation.z  =   0.0f;
     objectList[objectCount - 1].textureID   =   TEX_genTexture  (RMG_getTexture(name));
     objectList[objectCount - 1].shaderID    =   SHA_genShader   (RMG_getShader(name));
     objectList[objectCount - 1].modelID     =   PMF_loadModel   (RMG_getModel(name));
@@ -25,10 +31,10 @@ void    OBJ_drawObjects     (int    mode){
                 newShader = 0;
         }
         shaderCache[i] = objectList[i].shaderID;
-        mat4 modelMatrix;
-        qsrTranslateMat4fVec(modelMatrix, *objectList[i].position);
-        qsrRotateMat4fVec   (modelMatrix, *objectList[i].rotate);
-        qsrScaleMat4fVec    (modelMatrix, *objectList[i].scale);
+        QsrMat4f modelMatrix;
+        qsrTranslateMat4fVec(modelMatrix, &objectList[i].position);
+        qsrRotateMat4fVec   (modelMatrix, &objectList[i].rotate);
+        qsrScaleMat4fVec    (modelMatrix, &objectList[i].scale);
         SHA_pushMatrix  ("modelMatrix", modelMatrix);
         if  (newShader) {
             SHA_pushMatrix  ("projectionMatrix", PRJ_returnProjection());
@@ -48,15 +54,21 @@ void    OBJ_drawObjects     (int    mode){
 }
 
 void    OBJ_transformObject     (int    id, float   x, float    y, float    z) {
-    objectList[id].position =   {x, y, z}; 
+    objectList[id].position.x   =   x;
+    objectList[id].position.y   =   y;
+    objectList[id].position.z   =   z;
 }
 
 void    OBJ_scaleObject         (int    id, float   x, float    y, float    z) {
-    objectList[id].scale    =   {x, y, z};
+    objectList[id].scale.x      =   x;
+    objectList[id].scale.y      =   y;
+    objectList[id].scale.z      =   z;
 }
 
 void    OBJ_rotateObject        (int    id, float  x, float    y, float    z) {
-    objectList[id].rotation =   {x, y, z};
+    objectList[id].rotation.x   =   x;
+    objectList[id].rotation.y   =   y;
+    objectList[id].rotation.z   =   z;
 }
 
 void    OBJ_translateObject     (int    id, float   x, float    y, float    z) {  
