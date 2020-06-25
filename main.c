@@ -15,6 +15,9 @@
 /* To update timers and pass deltaTime. */
 #include "libs/time.h"
 
+/* To initialize RMG. */
+#include "libs/resourcemanager.h"
+
 int     closeGame   =   0;
 
 int main() {
@@ -46,8 +49,12 @@ int main() {
 
     /* Init everything. */
     GWD_set3d();
+    char* testString = "Echo";
+    char* testString2 = "Echo2";
+    char result[200];
 
-    
+    RMG_loadResources("/home/eldarion/");
+
     /* Main game loop. */
     while   (closeGame == 0) {
         glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -63,5 +70,6 @@ int main() {
 
 
     /* Ending tasks. */
+    RMG_free();
     printf("Taking the last ship to Valinor.\n");
 }

@@ -2,7 +2,7 @@
 
 
 CC=c99
-OBJECTFILES=gamewindow.o logger.o time.o
+OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o
 LIBS=-lSDL2 -lGLEW -lGL
 
 #Rules for compiling
@@ -21,6 +21,9 @@ logger.o: libs/logger.c libs/logger.h
 
 time.o: libs/time.c libs/time.h
 	$(CC) -c libs/time.c -o $@
+
+resourcemanager.o: libs/resourcemanager.c libs/resourcemanager.h
+	$(CC) -c libs/resourcemanager.c -o $@
 
 #Other Rules
 

@@ -2,7 +2,7 @@
 
 
 void    LOG_info    (const char*    text, const char*   infoText) {
-    printf("[INFO]\t%s: \t%s\n", text, infoText);
+    printf("[INFO]\t%s: \t\t%s\n", text, infoText);
 }
 
 void    LOG_error   (const char*    text, const char*   errorText) {
