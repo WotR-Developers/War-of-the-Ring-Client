@@ -82,4 +82,5 @@ int     GWD_processInput    () {
 
 void    GWD_closeWindow     () {
     SDL_DestroyWindow(window);
+    SDL_Quit();
 }

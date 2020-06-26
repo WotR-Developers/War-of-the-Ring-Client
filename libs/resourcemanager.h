@@ -1,6 +1,9 @@
 #ifndef FOURTH_AGE_CLIENT_RESOURCEMANAGER
 #define FOURTH_AGE_CLIENT_RESOURCEMANAGER
 
+/* The number of objects to be loaded. */
+#define     OBJECT_COUNT    100
+
 /* For logging. */
 #include "logger.h"
 
@@ -18,36 +21,41 @@ char*   basePath;
 
 /* Structs to simplify access and alignment of the resource-arrays. */
 struct RMGName {
-    char*   path;
+    char    path[100];
+};
+
+struct Type {
+    int type;
 };
 
 struct TexturePath {
-    char*   path;
+    char    path[100];
 };
 
 struct ModelPath {
-    char*   path;
+    char    path[100];
 };
 
 struct VertexShaderPath {
-    char*   path;
+    char    path[100];
 };
 
 struct FragmentShaderPath {
-    char*   path;
+    char    path[100];
 };
 
 struct AnimationPath {
-    char*   path;
+    char    path[100];
 };
 
 /* Arrays of the resources. */
-struct RMGName*     names;
-struct TexturePath* textures;
-struct ModelPath*   models;
-struct VertexShaderPath*    vertexShaders;
-struct FragmentShaderPath*  fragmentShaders;  
-struct AnimationPath*   animations;
+struct RMGName      names[OBJECT_COUNT];
+struct Type         types[OBJECT_COUNT];
+struct TexturePath  textures[OBJECT_COUNT];
+struct ModelPath    models[OBJECT_COUNT];
+struct VertexShaderPath     vertexShaders[OBJECT_COUNT];
+struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];  
+struct AnimationPath    animations[OBJECT_COUNT];
 
 /* Count of various types of objects. */
 int entityCount;

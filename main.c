@@ -35,23 +35,20 @@ int main() {
 
     /* Check if init of GLEW failed. */
     if  (openGLInitError != GLEW_OK) {
-        LOG_error("The OpenGL context could not be created.", glewGetErrorString(openGLInitError));
+        LOG_error("The OpenGL context could not be created.", (const char*)glewGetErrorString(openGLInitError));
         closeGame = 1;
     }
 
 
     /* Debug information at upstart. */
-    LOG_info("Your OpenGL version", glGetString(GL_VERSION));
-    LOG_info("Your GPU vendor", glGetString(GL_VENDOR));
-    LOG_info("Your shader language version", glGetString(GL_SHADING_LANGUAGE_VERSION));
-    LOG_info("Available renderer", glGetString(GL_RENDERER));
+    LOG_info("Your OpenGL version", (const char*)glGetString(GL_VERSION));
+    LOG_info("Your GPU vendor", (const char*)glGetString(GL_VENDOR));
+    LOG_info("Your shader language version", (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
+    LOG_info("Available renderer", (const char*)glGetString(GL_RENDERER));
 
 
     /* Init everything. */
     GWD_set3d();
-    char* testString = "Echo";
-    char* testString2 = "Echo2";
-    char result[200];
 
     RMG_loadResources("/home/eldarion/");
 
@@ -71,5 +68,6 @@ int main() {
 
     /* Ending tasks. */
     RMG_free();
+    TIM_free();
     printf("Taking the last ship to Valinor.\n");
 }

@@ -4,6 +4,8 @@
 CC=c99
 OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o
 LIBS=-lSDL2 -lGLEW -lGL
+FLAGS=-Wall -Wextra -fsanitize=address -g
+FLAGSNS=-Wall -Wextra
 
 #Rules for compiling
 
@@ -11,7 +13,7 @@ LIBS=-lSDL2 -lGLEW -lGL
 default: client
 
 client: main.c $(OBJECTFILES)
-	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(LIBS)
+	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(FLAGSNS) $(LIBS)
 
 gamewindow.o: graphics/gamewindow.c graphics/gamewindow.h
 	$(CC) -c graphics/gamewindow.c -o $@
