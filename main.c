@@ -20,12 +20,19 @@
 
 int     closeGame   =   0;
 
-int main() {
+int main(int    argc, char* argv[]) {
     printf("Hello Arda!\n");
+
+    /* Check if enough command line input is specified. */
+    if  (argc != 2) {
+        LOG_error("Too less or too many arguments specified.", "Startup error");
+        return -1;
+    }
 
     /* Create GWD window */
     if  ((GWD_createWindow("The Fourth Age", 1920, 1080)) == EXIT_FAILURE) {
         LOG_error("GWD window could not be created.", "EXIT_FAILURE");
+        return -1;
     }
 
 
@@ -50,7 +57,7 @@ int main() {
     /* Init everything. */
     GWD_set3d();
 
-    RMG_loadResources("/home/eldarion/");
+    RMG_loadResources(argv[1]);
 
     /* Main game loop. */
     while   (closeGame == 0) {
