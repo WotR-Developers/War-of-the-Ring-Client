@@ -43,6 +43,9 @@ void    MAT_scaleVec4   (vec4   *dest, float    scale);
 void    MAT_mulVec3 (vec3   *dest, vec3 mul);
 void    MAT_mulVec4 (vec4   *dest, vec4 mul);
 
+void    MAT_crossVec3   (vec3   *dest, vec3 mul);
+void    MAT_crossVec4   (vec4   *dest, vec4 mul);
+
 vec3    MAT_getConnectionVec3   (vec3   firstVec, vec3  secondVec);
 vec4    MAT_getConnectionVec4   (vec4   firstVec, vec4  secondVec);
 
@@ -56,10 +59,7 @@ vec3    MAT_getCenterVec3   (vec3   firstVec, vec3  secondVec);
 vec4    MAT_getCenterVec4   (vec4   firstVec, vec4  secondVec);
 
 float   MAT_getAngleVec3    (vec3   firstVec, vec3  secondVec);
-float   MAT_getAngleVec4    (vec4   firstVec, vec3  secondVec);
-
-vec3    MAT_getCrossVec3    (vec3   firstVec, vec3  secondVec);
-vec4    MAT_getCrossVec4    (vec4   firstVec, vec4  secondVec);
+float   MAT_getAngleVec4    (vec4   firstVec, vec4  secondVec);
 
 /* Returns 1 if parallel, 0 if not. */
 int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec);
