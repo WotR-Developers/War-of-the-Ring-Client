@@ -3,7 +3,7 @@
 
 CC=c99
 OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o
-LIBS=-lSDL2 -lGLEW -lGL
+LIBS=-lSDL2 -lGLEW -lGL -lm
 FLAGS=-Wall -Wextra -fsanitize=address -g
 FLAGSNS=-Wall -Wextra
 

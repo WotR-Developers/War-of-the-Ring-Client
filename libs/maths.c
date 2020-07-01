@@ -1,129 +1,171 @@
 #include "maths.h"
 
-float   degToRad    (float  deg) {
+float   MAT_degToRad    (float  deg) {
+    return (deg * PI / 180);
+}
+
+float   MAT_radToDeg    (float  rad) {
+    return (rad * 180 / PI);
+}
+
+void    MAT_addVec3 (vec3   *dest, vec3 add) {
+    dest->x =   dest->x + add.x;
+    dest->y =   dest->y + add.y;
+    dest->z =   dest->z + add.z;
+}
+
+void    MAT_addVec4 (vec4   *dest, vec4 add) {
+    dest->x =   dest->x + add.x;
+    dest->y =   dest->y + add.y;
+    dest->z =   dest->z + add.z;
+    dest->w =   dest->w + add.w;
+}
+
+void    MAT_subVec3 (vec3   *dest, vec3 sub) {
+    dest->x =   dest->x - sub.x;
+    dest->y =   dest->y - sub.y;
+    dest->z =   dest->z - sub.z;
+}
+
+void    MAT_subVec4 (vec4   *dest, vec4 sub) {
+    dest->x =   dest->x - sub.x;
+    dest->y =   dest->y - sub.y;
+    dest->z =   dest->z - sub.z;
+    dest->w =   dest->w - sub.w;
+}
+
+void    MAT_scaleVec3   (vec3   *dest, float    scale) {
+    dest->x =   dest->x * scale;
+    dest->y =   dest->y * scale;
+    dest->z =   dest->z * scale;
+}
+
+void    MAT_scaleVec4   (vec4   *dest, float    scale) {
+    dest->x =   dest->x * scale;
+    dest->y =   dest->y * scale;
+    dest->z =   dest->z * scale;
+    dest->w =   dest->w * scale;
+}
+
+void    MAT_mulVec3 (vec3   *dest, vec3 mul) {
+    vec3 temp;
+    temp.x  =   dest->y * mul.z - dest->z * mul.y;
+    temp.y  =   dest->z * mul.x - dest->x * mul.z;
+    temp.z  =   dest->x * mul.y - dest->y * mul.x;
+    dest->x =   temp.x;
+    dest->y =   temp.y;
+    dest->z =   temp.z;
+}
+
+void    MAT_mulVec4 (vec4   *dest, vec4 mul) {
+    vec3 temp;
+    temp.x  =   dest->y * mul.z - dest->z * mul.y;
+    temp.y  =   dest->z * mul.x - dest->x * mul.z;
+    temp.z  =   dest->x * mul.y - dest->y * mul.x;
+    dest->x =   temp.x;
+    dest->y =   temp.y;
+    dest->z =   temp.z;
+}
+
+vec3    MAT_getConnectionVec3   (vec3   firstVec, vec3  secondVec) {
+    MAT_subVec3(&secondVec, firstVec);
+    return secondVec;
+}
+
+vec4    MAT_getConnectionVec4   (vec4   firstVec, vec4  secondVec) {
+    MAT_subVec4(&secondVec, firstVec);
+    return secondVec;
+}
+
+float   MAT_getMagnitudeVec3    (vec3   vec) {
+    return sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+}
+
+float   MAT_getMagnitudeVec4    (vec4   vec) {
+    return sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z + vec.w * vec.w);
+}
+
+vec3    MAT_getNormalizedVec3   (vec3   vec) {
+    vec3 temp;
+    float magnitude = MAT_getMagnitudeVec3(vec);
+    temp.x = vec.x / magnitude;
+    temp.y = vec.y / magnitude;
+    temp.z = vec.z / magnitude;
+    return temp;
+}
+
+vec4    MAT_getNormalizedVec4   (vec4   vec) {
+    vec4 temp;
+    float magnitude = MAT_getMagnitudeVec4(vec);
+    temp.x = vec.x / magnitude;
+    temp.y = vec.y / magnitude;
+    temp.z = vec.z / magnitude;
+    temp.w = vec.w / magnitude;
+    return temp;
 
 }
 
-float   radToDeg    (float  rad) {
+vec3    MAT_getCenterVec3   (vec3   firstVec, vec3  secondVec) {
 
 }
 
-void    addVec3 (vec3   *dest, vec3 add) {
-
-}
-void    addVec4 (vec4   *dest, vec4 add) {
+vec4    MAT_getCenterVec4   (vec4   firstVec, vec4  secondVec) {
 
 }
 
-void    subVec3 (vec3   *dest, vec3 sub) {
+float   MAT_getAngleVec3    (vec3   firstVec, vec3  secondVec) {
 
 }
 
-void    subVec4 (vec4   *dest, vec4 sub) {
+float   MAT_getAngleVec4    (vec4   firstVec, vec3  secondVec) {
 
 }
 
-void    scaleVec3   (vec3   *dest, float    scale) {
+vec3    MAT_getCrossVec3    (vec3   firstVec, vec3  secondVec) {
 
 }
 
-void    scaleVec4   (vec4   *dest, float    scale) {
+vec4    MAT_getCrossVec4    (vec4   firstVec, vec4  secondVec) {
 
 }
 
-void    mulVec3 (vec3   *dest, vec3 mul) {
+int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec) {
 
 }
 
-void    mulVec4 (vec4   *dest, vec4 mul) {
+int     MAT_validateParallelismVec4 (vec4   firstVec, vec4  secondVec) {
 
 }
 
-vec3    getConnectionVec3   (vec3   firstVec, vec3  secondVec) {
+int     MAT_validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec) {
 
 }
 
-vec4    getConnectionVec4   (vec4   firstVec, vec4  secondVec) {
+int     MAT_validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec) {
 
 }
 
-float   getMagnitudeVec3    (vec3   vec) {
+int     MAT_validateCounterVec3     (vec3   firstVec, vec3  secondVec) {
 
 }
 
-float   getMagnitudeVec4    (vec4   vec) {
+int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
 
 }
 
-vec3    getNormalizedVec3   (vec3   vec) {
+float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
 
 }
 
-vec4    getNormalizedVec4   (vec4   vec) {
+float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov) {
 
 }
 
-vec3    getCenterVec3   (vec3   firstVec, vec3  secondVec) {
+float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov) {
 
 }
 
-vec4    getCenterVec4   (vec4   firstVec, vec4  secondVec) {
-
-}
-
-float   getAngleVec3    (vec3   firstVec, vec3  secondVec) {
-
-}
-
-float   getAngleVec4    (vec4   firstVec, vec3  secondVec) {
-
-}
-
-vec3    getCrossVec3    (vec3   firstVec, vec3  secondVec) {
-
-}
-
-vec4    getCrossVec4    (vec4   firstVec, vec4  secondVec) {
-
-}
-
-int     validateParallelismVec3 (vec3   firstVec, vec3  secondVec) {
-
-}
-
-int     validateParallelismVec4 (vec4   firstVec, vec4  secondVec) {
-
-}
-
-int     validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec) {
-
-}
-
-int     validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec) {
-
-}
-
-int     validateCounterVec3     (vec3   firstVec, vec3  secondVec) {
-
-}
-
-int     validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
-
-}
-
-float**     getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
-
-}
-
-float**     getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov) {
-
-}
-
-float**     getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov) {
-
-}
-
-float**     getModelMatrix  (vec3   position, vec3  rotation, vec3  scale) {
+float**     MAT_getModelMatrix  (vec3   position, vec3  rotation, vec3  scale) {
 
 }
 

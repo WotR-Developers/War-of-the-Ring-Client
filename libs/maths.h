@@ -2,7 +2,11 @@
 #define FOURTH_AGE_CLIENT_MATHS
 
 /* To get access to maths functions. */
+#define _USE_MATH_DEFINES
 #include <math.h>
+
+/* Mathematical defines. */
+#define     PI  3.1415926535
 
 /* Mathematical structures. */
 
@@ -22,61 +26,61 @@ typedef struct {
 typedef float mat4[4][4];
 
 /* General functions. */
-float   degToRad    (float  deg);
-float   radToDeg    (float  rad);
+float   MAT_degToRad    (float  deg);
+float   MAT_radToDeg    (float  rad);
 
 /* Vector functions. */
 
-void    addVec3 (vec3   *dest, vec3 add);
-void    addVec4 (vec4   *dest, vec4 add);
+void    MAT_addVec3 (vec3   *dest, vec3 add);
+void    MAT_addVec4 (vec4   *dest, vec4 add);
 
-void    subVec3 (vec3   *dest, vec3 sub);
-void    subVec4 (vec4   *dest, vec4 sub);
+void    MAT_subVec3 (vec3   *dest, vec3 sub);
+void    MAT_subVec4 (vec4   *dest, vec4 sub);
 
-void    scaleVec3   (vec3   *dest, float    scale);
-void    scaleVec4   (vec4   *dest, float    scale);
+void    MAT_scaleVec3   (vec3   *dest, float    scale);
+void    MAT_scaleVec4   (vec4   *dest, float    scale);
 
-void    mulVec3 (vec3   *dest, vec3 mul);
-void    mulVec4 (vec4   *dest, vec4 mul);
+void    MAT_mulVec3 (vec3   *dest, vec3 mul);
+void    MAT_mulVec4 (vec4   *dest, vec4 mul);
 
-vec3    getConnectionVec3   (vec3   firstVec, vec3  secondVec);
-vec4    getConnectionVec4   (vec4   firstVec, vec4  secondVec);
+vec3    MAT_getConnectionVec3   (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getConnectionVec4   (vec4   firstVec, vec4  secondVec);
 
-float   getMagnitudeVec3    (vec3   vec);
-float   getMagnitudeVec4    (vec4   vec);
+float   MAT_getMagnitudeVec3    (vec3   vec);
+float   MAT_getMagnitudeVec4    (vec4   vec);
 
-vec3    getNormalizedVec3   (vec3   vec);
-vec4    getNormalizedVec4   (vec4   vec);
+vec3    MAT_getNormalizedVec3   (vec3   vec);
+vec4    MAT_getNormalizedVec4   (vec4   vec);
 
-vec3    getCenterVec3   (vec3   firstVec, vec3  secondVec);
-vec4    getCenterVec4   (vec4   firstVec, vec4  secondVec);
+vec3    MAT_getCenterVec3   (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getCenterVec4   (vec4   firstVec, vec4  secondVec);
 
-float   getAngleVec3    (vec3   firstVec, vec3  secondVec);
-float   getAngleVec4    (vec4   firstVec, vec3  secondVec);
+float   MAT_getAngleVec3    (vec3   firstVec, vec3  secondVec);
+float   MAT_getAngleVec4    (vec4   firstVec, vec3  secondVec);
 
-vec3    getCrossVec3    (vec3   firstVec, vec3  secondVec);
-vec4    getCrossVec4    (vec4   firstVec, vec4  secondVec);
+vec3    MAT_getCrossVec3    (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getCrossVec4    (vec4   firstVec, vec4  secondVec);
 
 /* Returns 1 if parallel, 0 if not. */
-int     validateParallelismVec3 (vec3   firstVec, vec3  secondVec);
-int     validateParallelismVec4 (vec4   firstVec, vec4  secondVec);
+int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec);
+int     MAT_validateParallelismVec4 (vec4   firstVec, vec4  secondVec);
 
 /* Returns 1 if antiparallel, 0 if not. */
-int     validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec);
-int     validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec);
+int     MAT_validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec);
+int     MAT_validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec);
 
 /* Returns 1 if counter-vector, 0 if not. */
-int     validateCounterVec3     (vec3   firstVec, vec3  secondVec);
-int     validateCounterVec4     (vec4   firstVec, vec4  secondVec);
+int     MAT_validateCounterVec3     (vec3   firstVec, vec3  secondVec);
+int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec);
 
 /* Matrix functions. */
 
-float**     getViewMatrix   (vec3   eye, vec3   at, vec3    up);
+float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up);
 
-float**     getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov);
+float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov);
 
-float**     getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov);
+float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov);
 
-float**     getModelMatrix  (vec3   position, vec3  rotation, vec3  scale);
+float**     MAT_getModelMatrix  (vec3   position, vec3  rotation, vec3  scale);
 
 #endif
