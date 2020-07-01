@@ -12,6 +12,7 @@
 
 /* To read files. */
 #include <stdio.h>
+#include <ctype.h>
 
 /* To use string operations. */
 #include <string.h>
@@ -66,22 +67,22 @@ int entityCount;
 void    RMG_loadResources   (char*  path);
 
 /* Returns the type of object name. */
-char*   RMG_getType         (char*  objectName);
+int     RMG_getType     (char*  objectName);
 
 /* Returns the full texture path of object name. */
-char*   RMG_getTexture      (char*  objectName);
+void    RMG_getTexture      (char*  dest, char* objectName);
 
 /* Returns the full model path of object name. */
-char*   RMG_getModel        (char*  objectName);
+void    RMG_getModel        (char*  dest, char* objectName);
 
 /* Returns the full vertex shader path of object name. */
-char*   RMG_getVertexShader (char*  objectName);
+void    RMG_getVertexShader     (char*  dest, char* objectName);
 
 /* Returns the full fragment shader path of object name. */
-char*   RMG_getFragmentShader   (char*  objectName);
+void    RMG_getFragmentShader   (char*  dest, char* objectName);
 
 /* Returns the full animation path of object name. */
-char*   RMG_getAnimation    (char*  objectName);
+void    RMG_getAnimation    (char*  dest, char* objectName);
 
 /* Free pointer which have been dynamically allocated. */
 void    RMG_free            ();

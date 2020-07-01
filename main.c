@@ -56,7 +56,6 @@ int main(int    argc, char* argv[]) {
 
     /* Init everything. */
     GWD_set3d();
-
     RMG_loadResources(argv[1]);
 
     /* Main game loop. */
