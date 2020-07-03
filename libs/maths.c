@@ -303,6 +303,13 @@ void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, flo
     float   bottom  =   -top;
     float   right   =   top * aspectRatio;
     float   left    =   bottom * aspectRatio;
+    perspectiveMatrix[0][0] =   (2 * near) / (right - left);
+    perspectiveMatrix[0][2] =   (right + left) / (right - left);
+    perspectiveMatrix[1][1] =   (2 * near) / (top - bottom);
+    perspectiveMatrix[1][2] =   (top + bottom) / (top - bottom);
+    perspectiveMatrix[2][2] =   -((far + near) / (far - near));
+    perspectiveMatrix[2][3] =   -((2 * far * near) / (far - near));
+    perspectiveMatrix[3][2] =   -1.0f;
 }
 
 void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio) {
