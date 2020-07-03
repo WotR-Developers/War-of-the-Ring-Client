@@ -2,7 +2,7 @@
 
 
 CC=c99
-OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o
+OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o model.o
 LIBS=-lSDL2 -lGLEW -lGL -lm
 FLAGS=-Wall -Wextra -fsanitize=address -g
 FLAGSNS=-Wall -Wextra
@@ -29,6 +29,9 @@ resourcemanager.o: libs/resourcemanager.c libs/resourcemanager.h
 
 maths.o: libs/maths.c libs/maths.h
 	$(CC) -c libs/maths.c -o $@
+
+model.o: loaders/model.c loaders/model.h
+	$(CC) -c loaders/model.c -o $@
 
 #Other Rules
 
