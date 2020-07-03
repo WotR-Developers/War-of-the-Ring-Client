@@ -87,12 +87,12 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec);
 
 /* Matrix functions. */
 
-float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up);
+void    MAT_getViewMatrix       (mat4   modelMatrix, vec3   eye, vec3   at, vec3    up);
 
-float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   near, float far, float  fov);
+void    MAT_getPerspectiveMatrix    (mat4 perspectiveMatrix, float   near, float far, float  fov, float  aspectRatio);
 
-float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   near, float far, float fov);
+void    MAT_getOrthogonalMatrix (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio);
 
-float**     MAT_getModelMatrix  (vec3   position, vec3  rotation, vec3  scale);
+void    MAT_getModelMatrix      (mat4   modelMatrix, vec3   position, vec3  rotation, vec3  scale);
 
 #endif

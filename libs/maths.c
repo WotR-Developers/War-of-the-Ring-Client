@@ -274,7 +274,7 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
     return 1;
 }
 
-float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
+void    MAT_getViewMatrix       (mat4   viewMatrix, vec3   eye, vec3   at, vec3    up) {
     /* Look At calculation. */
     vec3    zaxis   =   MAT_getNormalizedVec3(MAT_getSubVec3(eye, at));
     vec3    xaxis   =   MAT_getNormalizedVec3(MAT_getCrossVec3(zaxis, up));
@@ -283,7 +283,6 @@ float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
     zaxis.y *=  -1;
     zaxis.z *=  -1;
     /* View matrix calculation. */
-    mat4    viewMatrix;
     viewMatrix[0][0]    =   xaxis.x;
     viewMatrix[0][1]    =   xaxis.y;
     viewMatrix[0][2]    =   xaxis.z;
@@ -299,15 +298,28 @@ float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
     viewMatrix[3][3]    =   1.0f;
 }
 
-float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   near, float far, float  fov) {
-
+void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, float far, float  fov, float  aspectRatio) {
+    float   top     =   tan(fov / 2) * near;
+    float   bottom  =   -top;
+    float   right   =   top * aspectRatio;
+    float   left    =   bottom * aspectRatio;
 }
 
-float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   near, float far, float fov) {
-
+void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio) {
+    float   top     =   tan(fov / 2) * near;
+    float   bottom  =   -top;
+    float   right   =   top * aspectRatio;
+    float   left    =   bottom * aspectRatio;
+    orthogonalMatrix[0][0]  =   2 / (right - left);
+    orthogonalMatrix[0][3]  =   -((right + left) / (right - left));
+    orthogonalMatrix[1][1]  =   2 / (top - bottom);
+    orthogonalMatrix[1][3]  =   -((top + bottom) / (top - bottom));
+    orthogonalMatrix[2][2]  =   -2 / (far - near);
+    orthogonalMatrix[2][3]  =   -((far + near) / (far - near));
+    orthogonalMatrix[3][3]  =   1;
 }
 
-float**     MAT_getModelMatrix  (vec3   position, vec3  rotation, vec3  scale) {
+void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  rotation, vec3  scale) {
 
 }
 
