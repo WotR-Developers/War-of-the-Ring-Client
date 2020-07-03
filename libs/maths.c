@@ -80,6 +80,54 @@ void    MAT_crossVec4 (vec4   *dest, vec4 mul) {
     dest->z =   temp.z;
 }
 
+vec3    MAT_getAddVec3  (vec3   firstVec, vec3  secondVec) {
+    vec3    returnVec;
+    returnVec.x =   firstVec.x + secondVec.x;
+    returnVec.y =   firstVec.y + secondVec.y;
+    returnVec.z =   firstVec.z + secondVec.z;
+    return returnVec;
+}
+
+vec4    MAT_getAddVec4  (vec4   firstVec, vec4  secondVec) {
+    vec4    returnVec;
+    returnVec.x =   firstVec.x + secondVec.x;
+    returnVec.y =   firstVec.y + secondVec.y;
+    returnVec.z =   firstVec.z + secondVec.z;
+    return returnVec;
+}
+
+vec3    MAT_getSubVec3  (vec3   firstVec, vec3  secondVec) {
+    vec3    returnVec;
+    returnVec.x =   firstVec.x - secondVec.x;
+    returnVec.y =   firstVec.y - secondVec.y;
+    returnVec.z =   firstVec.z - secondVec.z;
+    return returnVec;
+}
+
+vec4    MAT_getSubVec4  (vec4   firstVec, vec4  secondVec) {
+    vec4    returnVec;
+    returnVec.x =   firstVec.x - secondVec.x;
+    returnVec.y =   firstVec.y - secondVec.y;
+    returnVec.z =   firstVec.z - secondVec.z;
+    return returnVec;
+}
+
+vec3    MAT_getCrossVec3    (vec3   firstVec, vec3  secondVec) {
+    vec3 temp;
+    temp.x  =   firstVec.y * secondVec.z - firstVec.z * secondVec.y;
+    temp.y  =   firstVec.z * secondVec.x - firstVec.x * secondVec.z;
+    temp.z  =   firstVec.x * secondVec.y - firstVec.y * secondVec.x;
+    return temp;
+}
+
+vec4    MAT_getCrossVec4    (vec4   firstVec, vec4  secondVec) {
+    vec4 temp;
+    temp.x  =   firstVec.y * secondVec.z - firstVec.z * secondVec.y;
+    temp.y  =   firstVec.z * secondVec.x - firstVec.x * secondVec.z;
+    temp.z  =   firstVec.x * secondVec.y - firstVec.y * secondVec.x;
+    return temp;
+}
+
 vec3    MAT_getConnectionVec3   (vec3   firstVec, vec3  secondVec) {
     MAT_subVec3(&secondVec, firstVec);
     return secondVec;
@@ -219,14 +267,21 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
 }
 
 float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
+    /* Look At calculation. */
+    vec3    zaxis   =   MAT_getNormalizedVec3(MAT_getSubVec3(eye, at));
+    vec3    xaxis   =   MAT_getNormalizedVec3(MAT_getCrossVec3(zaxis, up));
+    vec3    yaxis   =   MAT_getCrossVec3(xaxis, zaxis);
+    zaxis.x *=  -1;
+    zaxis.y *=  -1;
+    zaxis.z *=  -1;
+    /* View matrix calculation. */
+}
+
+float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   near, float far, float  fov) {
 
 }
 
-float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov) {
-
-}
-
-float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov) {
+float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   near, float far, float fov) {
 
 }
 

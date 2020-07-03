@@ -46,6 +46,15 @@ void    MAT_mulVec4 (vec4   *dest, vec4 mul);
 void    MAT_crossVec3   (vec3   *dest, vec3 mul);
 void    MAT_crossVec4   (vec4   *dest, vec4 mul);
 
+vec3    MAT_getAddVec3  (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getAddVec4  (vec4   firstVec, vec4  secondVec);
+
+vec3    MAT_getSubVec3  (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getSubVec4  (vec4   firstVec, vec4  secondVec);
+
+vec3    MAT_getCrossVec3    (vec3   firstVec, vec3  secondVec);
+vec4    MAT_getCrossVec4    (vec4   firstVec, vec4  secondVec);
+
 vec3    MAT_getConnectionVec3   (vec3   firstVec, vec3  secondVec);
 vec4    MAT_getConnectionVec4   (vec4   firstVec, vec4  secondVec);
 
@@ -77,9 +86,9 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec);
 
 float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up);
 
-float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   right, float    left, float fov);
+float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   near, float far, float  fov);
 
-float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   right, float    left, float fov);
+float**     MAT_getOrthogonalMatrix     (float  top, float  bottom, float   near, float far, float fov);
 
 float**     MAT_getModelMatrix  (vec3   position, vec3  rotation, vec3  scale);
 
