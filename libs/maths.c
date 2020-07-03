@@ -200,6 +200,14 @@ float   MAT_getAngleVec4    (vec4   firstVec, vec4  secondVec) {
     return acos(v / MAT_getMagnitudeVec4(firstVec) / MAT_getMagnitudeVec4(secondVec));
 }
 
+float   MAT_getDotProductVec3   (vec3   firstVec, vec3  secondVec) {
+    return firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z;
+}
+
+float   MAT_getDotProductVec4   (vec4   firstVec, vec4  secondVec) {
+    return firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z;
+}
+
 int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec) {
     float firstScale = firstVec.x / secondVec.x;
     if  (firstScale < 0) 
@@ -275,6 +283,20 @@ float**     MAT_getViewMatrix   (vec3   eye, vec3   at, vec3    up) {
     zaxis.y *=  -1;
     zaxis.z *=  -1;
     /* View matrix calculation. */
+    mat4    viewMatrix;
+    viewMatrix[0][0]    =   xaxis.x;
+    viewMatrix[0][1]    =   xaxis.y;
+    viewMatrix[0][2]    =   xaxis.z;
+    viewMatrix[0][3]    =   -(MAT_getDotProductVec3(xaxis, eye));
+    viewMatrix[1][0]    =   yaxis.x;
+    viewMatrix[1][1]    =   yaxis.y;
+    viewMatrix[1][2]    =   yaxis.z;
+    viewMatrix[1][3]    =   -(MAT_getDotProductVec3(yaxis, eye));
+    viewMatrix[2][0]    =   zaxis.x;
+    viewMatrix[2][1]    =   zaxis.y;
+    viewMatrix[2][2]    =   zaxis.z;
+    viewMatrix[2][3]    =   -(MAT_getDotProductVec3(zaxis, eye));
+    viewMatrix[3][3]    =   1.0f;
 }
 
 float**     MAT_getPerspectiveMatrix    (float  top, float  bottom, float   near, float far, float  fov) {
