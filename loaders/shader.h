@@ -24,7 +24,7 @@
 struct Shader {
     const char*     vertexName;     // The name of the vertex shader
     const char*     fragmentName;   // The name of the fragment shader
-    int             shaderProgram;  // The shader program ID
+    unsigned int    shaderProgram;  // The shader program ID
 };
 
 /* List of shaders to be quickly used with the ID */

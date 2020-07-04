@@ -2,16 +2,14 @@
 
 int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) {
     /* Check if already exists. */
-    for     (int i = 0; i <= numShaders; i++) {
+    for     (int i = 0; i < numShaders; i++) {
         if  (strcmp(shaderList[i].vertexName, vertexShaderPath) == 0)
             return i;
     }
-
     ++numShaders;
     shaderList  =   realloc(shaderList, numShaders * sizeof(struct Shader));
-
-    char*           vertexShaderSource  =   " ";
-    char*           fragmentShaderSource    =   " ";
+    char*           vertexShaderSource;
+    char*           fragmentShaderSource;
     int             fragmentSourceLength;
     int             vertexSourceLength;
     FILE*           vertexShaderFile;
@@ -24,44 +22,27 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     fragmentShaderFile  =   fopen(fragmentShaderPath, "r");
 
     /* Read line by line vertex shader and add to source. */
-    while   (fgets(textBuffer, 256, vertexShaderFile)) {
-        int read = 1;
-        int lineLength;
-        for     (int i = 0; i < 256; i++) {
-            if  (textBuffer[i] == '\n') {
-                lineLength = i;
-                break;
-            }
-            else {
-                ++lineLength;
-            }
-        }
-        vertexShaderSource = realloc(vertexShaderSource, (vertexSourceLength + lineLength) * sizeof(char));
-        memcpy(&vertexShaderSource[vertexSourceLength] + 1, textBuffer, lineLength * sizeof(char));
-        lineLength = 0;
-    }
+    
+    fseek(vertexShaderFile, 0, SEEK_END);
+    long    vsFileSize  =   ftell(vertexShaderFile);
+    fseek(vertexShaderFile, 0, SEEK_SET);
+    vertexShaderSource  =   malloc((vsFileSize + 1) * sizeof(char));
+    fread(vertexShaderSource, vsFileSize, 1, vertexShaderFile);
+    fclose(vertexShaderFile);
+    vertexShaderSource[vsFileSize] = 0;
 
     /* Read line by line fragment shader and add to source. */
-    while   (fgets(textBuffer, 256, fragmentShaderFile)) {
-        int read = 1;
-        int lineLength;
-        for     (int i = 0; i < 256; i++) {
-            if  (textBuffer[i] == '\n') {
-                lineLength = i;
-                break;
-            }
-            else {
-                ++lineLength;
-            }
-        }
-        fragmentShaderSource = realloc(fragmentShaderSource, (fragmentSourceLength + lineLength) * sizeof(char));
-        memcpy(&fragmentShaderSource[fragmentSourceLength] + 1, textBuffer, lineLength * sizeof(char));
-        lineLength = 0;
-    }
     
+    fseek(fragmentShaderFile, 0, SEEK_END);
+    long    fsFileSize  =   ftell(fragmentShaderFile);
+    fseek(fragmentShaderFile, 0, SEEK_SET);
+    fragmentShaderSource    =   malloc((fsFileSize + 1) * sizeof(char));
+    fread(fragmentShaderSource, fsFileSize, 1, fragmentShaderFile);
+    fclose(fragmentShaderFile);
+    fragmentShaderSource[fsFileSize] = 0;
     /* Create and compile shaders, check for success. */
-    int     vertexShader    =   glCreateShader(GL_VERTEX_SHADER);
-    int     fragmentShader  =   glCreateShader(GL_FRAGMENT_SHADER);
+    unsigned int    vertexShader    =   glCreateShader(GL_VERTEX_SHADER);
+    unsigned int    fragmentShader  =   glCreateShader(GL_FRAGMENT_SHADER);
 
     const char*     vsSource    =   vertexShaderSource;
     const char*     fsSource    =   fragmentShaderSource;
@@ -90,7 +71,7 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     }
 
     /* Create shader program. */
-    int     shaderProgram   =   glCreateProgram();
+    unsigned int    shaderProgram   =   glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);

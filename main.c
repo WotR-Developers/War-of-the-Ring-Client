@@ -18,6 +18,8 @@
 /* To initialize RMG. */
 #include "libs/resourcemanager.h"
 
+#include "loaders/shader.h"
+
 int     closeGame   =   0;
 
 int main(int    argc, char* argv[]) {
