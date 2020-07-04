@@ -20,7 +20,7 @@
 
 /* Needs to be defined before including object. */
 #define STB_IMAGE_IMPLEMENTATION
-#include "loaders/texture.h"
+#include "graphics/object.h"
 
 int     closeGame   =   0;
 
@@ -61,6 +61,7 @@ int main(int    argc, char* argv[]) {
     /* Init everything. */
     GWD_set3d();
     RMG_loadResources(argv[1]);
+    OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
 
     /* Main game loop. */
     while   (closeGame == 0) {
