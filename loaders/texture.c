@@ -1,7 +1,6 @@
 #include "texture.h"
 
 int     TEX_genTexture      (char*  path) {
-    IMG_Init();
     /* Check if already existing. */
     for (int i = 0; i <= textureCount; i++) {
         if  (strcmp(textureList[i].path, path) == 0) 
@@ -15,13 +14,16 @@ int     TEX_genTexture      (char*  path) {
 }
 
 void    constructGLTexData  (int    currentID) {
-    SDL_Surface*    surface     =   IMG_Load(textureList[currentID].path);
+    int textureWidth;
+    int textureHeight;
+    int bitsPerPixel;
+    stbi_uc *textureBuffer = stbi_load(textureList[textureCount - 1].path, &textureWidth, &textureHeight, &bitsPerPixel, 4);
     glGenTextures(1, &textureList[currentID].textureBufferID);
     glBindTexture(GL_TEXTURE_2D, textureList[currentID].textureBufferID);
     int mode    =   GL_RGBA;
-    glTexImage2D(GL_TEXTURE_2D, 0, mode, surface->w, surface->h, 0, mode, GL_UNSIGNED_BYTE, surface->pixels);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, mode, textureWidth, textureHeight, 0, mode, GL_UNSIGNED_BYTE, textureBuffer);
 }
 
 void    TEX_bindTexture     (int    id) {

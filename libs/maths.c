@@ -327,6 +327,12 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, floa
 }
 
 void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  rotation, vec3  scale) {
-
+    modelMatrix[0][3]   =   position.x;
+    modelMatrix[1][3]   =   position.y;
+    modelMatrix[2][3]   =   position.z;
+    modelMatrix[0][0]   =   sin(scale.x);
+    modelMatrix[1][1]   =   sin(scale.y);
+    modelMatrix[2][2]   =   sin(scale.z);
+    modelMatrix[3][3]   =   1.0f;
 }
 
