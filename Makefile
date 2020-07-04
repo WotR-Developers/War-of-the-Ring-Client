@@ -4,7 +4,7 @@
 CC=c99
 OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o model.o shader.o texture.o
 LIBS=-lSDL2 -lGLEW -lGL -lm
-FLAGS=-Wall -Wextra -fsanitize=address -g
+FLAGS=-Wall -Wextra -fsanitize=address -g3
 FLAGSNS=-Wall -Wextra
 
 #Rules for compiling

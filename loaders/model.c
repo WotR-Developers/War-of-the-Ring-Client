@@ -4,7 +4,7 @@ int     MOD_loadModel   (char*  path, int   type) {
     int     alreadyExisting = 0;
     int     numExisting     = 0;
     /* Check if model is already existing. */
-    for (int i = 0; i <= numModels; i++) {
+    for (int i = 0; i < numModels; i++) {
         if  (strcmp(modelList[i].path, path) == 0) {
             alreadyExisting = 1;
             numExisting = 1;
@@ -28,14 +28,12 @@ int     MOD_loadModel   (char*  path, int   type) {
 void    loadPMF         (int    id) {
     int     loadMode    =   0;  // 0 = Vertices, 1 = Indices
     FILE*   pmfFile     =   fopen(modelList[id].path, "r");
-    ssize_t read;
-    size_t  lineLength  =   0;
-    char*   currentLine;
+    char    currentLine[100];
     int     linePointer =   0;
 
     /* Temporary variables for GL data construction. */
-    struct Vertex*  vertices;
-    unsigned int*   indices;
+    struct Vertex*  vertices    =   malloc(sizeof(struct Vertex));
+    unsigned int*   indices     =   malloc(sizeof(unsigned int));
     int             numVertices     =   0;
     unsigned int    numIndices      =   0;
 
@@ -43,8 +41,8 @@ void    loadPMF         (int    id) {
 
     if  (!pmfFile)
         printf("[ERROR] File: %s could not be opened!", modelList[id].path);
-    
-    while   ((read  =   getline(&currentLine, &lineLength, pmfFile)) != -1) {
+   
+    while   (fgets(currentLine, 100, pmfFile)) {
         int     linePosition    =   0;  // To switch between x/y/z/normalX/normalY/normalZ/textureX/textureY
         /* Split current line by spaces. */
         char*   lineWords   =   strtok(currentLine, delimiter);
@@ -52,12 +50,12 @@ void    loadPMF         (int    id) {
         /* Check if Load mode needs to be changed to Vertices. */
         if  (strncmp(currentLine, "Vertices", 8) == 0) {
             loadMode    =   0;
-            break;
+            continue;
         }
         /* Check if Load mode needs to be changed to Indices. */
         if  (strncmp(currentLine, "Indices", 7) == 0) {
             loadMode    =   1;
-            break;
+            continue;
         }
         /* Fill in Vertices. */
         if          (loadMode   ==  0) {
@@ -140,6 +138,7 @@ void    loadPMF         (int    id) {
     /* Free dynamic memory. */
     free(vertices);
     free(indices);
+    fclose(pmfFile);
 }
 
 void    MOD_drawModel   (int    id) {
