@@ -18,7 +18,9 @@
 /* To initialize RMG. */
 #include "libs/resourcemanager.h"
 
-#include "loaders/shader.h"
+/* Needs to be defined before including object. */
+#define STB_IMAGE_IMPLEMENTATION
+#include "loaders/texture.h"
 
 int     closeGame   =   0;
 

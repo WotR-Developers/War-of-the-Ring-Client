@@ -7,7 +7,6 @@
 #include <GL/glew.h>
 
 /* To load images. */
-#define STB_IMAGE_IMPLEMENTATION
 #include "../libs/ext/stb_image.h"
 
 /* For dynamic memory. */
