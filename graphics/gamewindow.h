@@ -22,7 +22,6 @@
 #endif
 
 /* Include cameras to call movement. */
-#include "camera2d.h"
 #include "camera3d.h"
 
 /* The game window pointer. */

@@ -149,6 +149,9 @@ float   MAT_getMagnitudeVec4    (vec4   vec) {
 vec3    MAT_getNormalizedVec3   (vec3   vec) {
     vec3 temp;
     float magnitude = MAT_getMagnitudeVec3(vec);
+    if  (magnitude == 0.0f) {
+        return vec;
+    }
     temp.x = vec.x / magnitude;
     temp.y = vec.y / magnitude;
     temp.z = vec.z / magnitude;
@@ -284,18 +287,31 @@ void    MAT_getViewMatrix       (mat4   viewMatrix, vec3   eye, vec3   at, vec3 
     zaxis.z *=  -1;
     /* View matrix calculation. */
     viewMatrix[0][0]    =   xaxis.x;
-    viewMatrix[0][1]    =   xaxis.y;
-    viewMatrix[0][2]    =   xaxis.z;
-    viewMatrix[0][3]    =   -(MAT_getDotProductVec3(xaxis, eye));
-    viewMatrix[1][0]    =   yaxis.x;
+    viewMatrix[1][0]    =   xaxis.y;
+    viewMatrix[2][0]    =   xaxis.z;
+    viewMatrix[3][0]    =   -(MAT_getDotProductVec3(xaxis, eye));
+    viewMatrix[0][1]    =   yaxis.x;
     viewMatrix[1][1]    =   yaxis.y;
-    viewMatrix[1][2]    =   yaxis.z;
-    viewMatrix[1][3]    =   -(MAT_getDotProductVec3(yaxis, eye));
-    viewMatrix[2][0]    =   zaxis.x;
-    viewMatrix[2][1]    =   zaxis.y;
+    viewMatrix[2][1]    =   yaxis.z;
+    viewMatrix[3][1]    =   -(MAT_getDotProductVec3(yaxis, eye));
+    viewMatrix[0][2]    =   zaxis.x;
+    viewMatrix[1][2]    =   zaxis.y;
     viewMatrix[2][2]    =   zaxis.z;
-    viewMatrix[2][3]    =   -(MAT_getDotProductVec3(zaxis, eye));
+    viewMatrix[3][2]    =   -(MAT_getDotProductVec3(zaxis, eye));
     viewMatrix[3][3]    =   1.0f;
+    for     (int i = 0; i < 4; ++i) {
+        for     (int j = 0; j < 4; ++j) {
+            if  (viewMatrix[i][j] != 0.0f)
+                continue;
+            if  (i == j) {
+                viewMatrix[i][j] = 1.0f;
+                continue;
+            }
+            else {
+                viewMatrix[i][j] = 0.0f;
+            }
+        }
+    }
 }
 
 void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, float far, float  fov, float  aspectRatio) {

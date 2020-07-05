@@ -70,8 +70,8 @@ int main(int    argc, char* argv[]) {
         glClear(GL_COLOR_BUFFER_BIT);
         TIM_updateTimers();
         TIM_updateDeltaTime();
-        GWD_updateWindow();
         OBJ_drawObjects(0);
+        GWD_updateWindow();
         int processReturn = GWD_processInput();
         if  (processReturn == -1) {
             closeGame = 1;

@@ -9,6 +9,7 @@
 #include "../loaders/shader.h"
 #include "../loaders/model.h"
 
+#include "camera3d.h"
 /* To retrieve the paths an pass them on to the loaders. */
 #include "../libs/resourcemanager.h"
 
