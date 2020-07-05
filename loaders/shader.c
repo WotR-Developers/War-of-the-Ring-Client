@@ -87,7 +87,9 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
     shaderList[numShaders - 1].shaderProgram    = shaderProgram;
-    
+   
+    printf("Loaded shader program: %u\n", shaderProgram);
+
     /* Free dynamic memory. */
     free(vertexShaderSource);
     free(fragmentShaderSource);
@@ -97,11 +99,14 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
 
 void    SHA_bindShader      (int    id) {
     glUseProgram(shaderList[id].shaderProgram);
-    currentShader   =   id;
+    currentShader   =   (unsigned int)id;
 }
 
 void    SHA_pushMatrix      (char*  name, mat4  matrix) {
-    glUniformMatrix4fv(glGetUniformLocation(currentShader, name), 1, GL_FALSE, &matrix[0][0]);
+    int     shaderUniform   =   glGetUniformLocation(3, name);
+    glUniformMatrix4fv(shaderUniform, 1, GL_FALSE, &matrix[0][0]);
+    if  (shaderUniform == -1)
+        printf("Uniform: %s not found in shader program: %u\n", name, currentShader);
 }
 
 void    SHA_free            () {

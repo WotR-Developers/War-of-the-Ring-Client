@@ -1,17 +1,21 @@
 #include "gamewindow.h"
 
 int     GWD_createWindow    (char  *title, int   resX, int   resY) {
-   SDL_Init(SDL_INIT_EVERYTHING);   // Initialize SDL
+    SDL_Init(SDL_INIT_EVERYTHING);   // Initialize SDL
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); 
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resX, resY, SDL_WINDOW_OPENGL);
+    glContext = SDL_GL_CreateContext(window);
+    SDL_GL_MakeCurrent(window, glContext);
 
-   window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resX, resY, SDL_WINDOW_OPENGL);
-   SDL_GLContext glContext = SDL_GL_CreateContext(window);
-
-   if   (window == NULL) {
+    if   (window == NULL) {
         return EXIT_FAILURE;
-   }
-   else {
+    }
+    else {
         return EXIT_SUCCESS;
-   }
+    }
 }
 
 void    GWD_updateWindow    () {

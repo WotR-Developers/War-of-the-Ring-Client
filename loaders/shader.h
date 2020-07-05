@@ -34,7 +34,7 @@ struct  Shader*     shaderList;
 int     numShaders;
 
 /* Current Shader ID to know which Shader to pass to the uniforms */
-int     currentShader;
+unsigned    int     currentShader;
 
 /* Reads shader and returns the ID.
  * If it is already in the list, returns the ID */

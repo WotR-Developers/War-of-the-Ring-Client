@@ -27,6 +27,7 @@
 
 /* The game window pointer. */
 SDL_Window*     window;
+SDL_GLContext   glContext;
 
 /* 0 = 2D, 1 = 3D. */
 int             mode;

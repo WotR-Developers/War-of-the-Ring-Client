@@ -14,10 +14,18 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
     objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 0);
     objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
+    return numObjects - 1;
 }
 
 void    OBJ_drawObjects     (int  mode) {
-
+     for    (int i = 0; i < numObjects; ++i) {
+        SHA_bindShader(objectList[i].shaderId);
+        mat4    projectionMatrix;
+        MAT_getPerspectiveMatrix(projectionMatrix, 0.1f, 100.0f, 45.0f, 1920.0f / 1080.0f);
+        SHA_pushMatrix("projectionMatrix", projectionMatrix);        
+        TEX_bindTexture(objectList[i].textureId);
+        MOD_drawModel(objectList[i].modelId);
+     }
 }
 
 void    OBJ_transformObject (int id, float x, float y, float z) {

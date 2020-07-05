@@ -41,6 +41,7 @@ int main(int    argc, char* argv[]) {
 
 
      /* Initialize GLEW. */
+    glewExperimental = 1;
     GLenum openGLInitError = glewInit();
     
 
@@ -70,6 +71,7 @@ int main(int    argc, char* argv[]) {
         TIM_updateTimers();
         TIM_updateDeltaTime();
         GWD_updateWindow();
+        OBJ_drawObjects(0);
         int processReturn = GWD_processInput();
         if  (processReturn == -1) {
             closeGame = 1;

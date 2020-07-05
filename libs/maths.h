@@ -4,6 +4,7 @@
 /* To get access to maths functions. */
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <stdio.h>
 
 /* Mathematical defines. */
 #define     PI  3.1415926535
