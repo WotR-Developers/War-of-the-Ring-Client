@@ -6,6 +6,7 @@ int     TEX_genTexture      (char*  path) {
         if  (strcmp(textureList[i].path, path) == 0) 
             return i;
     }
+    stbi_set_flip_vertically_on_load(1);
     ++textureCount;
     textureList     =   realloc(textureList, textureCount * sizeof(struct Texture));
     textureList[textureCount - 1].path = path; 

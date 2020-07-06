@@ -9,6 +9,7 @@ int     GWD_createWindow    (char  *title, int   resX, int   resY) {
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resX, resY, SDL_WINDOW_OPENGL);
     glContext = SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, glContext);
+    CA3_initCamera();
 
     if   (window == NULL) {
         return EXIT_FAILURE;
@@ -80,6 +81,14 @@ int     GWD_processInput    () {
         else if     (event.type == SDL_MOUSEMOTION) {
         }
         /* Call functions if keys are still pressed. */
+        if  (buttonW == 1) 
+            CA3_moveForward();
+        if  (buttonS == 1) 
+            CA3_moveBackward(); 
+        if  (buttonA == 1)
+            CA3_strafeLeft();
+        if  (buttonD == 1) 
+            CA3_strafeRight();
         return 0;
     }
 }

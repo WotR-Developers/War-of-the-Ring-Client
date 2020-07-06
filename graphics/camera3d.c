@@ -22,7 +22,7 @@ void    CA3_moveForward () {
     MAT_addVec3(&cameraPosition, cameraFront);
 }
 
-void    CA3_moveBack    () {
+void    CA3_moveBackward    () {
     MAT_scaleVec3(&cameraFront, movementSpeed);
     MAT_subVec3(&cameraPosition, cameraFront);
 }
@@ -70,9 +70,7 @@ void    CA3_getViewMatrix   (mat4 matrix) {
     cameraFront.z       =   sin(MAT_degToRad(yaw)) * cos(MAT_degToRad(pitch));
     cameraFront         =   MAT_getNormalizedVec3(cameraFront);
     cameraRight         =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraFront, worldUp));
-    cameraRight         =   MAT_getNormalizedVec3(cameraRight);
     cameraUp            =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraRight, cameraFront));
-    cameraUp            =   MAT_getNormalizedVec3(cameraUp);
     vec3    tempVector;
     tempVector      =   MAT_getAddVec3(cameraPosition, cameraFront);
     MAT_getViewMatrix(matrix, cameraPosition, cameraFront, cameraUp);

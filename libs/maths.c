@@ -284,34 +284,33 @@ void    MAT_getViewMatrix       (mat4   viewMatrix, vec3   eye, vec3   at, vec3 
     vec3    yaxis   =   MAT_getCrossVec3(xaxis, zaxis);
     zaxis.x *=  -1;
     zaxis.y *=  -1;
-    zaxis.z *=  -1;
+    zaxis.z *=  -1; 
     /* View matrix calculation. */
-    viewMatrix[0][0]    =   xaxis.x;
-    viewMatrix[1][0]    =   xaxis.y;
-    viewMatrix[2][0]    =   xaxis.z;
-    viewMatrix[3][0]    =   -(MAT_getDotProductVec3(xaxis, eye));
-    viewMatrix[0][1]    =   yaxis.x;
-    viewMatrix[1][1]    =   yaxis.y;
-    viewMatrix[2][1]    =   yaxis.z;
-    viewMatrix[3][1]    =   -(MAT_getDotProductVec3(yaxis, eye));
-    viewMatrix[0][2]    =   zaxis.x;
-    viewMatrix[1][2]    =   zaxis.y;
-    viewMatrix[2][2]    =   zaxis.z;
-    viewMatrix[3][2]    =   -(MAT_getDotProductVec3(zaxis, eye));
+    if  (xaxis.x != 0.0f) 
+        viewMatrix[0][0]    =   xaxis.x;
+    else
+        viewMatrix[0][0]    =   1.0f;
+    viewMatrix[0][1]    =   xaxis.y;
+    viewMatrix[0][2]    =   xaxis.z;
+    viewMatrix[0][3]    =   -MAT_getDotProductVec3(xaxis, eye);
+    viewMatrix[1][0]    =   yaxis.x;
+    if  (yaxis.y != 0.0f)
+        viewMatrix[1][1]    =   yaxis.y;
+    else
+        viewMatrix[1][1]    =   1.0f;
+    viewMatrix[1][2]    =   yaxis.z;
+    viewMatrix[1][3]    =   -MAT_getDotProductVec3(yaxis, eye);
+    viewMatrix[2][0]    =   zaxis.x;
+    viewMatrix[2][1]    =   zaxis.y;
+    if  (zaxis.z != 0.0f)
+        viewMatrix[2][2]    =   zaxis.z;
+    else
+        viewMatrix[2][2]    =   1.0f;
+    viewMatrix[2][3]    =   -MAT_getDotProductVec3(zaxis, eye);
+    viewMatrix[3][0]    =   0.0f;
+    viewMatrix[3][1]    =   0.0f;
+    viewMatrix[3][2]    =   0.0f;
     viewMatrix[3][3]    =   1.0f;
-    for     (int i = 0; i < 4; ++i) {
-        for     (int j = 0; j < 4; ++j) {
-            if  (viewMatrix[i][j] != 0.0f)
-                continue;
-            if  (i == j) {
-                viewMatrix[i][j] = 1.0f;
-                continue;
-            }
-            else {
-                viewMatrix[i][j] = 0.0f;
-            }
-        }
-    }
 }
 
 void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, float far, float  fov, float  aspectRatio) {
