@@ -9,6 +9,7 @@ int     GWD_createWindow    (char  *title, int   resX, int   resY) {
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, resX, resY, SDL_WINDOW_OPENGL);
     glContext = SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, glContext);
+    SDL_SetRelativeMouseMode(1);
     CA3_initCamera();
 
     if   (window == NULL) {
@@ -19,8 +20,8 @@ int     GWD_createWindow    (char  *title, int   resX, int   resY) {
     }
 }
 
-void    GWD_updateWindow    () {
-    CA3_update();
+void    GWD_updateWindow    (float  deltaTime) {
+    CA3_update(deltaTime);
     SDL_GL_SwapWindow(window);
 }
 
@@ -61,6 +62,8 @@ int     GWD_processInput    () {
                 case SDLK_SPACE:
                     buttonSpace = 1;
                     break;
+                case SDLK_ESCAPE:
+                    return -1;
             }
         }
         else if     (event.type == SDL_KEYUP) {
@@ -89,8 +92,10 @@ int     GWD_processInput    () {
             }
         }
         else if     (event.type == SDL_MOUSEMOTION) {
+            CA3_processMouse(event.motion.xrel, event.motion.yrel);
         }
-        /* Call functions if keys are still pressed. */
+        return 0;
+    }
         if  (buttonW == 1) 
             CA3_moveForward();
         if  (buttonS == 1) 
@@ -101,8 +106,6 @@ int     GWD_processInput    () {
             CA3_strafeRight();
         if  (buttonSpace == 1)
             CA3_jump();
-        return 0;
-    }
 }
 
 void    GWD_closeWindow     () {

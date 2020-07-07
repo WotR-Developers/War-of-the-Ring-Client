@@ -73,7 +73,7 @@ int main(int    argc, char* argv[]) {
         TIM_updateTimers();
         TIM_updateDeltaTime();
         OBJ_drawObjects(0);
-        GWD_updateWindow();
+        GWD_updateWindow(TIM_getDeltaTime());
         int processReturn = GWD_processInput();
         if  (processReturn == -1) {
             closeGame = 1;

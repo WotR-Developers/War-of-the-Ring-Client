@@ -48,7 +48,7 @@ int     buttonSpace;
 int     GWD_createWindow    (char  *title, int   resX, int   resY);
 
 /* - Swaps the buffers. */
-void    GWD_updateWindow    ();
+void    GWD_updateWindow    (float  deltaTime);
 
 /* - Processes input and calls appropriate functions
  * - Returns -1 if game should close. */

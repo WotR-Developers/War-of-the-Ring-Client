@@ -54,7 +54,7 @@ void    CA3_resetCamera     ();
 void    CA3_processMouse    (double     xpos, double    ypos);
 
 /* Updated vectors. */
-void    CA3_update          ();
+void    CA3_update          (float  deltaTime);
 
 /* Calculates and returns the view matrix */
 void    CA3_getViewMatrix   (mat4 matrix);

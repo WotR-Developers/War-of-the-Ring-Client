@@ -15,6 +15,7 @@ void    CA3_initCamera     () {
     worldUp.z           =   0.0f;
     movementSpeed   =   0.05f;
     mouseSensitivity   =   0.1f;
+    yaw = 0.0f;
 }
 
 void    CA3_moveForward     () {
@@ -47,27 +48,22 @@ void    CA3_jump            () {
 }
 
 void    CA3_processMouse    (double     xpos, double    ypos) {
-    xOffSet = xpos - lastX;
-    yOffSet = lastY - ypos;
-    lastX = xpos;
-    lastY = ypos;
-    xOffSet *= mouseSensitivity;
-    yOffSet *= mouseSensitivity;
-    yaw += xOffSet;
-    pitch += yOffSet;
+    yaw += xpos * mouseSensitivity;
+    pitch += ypos * mouseSensitivity;
     if(pitch > 89.0f)
         pitch = 89.0f;
     if(pitch < -89.0f)
         pitch = -89.0f; 
 }
 
-void    CA3_update          () {
-    /*cameraFront.x       =   cos(MAT_degToRad(yaw)) * cos(MAT_degToRad(pitch));
+void    CA3_update          (float deltaTime) {
+    cameraFront.x       =   cos(MAT_degToRad(pitch)) * cos(MAT_degToRad(yaw));
     cameraFront.y       =   sin(MAT_degToRad(pitch));
-    cameraFront.z       =   sin(MAT_degToRad(yaw)) * cos(MAT_degToRad(pitch)); */
+    cameraFront.z       =   cos(MAT_degToRad(pitch)) * sin(MAT_degToRad(yaw)); 
     cameraFront =   MAT_getNormalizedVec3(cameraFront);
     cameraRight =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraFront, worldUp));
     cameraUp    =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraRight, cameraFront));
+    movementSpeed   =   0.05f * deltaTime;
 }
 
 void    CA3_getViewMatrix   (mat4 matrix) {
