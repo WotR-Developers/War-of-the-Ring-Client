@@ -45,11 +45,16 @@ void    CA3_rotateLeft      ();
 /* Rotates the camera to the right. Only called in 2D mode. */
 void    CA3_rotateRight     ();
 
+void    CA3_jump            ();
+
 /* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
 void    CA3_resetCamera     ();
 
 /* Calculates camera for mouse movement. */
 void    CA3_processMouse    (double     xpos, double    ypos);
+
+/* Updated vectors. */
+void    CA3_update          ();
 
 /* Calculates and returns the view matrix */
 void    CA3_getViewMatrix   (mat4 matrix);

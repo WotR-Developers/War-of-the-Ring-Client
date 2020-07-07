@@ -38,6 +38,7 @@ int     buttonA;
 int     buttonD;
 int     buttonQ;
 int     buttonE;
+int     buttonSpace;
 
 /* - Creates Game Window.
  * - Creates window context.

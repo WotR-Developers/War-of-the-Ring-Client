@@ -21,7 +21,7 @@ void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
-        MAT_getPerspectiveMatrix(projectionMatrix, 0.1f, 100.0f, 45.0f, 1920.0f / 1080.0f);
+        MAT_getPerspectiveMatrix(projectionMatrix, 0.1f, 100.0f, MAT_degToRad(45.0f), 1920.0f / 1080.0f);
         mat4    viewMatrix;
         CA3_getViewMatrix(viewMatrix);
         SHA_pushMatrix("viewMatrix", viewMatrix);

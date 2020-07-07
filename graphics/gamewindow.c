@@ -20,6 +20,7 @@ int     GWD_createWindow    (char  *title, int   resX, int   resY) {
 }
 
 void    GWD_updateWindow    () {
+    CA3_update();
     SDL_GL_SwapWindow(window);
 }
 
@@ -57,6 +58,9 @@ int     GWD_processInput    () {
                 case SDLK_e:
                     buttonE = 1;
                     break;
+                case SDLK_SPACE:
+                    buttonSpace = 1;
+                    break;
             }
         }
         else if     (event.type == SDL_KEYUP) {
@@ -72,10 +76,16 @@ int     GWD_processInput    () {
                     break;
                 case SDLK_d:
                     buttonD = 0;
+                    break;
                 case SDLK_q:
                     buttonQ = 0;
+                    break;
                 case SDLK_e:
                     buttonE = 0;
+                    break;
+                case SDLK_SPACE:
+                    buttonSpace = 0;
+                    break;
             }
         }
         else if     (event.type == SDL_MOUSEMOTION) {
@@ -89,6 +99,8 @@ int     GWD_processInput    () {
             CA3_strafeLeft();
         if  (buttonD == 1) 
             CA3_strafeRight();
+        if  (buttonSpace == 1)
+            CA3_jump();
         return 0;
     }
 }

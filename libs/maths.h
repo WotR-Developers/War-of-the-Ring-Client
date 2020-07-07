@@ -74,6 +74,9 @@ float   MAT_getAngleVec4    (vec4   firstVec, vec4  secondVec);
 float   MAT_getDotProductVec3   (vec3   firstVec, vec3  secondVec);
 float   MAT_getDotProductVec4   (vec4   firstVec, vec4  secondVec);
 
+vec3    MAT_getScaleVec3    (vec3   vec, float  scale);
+vec4    MAT_getScaleVec4    (vec4   vec, float  scale);
+
 /* Returns 1 if parallel, 0 if not. */
 int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec);
 int     MAT_validateParallelismVec4 (vec4   firstVec, vec4  secondVec);
