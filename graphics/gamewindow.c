@@ -94,18 +94,18 @@ int     GWD_processInput    () {
         else if     (event.type == SDL_MOUSEMOTION) {
             CA3_processMouse(event.motion.xrel, event.motion.yrel);
         }
-        return 0;
     }
-        if  (buttonW == 1) 
-            CA3_moveForward();
-        if  (buttonS == 1) 
-            CA3_moveBackward(); 
-        if  (buttonA == 1)
-            CA3_strafeLeft();
-        if  (buttonD == 1) 
-            CA3_strafeRight();
-        if  (buttonSpace == 1)
-            CA3_jump();
+    if  (buttonW == 1) 
+        CA3_moveForward();
+    if  (buttonS == 1) 
+        CA3_moveBackward(); 
+    if  (buttonA == 1)
+        CA3_strafeLeft();
+    if  (buttonD == 1) 
+        CA3_strafeRight();
+    if  (buttonSpace == 1)
+        CA3_jump();
+    return 0;
 }
 
 void    GWD_closeWindow     () {
