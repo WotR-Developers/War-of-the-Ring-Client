@@ -49,7 +49,7 @@ void    CA3_jump            () {
 
 void    CA3_processMouse    (double     xpos, double    ypos) {
     yaw += xpos * mouseSensitivity;
-    pitch += ypos * mouseSensitivity;
+    pitch -= ypos * mouseSensitivity;
     if(pitch > 89.0f)
         pitch = 89.0f;
     if(pitch < -89.0f)
