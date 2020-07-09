@@ -361,14 +361,15 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, floa
 void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  rotation, vec3  scale) {
     for     (int i = 0; i < 4; ++i) {
         for     (int j = 0; j < 4; ++j) {
-            if      (i == j)
-                modelMatrix[i][j]   =   1.0f;
-            else
-                modelMatrix[i][j]   =   0.0f;
+            modelMatrix[i][j]   =   0.0f;
         }
     }
     modelMatrix[3][0]   =   position.x;
     modelMatrix[3][1]   =   position.y;
     modelMatrix[3][2]   =   position.z;
+    modelMatrix[0][0]   =   scale.x;
+    modelMatrix[1][1]   =   scale.y;
+    modelMatrix[2][2]   =   scale.z;
+    modelMatrix[3][3]   =   1.0f;
 }
 
