@@ -22,6 +22,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "graphics/object.h"
 
+#include "libs/maths.h"
+
 int     closeGame   =   0;
 
 int main(int    argc, char* argv[]) {

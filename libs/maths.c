@@ -293,6 +293,22 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
     return 1;
 }
 
+void    MAT_multiplyMat4            (mat4   firstMat,   mat4    secondMat) {
+    mat4    tmpMatrix;
+    for     (int x = 0; x < 4; ++x) {
+        for     (int i = 0; i < 4; ++i) {
+            for     (int j = 0; j < 4; ++j) {
+                tmpMatrix[x][i] +=  firstMat[x][i]  *   secondMat[j][x];
+            }
+        }
+    }
+    for     (int i = 0; i < 4; ++i) {
+        for     (int j = 0; j < 4; ++j) {
+            firstMat[i][j]  =   tmpMatrix[i][j];
+        }
+    }
+}
+
 void    MAT_getViewMatrix       (mat4   viewMatrix, vec3   eye, vec3   at, vec3    up) {
     /* Look At calculation. */
     vec3    zaxis   =   MAT_getNormalizedVec3(MAT_getSubVec3(at, eye)); //eye-at
