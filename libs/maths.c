@@ -309,18 +309,23 @@ void    MAT_multiplyMat4            (mat4   firstMat,   mat4    secondMat) {
     }
 }
 
+void    MAT_initMat4            (mat4   mat) {
+    for     (int i = 0; i < 4; ++i) {
+        for     (int j = 0; j < 4; ++j) {
+            if  (i == j)
+                mat[i][j]  =    1.0f;
+            else
+                mat[i][j]   =   0.0f;
+        }
+    }
+}
+
 void    MAT_getViewMatrix       (mat4   viewMatrix, vec3   eye, vec3   at, vec3    up) {
     /* Look At calculation. */
     vec3    zaxis   =   MAT_getNormalizedVec3(MAT_getSubVec3(at, eye)); //eye-at
     vec3    xaxis   =   MAT_getNormalizedVec3(MAT_getCrossVec3(zaxis, up));
     vec3    yaxis   =   MAT_getCrossVec3(xaxis, zaxis);
-    for     (int i = 0; i < 4; ++i) {
-        for     (int j = 0; j < 4; ++j) {
-            viewMatrix[i][j]    =   0.0f;
-            if  (i == j)
-                viewMatrix[i][j] = 1.0f;
-        } 
-    }
+    MAT_initMat4(viewMatrix);
     viewMatrix[0][0]    =   xaxis.x;
     viewMatrix[1][0]    =   xaxis.y;
     viewMatrix[2][0]    =   xaxis.z;
@@ -340,13 +345,7 @@ void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, flo
     float   bottom  =   -top;
     float   right   =   top * aspectRatio;
     float   left    =   bottom * aspectRatio;
-    for     (int i = 0; i < 4; ++i) {
-        for     (int j = 0; j < 4; ++j) {
-            perspectiveMatrix[i][j] =   0.0f;
-            if  (i == j)
-                perspectiveMatrix[i][j] = 1.0f;
-        }
-    }
+    MAT_initMat4(perspectiveMatrix);
     perspectiveMatrix[0][0] =   1.0f / (aspectRatio * top);
     perspectiveMatrix[1][1] =   1.0f / top;
     perspectiveMatrix[2][2] =   far / (near - far);
@@ -360,11 +359,7 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, floa
     float   bottom  =   -top;
     float   right   =   top * aspectRatio;
     float   left    =   bottom * aspectRatio;
-    for     (int i = 0; i < 4; ++i) {
-        for     (int j = 0; j < 4; ++j) {
-            orthogonalMatrix[i][j] = 0.0f;
-        }
-    }
+    MAT_initMat4(orthogonalMatrix);
     orthogonalMatrix[0][0]  =   2 / (right - left);
     orthogonalMatrix[0][3]  =   -((right + left) / (right - left));
     orthogonalMatrix[1][1]  =   2 / (top - bottom);
@@ -375,11 +370,7 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, floa
 }
 
 void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  rotation, vec3  scale) {
-    for     (int i = 0; i < 4; ++i) {
-        for     (int j = 0; j < 4; ++j) {
-            modelMatrix[i][j]   =   0.0f;
-        }
-    }
+    MAT_initMat4(modelMatrix);
     modelMatrix[3][0]   =   position.x;
     modelMatrix[3][1]   =   position.y;
     modelMatrix[3][2]   =   position.z;
