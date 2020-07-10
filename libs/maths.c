@@ -295,6 +295,7 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
 
 void    MAT_multiplyMat4            (mat4   firstMat,   mat4    secondMat) {
     mat4    tmpMatrix;
+    MAT_initMat4(tmpMatrix);
     for     (int x = 0; x < 4; ++x) {
         for     (int i = 0; i < 4; ++i) {
             for     (int j = 0; j < 4; ++j) {
@@ -317,6 +318,15 @@ void    MAT_initMat4            (mat4   mat) {
             else
                 mat[i][j]   =   0.0f;
         }
+    }
+}
+
+void    MAT_printMat4           (mat4   mat) {
+    for     (int i = 0; i < 4; ++i) {
+        for     (int j = 0; j < 4; ++j) {
+            printf("\tDEBUG MATRIX PRINT\t\t\t\n");
+            printf("Matrix:\t [%d] [%d] has the value:\t %f\n", i, j, mat[i][j]);
+        }   
     }
 }
 
@@ -378,5 +388,6 @@ void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  ro
     modelMatrix[1][1]   =   scale.y;
     modelMatrix[2][2]   =   scale.z;
     modelMatrix[3][3]   =   1.0f;
+    MAT_printMat4(modelMatrix);
 }
 

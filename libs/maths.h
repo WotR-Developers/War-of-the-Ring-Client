@@ -93,6 +93,8 @@ int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec);
 
 void    MAT_initMat4            (mat4   mat);
 
+void    MAT_printMat4           (mat4   mat);
+
 void    MAT_multiplyMat4        (mat4   firstMat,   mat4    secondMat);
 
 void    MAT_getViewMatrix       (mat4   modelMatrix, vec3   eye, vec3   at, vec3    up);
