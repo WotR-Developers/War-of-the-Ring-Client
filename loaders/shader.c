@@ -87,17 +87,24 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
     shaderList[numShaders - 1].shaderProgram    = shaderProgram;
-    shaderList[numShaders - 1].projectionMatrixUniformCache =   glGetUniformLocation(shaderProgram, "projectionMatrix");
-    shaderList[numShaders - 1].viewMatrixUniformCache   =   glGetUniformLocation(shaderProgram, "viewMatrix");
-    shaderList[numShaders - 1].modelMatrixUniformCache  =   glGetUniformLocation(shaderProgram, "modelMatrix");
-    if      (!shaderList[numShaders - 1].projectionMatrixUniformCache)
-        printf("Projection matrix does not seem to be existing in this shader\n");
-    if      (!shaderList[numShaders - 1].viewMatrixUniformCache)
-        printf("View matrix does not seem to be existing in this shader\n");
-    if      (!shaderList[numShaders - 1].modelMatrixUniformCache)
-        printf("Model matrix does not seem to be existing in this shader\n");
 
     printf("Loaded shader program: %u\n", shaderProgram);
+    
+    /* Get all uniforms and cach them. */
+    glUseProgram(shaderProgram);
+    int     uniformCount;
+    glGetProgramiv(shaderProgram, GL_ACTIVE_UNIFORMS, &uniformCount);
+    shaderList[numShaders - 1].cachedUniforms = malloc(uniformCount * sizeof(struct Uniform));
+    shaderList[numShaders - 1].uniformCount =   uniformCount;
+    GLsizei     nameLength;
+    GLint       uniformSize;
+    GLenum      uniformType;
+    for     (int i = 0; i < uniformCount; ++i) {
+        glGetActiveUniform(shaderProgram, i, 25, &nameLength, &uniformSize, &uniformType, shaderList[numShaders - 1].cachedUniforms[i].name);
+        shaderList[numShaders - 1].cachedUniforms[i].uniformLocation    =   
+            glGetUniformLocation(shaderProgram, shaderList[numShaders - 1].cachedUniforms[i].name);
+    }
+    glUseProgram(0);
 
     /* Free dynamic memory. */
     free(vertexShaderSource);
@@ -108,24 +115,25 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
 
 void    SHA_bindShader      (unsigned   int    id) {
     glUseProgram(shaderList[id].shaderProgram);
-    currentShader   =   id;
+    currentShader   =   shaderList[id].shaderProgram;
 }
 
 void    SHA_pushMatrix      (char*  name, mat4  matrix) {
-    int shaderUniform;
-    if      (strcmp(name, "projectionMatrix") == 0)
-        shaderUniform   =   shaderList[currentShader].projectionMatrixUniformCache;
-    else if     (strcmp(name, "viewMatrix") == 0)
-        shaderUniform   =   shaderList[currentShader].viewMatrixUniformCache;
-    else if     (strcmp(name, "modelMatrix") == 0)
-        shaderUniform   =   shaderList[currentShader].modelMatrixUniformCache;
-    else
-        shaderUniform   =   glGetUniformLocation(currentShader, name);
+    int shaderUniform = -1;
+    for     (int i = 0; i < shaderList[numShaders - 1].uniformCount; ++i) {
+        if      (strcmp(shaderList[numShaders - 1].cachedUniforms[i].name, name) == 0) {
+            shaderUniform   =   shaderList[numShaders - 1].cachedUniforms[i].uniformLocation;
+            break;
+        } 
+    }
     glUniformMatrix4fv(shaderUniform, 1, GL_FALSE, &matrix[0][0]);
     if  (shaderUniform == -1)
         printf("Uniform: %s not found in shader program: %u\n", name, currentShader);
 }
 
 void    SHA_free            () {
+    for     (int i = 0; i < numShaders; ++i) {
+        free(shaderList[numShaders - 1].cachedUniforms);
+    }
     free(shaderList);
 }
