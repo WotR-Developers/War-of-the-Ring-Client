@@ -17,17 +17,23 @@
 /* To read files and make debug log. */
 #include <stdio.h>
 
+#include <stdlib.h>
+
 /* To push matrices as uniforms. */
 #include "../libs/maths.h"
+
+struct Uniform {
+    char            name[25];
+    int             uniformLocation;
+};
 
 /* A structure containing the shader name and the shader program ID */
 struct Shader {
     const char*     vertexName;     // The name of the vertex shader
     const char*     fragmentName;   // The name of the fragment shader
     unsigned int    shaderProgram;  // The shader program ID
-    int     projectionMatrixUniformCache;
-    int     viewMatrixUniformCache;
-    int     modelMatrixUniformCache;
+    struct  Uniform*    cachedUniforms;
+    int             uniformCount;
 };
 
 /* List of shaders to be quickly used with the ID */
