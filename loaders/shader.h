@@ -25,23 +25,26 @@ struct Shader {
     const char*     vertexName;     // The name of the vertex shader
     const char*     fragmentName;   // The name of the fragment shader
     unsigned int    shaderProgram;  // The shader program ID
+    int     projectionMatrixUniformCache;
+    int     viewMatrixUniformCache;
+    int     modelMatrixUniformCache;
 };
 
 /* List of shaders to be quickly used with the ID */
 struct  Shader*     shaderList;
 
 /* To generate the ID */
-int     numShaders;
+unsigned    int     numShaders;
 
 /* Current Shader ID to know which Shader to pass to the uniforms */
 unsigned    int     currentShader;
 
 /* Reads shader and returns the ID.
  * If it is already in the list, returns the ID */
-int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath);
+unsigned int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath);
 
 /* Binds a shader to OpenGL */
-void    SHA_bindShader      (int    id);
+void    SHA_bindShader      (unsigned int    id);
 
 /* Pushes matrix to the shader with the given uniform
  * provided by the name parameter. */

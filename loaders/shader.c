@@ -1,6 +1,6 @@
 #include "shader.h"
 
-int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) {
+unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) {
     /* Check if already exists. */
     for     (int i = 0; i < numShaders; i++) {
         if  (strcmp(shaderList[i].vertexName, vertexShaderPath) == 0)
@@ -87,7 +87,16 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
     shaderList[numShaders - 1].shaderProgram    = shaderProgram;
-   
+    shaderList[numShaders - 1].projectionMatrixUniformCache =   glGetUniformLocation(shaderProgram, "projectionMatrix");
+    shaderList[numShaders - 1].viewMatrixUniformCache   =   glGetUniformLocation(shaderProgram, "viewMatrix");
+    shaderList[numShaders - 1].modelMatrixUniformCache  =   glGetUniformLocation(shaderProgram, "modelMatrix");
+    if      (!shaderList[numShaders - 1].projectionMatrixUniformCache)
+        printf("Projection matrix does not seem to be existing in this shader\n");
+    if      (!shaderList[numShaders - 1].viewMatrixUniformCache)
+        printf("View matrix does not seem to be existing in this shader\n");
+    if      (!shaderList[numShaders - 1].modelMatrixUniformCache)
+        printf("Model matrix does not seem to be existing in this shader\n");
+
     printf("Loaded shader program: %u\n", shaderProgram);
 
     /* Free dynamic memory. */
@@ -97,13 +106,21 @@ int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) 
     return numShaders - 1;
 }
 
-void    SHA_bindShader      (int    id) {
+void    SHA_bindShader      (unsigned   int    id) {
     glUseProgram(shaderList[id].shaderProgram);
-    currentShader   =   (unsigned int)id;
+    currentShader   =   id;
 }
 
 void    SHA_pushMatrix      (char*  name, mat4  matrix) {
-    int     shaderUniform   =   glGetUniformLocation(3, name);
+    int shaderUniform;
+    if      (strcmp(name, "projectionMatrix") == 0)
+        shaderUniform   =   shaderList[currentShader].projectionMatrixUniformCache;
+    else if     (strcmp(name, "viewMatrix") == 0)
+        shaderUniform   =   shaderList[currentShader].viewMatrixUniformCache;
+    else if     (strcmp(name, "modelMatrix") == 0)
+        shaderUniform   =   shaderList[currentShader].modelMatrixUniformCache;
+    else
+        shaderUniform   =   glGetUniformLocation(currentShader, name);
     glUniformMatrix4fv(shaderUniform, 1, GL_FALSE, &matrix[0][0]);
     if  (shaderUniform == -1)
         printf("Uniform: %s not found in shader program: %u\n", name, currentShader);

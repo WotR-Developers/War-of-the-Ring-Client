@@ -24,7 +24,7 @@ struct  Object {
     mat4    modelMatrix;
     int     textureId;
     int     modelId;
-    int     shaderId;
+    unsigned    int     shaderId;
 };
 
 struct  Object*         objectList;
