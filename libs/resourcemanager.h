@@ -1,68 +1,90 @@
-/* This file is the resource manager of the game. It gets the base path of the operating system the game
- * is launched with and reads the configuration files of object to return the appropriate path of its texture,
- * animation and model file. For public functions the prefix RMG is used.*/
+#ifndef FOURTH_AGE_CLIENT_RESOURCEMANAGER
+#define FOURTH_AGE_CLIENT_RESOURCEMANAGER
 
-#ifndef THE_FOURTH_AGE_RESOURCEMANAGER_H
-#define THE_FOURTH_AGE_RESOURCEMANAGER_H
+/* The number of objects to be loaded. */
+#define     OBJECT_COUNT    100
 
-/* For memory management, particularly used in array resizement. */
+/* For logging. */
+#include "logger.h"
+
+/* To use dynamic memory management. */
 #include <stdlib.h>
 
-/* For reading the paths and the files in a directory. */
-#include <dirent.h>
+/* To read files. */
+#include <stdio.h>
+#include <ctype.h>
+
+/* To use string operations. */
 #include <string.h>
 
-/* For debug logging. */
-#include <stdio.h>
-
-/* After the objects first get loaded, they get an internal resource manager ID for faster access to the paths. */
-char    **names;            // The name of the object to retrieve the ID.
-char    **types;            // Contains the type of the object.
-char    **textureNames;     // The path to the appropriate texture.
-char    **animationNames;   // The path to the appropriate EAF.
-char    **modelNames;       // The path to the appropriate PMF.
-char    **vShaderNames;     // The path to the appropriate vertex shader.
-char    **fShaderNames;     // The path to the appropriate fragment shader.
-
-/* Object count to iterate through arrays */
-int     objectCount;
-
-/* The base path of the game assets. */
+/* Contains the OS-specific path set at startup containing the assets base path. */
 char*   basePath;
 
-/* This function sets the base path with the value returned from the console input in main.c. */
-void    RMG_setBasePath     (char*  path);
+/* Structs to simplify access and alignment of the resource-arrays. */
+struct RMGName {
+    char    path[100];
+};
 
-/* To be called upon start, fills in the arrays of paths. */
-void    RMG_loadResources   ();
+struct Type {
+    int type;
+};
 
-char*   RMG_getType         (char*  objectName);
+struct TexturePath {
+    char    path[100];
+};
 
-/* Returns the texture path for an object name. */
-char*   RMG_getTexture      (char*  objectName);
+struct ModelPath {
+    char    path[100];
+};
 
-/* Returns the model path for an object name. */
-char*   RMG_getModel        (char*  objectName);
+struct VertexShaderPath {
+    char    path[100];
+};
 
-/* Returns the animation path for an object name. */
-char*   RMG_getAnimation    (char*  objectName);
+struct FragmentShaderPath {
+    char    path[100];
+};
 
-/* Returns the vertex shader path for a shader name. */
-char*   RMG_getVertexShader (char*  objectName);
+struct AnimationPath {
+    char    path[100];
+};
 
-/* Returns the fragment shader path for a shader name. */
-char*   RMG_getFragmentShader   (char*  objectName);
+/* Arrays of the resources. */
+struct RMGName      names[OBJECT_COUNT];
+struct Type         types[OBJECT_COUNT];
+struct TexturePath  textures[OBJECT_COUNT];
+struct ModelPath    models[OBJECT_COUNT];
+struct VertexShaderPath     vertexShaders[OBJECT_COUNT];
+struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];  
+struct AnimationPath    animations[OBJECT_COUNT];
 
-/* Release everything mallocated. */
+/* Count of various types of objects. */
+int entityCount;
+
+/* To be called on start
+ * sets basePath
+ * loads all resources. */
+void    RMG_loadResources   (char*  path);
+
+/* Returns the type of object name. */
+int     RMG_getType     (char*  objectName);
+
+/* Returns the full texture path of object name. */
+void    RMG_getTexture      (char*  dest, char* objectName);
+
+/* Returns the full model path of object name. */
+void    RMG_getModel        (char*  dest, char* objectName);
+
+/* Returns the full vertex shader path of object name. */
+void    RMG_getVertexShader     (char*  dest, char* objectName);
+
+/* Returns the full fragment shader path of object name. */
+void    RMG_getFragmentShader   (char*  dest, char* objectName);
+
+/* Returns the full animation path of object name. */
+void    RMG_getAnimation    (char*  dest, char* objectName);
+
+/* Free pointer which have been dynamically allocated. */
 void    RMG_free            ();
 
-/* Get all files in a directory. */
-char**  getFilesInDir       (char*  path, int   *numContents);
-
-/* Get all directories in directory. */
-char**  getDirsinDir        (char*  path);
-
-/* Combine strings str1 and str2 */
-char*   combineStrings      (char*  str1, char* str2);
-
-#endif //THE_FOURTH_AGE_RESOURCEMANAGER_H
+#endif
