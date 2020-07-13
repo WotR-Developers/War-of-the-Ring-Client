@@ -103,6 +103,10 @@ void    MAT_getPerspectiveMatrix    (mat4 perspectiveMatrix, float   near, float
 
 void    MAT_getOrthogonalMatrix (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio);
 
-void    MAT_getModelMatrix      (mat4   modelMatrix, vec3   position, vec3  rotation, vec3  scale);
+void    MAT_translateMatrix     (mat4   matrix, vec3    position);
+
+void    MAT_rotateMatrix        (mat4   matrix, float   angle, vec3 axis);
+
+void    MAT_scaleMatrix         (mat4   matrix, vec3    scale);
 
 #endif

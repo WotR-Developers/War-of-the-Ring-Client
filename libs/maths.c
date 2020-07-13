@@ -379,15 +379,30 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, floa
     orthogonalMatrix[3][3]  =   1;
 }
 
-void    MAT_getModelMatrix          (mat4   modelMatrix, vec3 position, vec3  rotation, vec3  scale) {
-    MAT_initMat4(modelMatrix);
-    modelMatrix[3][0]   =   position.x;
-    modelMatrix[3][1]   =   position.y;
-    modelMatrix[3][2]   =   position.z;
-    modelMatrix[0][0]   =   scale.x;
-    modelMatrix[1][1]   =   scale.y;
-    modelMatrix[2][2]   =   scale.z;
-    modelMatrix[3][3]   =   1.0f;
-    MAT_printMat4(modelMatrix);
+void    MAT_translateMatrix     (mat4   matrix, vec3    position) {
+    matrix[3][0]    +=  position.x;
+    matrix[3][1]    +=  position.y;
+    matrix[3][2]    +=  position.z;
+}
+
+void    MAT_rotateMatrix        (mat4   matrix, float   angle, vec3 axis) {
+    mat4    rotation;
+    MAT_initMat4(rotation);
+    axis    =   MAT_getNormalizedVec3(axis);
+    matrix[0][0]  =   cos(angle) + (axis.x * axis.x) * (1 - cos(angle));
+    matrix[0][1]  =   axis.x * axis.y * (1 - cos(angle)) - axis.z * sin(angle);
+    matrix[0][2]  =   axis.x * axis.z * (1 - cos(angle)) + axis.y * sin(angle);
+    matrix[1][0]  =   axis.y * axis.x * (1 - cos(angle)) + axis.z * sin(angle);
+    matrix[1][1]  =   cos(angle) + (axis.y * axis.y) * (1 - cos(angle));
+    matrix[1][2]  =   axis.y * axis.z * (1 - cos(angle)) - axis.x * sin(angle);
+    matrix[2][0]  =   axis.z * axis.x * (1 - cos(angle)) - axis.y * sin(angle);
+    matrix[2][1]  =   axis.z * axis.y * (1 - cos(angle)) + axis.x * sin(angle);
+    matrix[2][2]  =   cos(angle) + (axis.z * axis.z) * (1 - cos(angle));
+}
+
+void    MAT_scaleMatrix         (mat4   matrix, vec3    scale) {
+    matrix[0][0]    +=  scale.x;
+    matrix[1][1]    +=  scale.y;
+    matrix[2][2]    +=  scale.z;
 }
 

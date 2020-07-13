@@ -19,10 +19,9 @@
 /* To perform dynamic memory allocations. */
 #include <stdlib.h>
 
+float objangle;
 struct  Object {
-    vec3    position;
-    vec3    rotation;
-    vec3    scale;
+    mat4    modelMatrix;
     int     textureId;
     int     modelId;
     int     shaderId;
