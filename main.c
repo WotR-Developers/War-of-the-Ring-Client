@@ -6,25 +6,21 @@
 #define SDL_MAIN_HANDLED
 #include "graphics/gamewindow.h"
 
-/* To check for function success. */
-#include <stdlib.h>
-
 /* For error and info handling. */
 #include "libs/logger.h"
 
 /* To update timers and pass deltaTime. */
 #include "libs/time.h"
 
-/* To initialize RMG. */
-#include "libs/resourcemanager.h"
-
 /* Needs to be defined before including object. */
 #define STB_IMAGE_IMPLEMENTATION
-#include "graphics/object.h"
 
-#include "libs/maths.h"
+#include "events/eventmanager.h"
 
 int     closeGame   =   0;
+int     windowWidth;
+int     windowHeight;
+
 
 int main(int    argc, char* argv[]) {
     printf("Hello Arda!\n");
@@ -36,11 +32,10 @@ int main(int    argc, char* argv[]) {
     }
 
     /* Create GWD window */
-    if  ((GWD_createWindow("The Fourth Age", 1920, 1080)) == EXIT_FAILURE) {
+    if  ((GWD_createWindow("The Fourth Age", &windowWidth, &windowHeight)) == EXIT_FAILURE) {
         LOG_error("GWD window could not be created.", "EXIT_FAILURE");
         return -1;
     }
-
 
      /* Initialize GLEW. */
     glewExperimental = 1;
@@ -60,31 +55,19 @@ int main(int    argc, char* argv[]) {
     LOG_info("Your shader language version", (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION));
     LOG_info("Available renderer", (const char*)glGetString(GL_RENDERER));
 
-
-    /* Init everything. */
-    GWD_set3d();
-    RMG_loadResources(argv[1]);
-    OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
+    EMG_startGame(argv[1], windowWidth, windowHeight); 
 
     glEnable(GL_DEPTH_TEST);
 
     /* Main game loop. */
     while   (closeGame == 0) {
-        glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         TIM_updateTimers();
         TIM_updateDeltaTime();
-        OBJ_drawObjects(0);
-        GWD_updateWindow(TIM_getDeltaTime());
-        int processReturn = GWD_processInput();
-        if  (processReturn == -1) {
-            closeGame = 1;
-        }
+        EMG_doRenderTick(TIM_getDeltaTime());
     }
 
-
     /* Ending tasks. */
-    RMG_free();
+    EMG_endGame();
     TIM_free();
     printf("Taking the last ship to Valinor.\n");
 }

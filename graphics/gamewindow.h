@@ -21,9 +21,6 @@
 #include <SDL2/SDL.h>
 #endif
 
-/* Include cameras to call movement. */
-#include "camera3d.h"
-
 /* The game window pointer. */
 SDL_Window*     window;
 SDL_GLContext   glContext;
@@ -31,28 +28,15 @@ SDL_GLContext   glContext;
 /* 0 = 2D, 1 = 3D. */
 int             mode;
 
-/* Booleans if keys are pressed. */
-int     buttonW;
-int     buttonS;
-int     buttonA;
-int     buttonD;
-int     buttonQ;
-int     buttonE;
-int     buttonSpace;
-
 /* - Creates Game Window.
  * - Creates window context.
  * - Initializes SDL.
  * - Returns success.
  * - Initializes cameras.*/
-int     GWD_createWindow    (char  *title, int   resX, int   resY);
+int     GWD_createWindow    (char  *title, int   *resX, int   *resY);
 
 /* - Swaps the buffers. */
 void    GWD_updateWindow    (float  deltaTime);
-
-/* - Processes input and calls appropriate functions
- * - Returns -1 if game should close. */
-int     GWD_processInput    ();
 
 /* - Updates SDL2 to 2D
  * - Calls 2D movement functions */
