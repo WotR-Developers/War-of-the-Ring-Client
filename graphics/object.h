@@ -15,6 +15,7 @@
 
 /* To pass on the model matrices. */
 #include "../libs/maths.h"
+#include "projection.h"
 
 /* To perform dynamic memory allocations. */
 #include <stdlib.h>

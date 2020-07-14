@@ -45,18 +45,15 @@ void    CA2_rotateLeft  (){
     yaw2d -= 1.0f;
 }
 
-QsrMat4f    CA2_getViewMatrix   () {
-    cameraFront2d.x     =   cosf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
-    cameraFront2d.y     =   sinf(qsrDegToRadf(pitch2d));
-    cameraFront2d.z     =   sinf(qsrDegToRadf(yaw2d)) * cosf(qsrDegToRadf(pitch2d));
-    cameraFront2d       =   qsrNormalizeVec3f(cameraFront2d);
-    cameraRight2d       =   qsrNormalizeVec3f(qsrCrossVec3f(cameraFront2d, worldUp2d));
-    cameraRight2d       =   qsrNormalizeVec3f(cameraRight2d);
-    cameraUp2d          =   qsrNormalizeVec3f(qsrCrossVec3f(cameraRight2d, cameraFront2d));
-    cameraUp2d          =   qsrNormalizeVec3f(cameraUp2d);
-    QsrVec3f tempVector;
-    tempVector          =   qsrAddVec3f(cameraPosition2d, cameraFront2d);
-    QsrMat4f lookAt;
-    qsrMat4fSetToLookAt(&lookAt, &cameraPosition2d, &cameraFront2d, &cameraRight2d, &cameraUp2d);
-    return lookAt;
+void    CA2_updateCamera    () {
+    cameraFront2d.x     =   cos(MAT_degToRad(yaw2d)) * cos(MAT_degToRad(pitch2d));
+    cameraFront2d.y     =   sin(MAT_degToRad(pitch2d));
+    cameraFront2d.z     =   sin(MAT_degToRad(yaw2d)) * cos(MAT_degToRad(pitch2d));
+    cameraFront2d       =   MAT_getNormalizedVec3(cameraFront2d);
+    cameraRight2d       =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraFront2d, worldUp2d));
+    cameraUp2d          =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraRight2d, cameraFront2d));
+}
+
+void    CA2_getViewMatrix   (mat4   viewMatrix) {
+    MAT_getViewMatrix(viewMatrix, cameraPosition2d, MAT_getAddVec3(cameraPosition2d, cameraFront2d), cameraUp2d);
 }

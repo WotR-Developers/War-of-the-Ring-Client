@@ -2,7 +2,7 @@
 
 
 CC=c99
-OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o model.o shader.o texture.o object.o camera3d.o
+OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o model.o shader.o texture.o object.o camera3d.o camera2d.o projection.o
 LIBS=-lSDL2 -lGLEW -lGL -lm
 FLAGS=-Wall -Wextra -fsanitize=address -g3
 FLAGSNS=-Wall -Wextra
@@ -44,6 +44,12 @@ object.o: graphics/object.c graphics/object.h
 
 camera3d.o: graphics/camera3d.h graphics/camera3d.c
 	$(CC) -c graphics/camera3d.c -o $@
+
+camera2d.o: graphics/camera2d.h graphics/camera2d.c
+	$(CC) -c graphics/camera2d.c -o $@
+
+projection.o: graphics/projection.h graphics/projection.c
+	$(CC) -c graphics/projection.c -o $@
 
 #Other Rules
 

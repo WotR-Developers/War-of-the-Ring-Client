@@ -4,20 +4,17 @@
 #define THE_FOURTH_AGE_CAMERA2D_H
 
 /* Includes the maths file to be able to make vector and matrix calculations */
-#include "../../libs/maths/quasar/matrix/mat4.h"
-#include "../../libs/maths/quasar/vector/vec3.h"
-#include "../../libs/maths/quasar/math/toradians.h"
-#include <math.h>
+#include "../libs/maths.h"
 
 /* The matrices to be calculated and returned */
-QsrMat4f    viewMatrix2d;
+mat4    viewMatrix2d;
 
 /* The camera vectors for the view matrix calculation */
-QsrVec3f    worldUp2d;
-QsrVec3f    cameraPosition2d;
-QsrVec3f    cameraFront2d;
-QsrVec3f    cameraUp2d;
-QsrVec3f    cameraRight2d;
+vec3    worldUp2d;
+vec3    cameraPosition2d;
+vec3    cameraFront2d;
+vec3    cameraUp2d;
+vec3    cameraRight2d;
 
 /* The camera variables to be adjusted */
 float   yaw2d;
@@ -48,10 +45,12 @@ void    CA2_rotateLeft      ();
 /* Rotates the camera to the right. Only called in 2D mode. */
 void    CA2_rotateRight     ();
 
+void    CA2_updateCamera    ();
+
 /* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
 void    CA2_resetCamera     ();
 
 /* Calculates and returns the view matrix */
-QsrMat4f    CA2_getViewMatrix   ();
+void    CA2_getViewMatrix   (mat4   viewMatrix);
 
 #endif //THE_FOURTH_AGE_CAMERA2D_H

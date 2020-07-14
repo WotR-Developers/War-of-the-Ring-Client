@@ -11,6 +11,7 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     RMG_getModel(modelPath, name);
     RMG_getVertexShader(vertexShaderPath, name);
     RMG_getFragmentShader(fragmentShaderPath, name);
+    PRJ_setFov3d(MAT_degToRad(45.0f));
     objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
     objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 0);
     objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
@@ -25,7 +26,7 @@ void    OBJ_drawObjects     (int  mode) {
         MAT_rotateMatrix(objectList[i].modelMatrix, objangle, rotate);
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
-        MAT_getPerspectiveMatrix(projectionMatrix, 0.1f, 100.0f, MAT_degToRad(45.0f), 1920.0f / 1080.0f);
+        PRJ_getPerspectiveMatrix(projectionMatrix, 0.1f, 100.0f, 1920.0f / 1080.0f);
         mat4    viewMatrix;
         CA3_getViewMatrix(viewMatrix);
         SHA_pushMatrix("viewMatrix", viewMatrix);
