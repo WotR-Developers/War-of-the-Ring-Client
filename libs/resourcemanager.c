@@ -20,7 +20,7 @@ void    RMG_loadResources   (char  path[]) {
         LOG_error("File not found exception", "sprites.txt could not be found. Terminating.");
 
     char    line[100];
-    int     lineNumber;
+    int     lineNumber = 0;
     while   (fgets(line, sizeof(line), entitiesFile) != NULL) {
         ++lineNumber;
         int emptyString = 1;
