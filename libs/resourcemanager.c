@@ -58,6 +58,14 @@ void    RMG_loadResources   (char*  path) {
         strcat(vertexShaders[i].path, "shaders/");
         strcat(vertexShaders[i].path, names[i].path);
         strcat(vertexShaders[i].path, ".vs");
+        FILE*   testFile    =   fopen(vertexShaders[i].path, "r");
+        if      (testFile == NULL) {
+            strcpy(vertexShaders[i].path, basePath);
+            strcat(vertexShaders[i].path, "shaders/entities_default.vs");
+        }
+        else {
+            fclose(testFile);
+        }
         LOG_info("Registered vertex shader", vertexShaders[i].path);
     }
 
@@ -67,6 +75,14 @@ void    RMG_loadResources   (char*  path) {
         strcat(fragmentShaders[i].path, "shaders/");
         strcat(fragmentShaders[i].path, names[i].path);
         strcat(fragmentShaders[i].path, ".fs");
+        FILE*   testFile    =   fopen(fragmentShaders[i].path, "r");
+        if      (testFile == NULL) {
+            strcpy(fragmentShaders[i].path, basePath);
+            strcat(fragmentShaders[i].path, "shaders/entities_default.fs");
+        }
+        else {
+            fclose(testFile);
+        }
         LOG_info("Registered fragment shader", fragmentShaders[i].path);
     }
 

@@ -3,8 +3,6 @@
 #ifndef FOURTH_AGE_MODEL
 #define FOURTH_AGE_MODEL
 
-#define  _GNU_SOURCE
-
 /* For memory management. */
 #include <stdlib.h>
 
