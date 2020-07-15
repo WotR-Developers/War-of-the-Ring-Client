@@ -117,6 +117,70 @@ void    RMG_loadResources   (char  path[]) {
         strcat(animations[i].path, ".eaf");
         LOG_info("Registered animation", animations[i].path);
     }
+
+    for     (int i = entityCount; i < entityCount + spriteCount; ++i) {
+        strcpy(textures[i].path, basePath);
+        strcat(textures[i].path, "textures/");
+        strcat(textures[i].path, names[i].path);
+        strcat(textures[i].path, ".png");
+        LOG_info("Registered Sprite texture", textures[i].path);
+    }
+
+    for     (int i = entityCount; i < entityCount + spriteCount; ++i) {
+        strcpy(models[i].path, basePath);
+        strcat(models[i].path, "models/");
+        strcat(models[i].path, names[i].path);
+        strcat(models[i].path, ".pmf");
+        FILE*   testFile    =   fopen(models[i].path, "r");
+        if      (testFile == NULL) {
+            strcpy(models[i].path, basePath);
+            strcat(models[i].path, "models/default_sprite.pmf");
+        } else {
+            fclose(testFile);
+        }
+        LOG_info("Registered Sprite model", models[i].path);
+
+    }
+
+    for     (int i = entityCount; i < entityCount + spriteCount; ++i) {
+        strcpy(vertexShaders[i].path, basePath);
+        strcat(vertexShaders[i].path, "shaders/");
+        strcat(vertexShaders[i].path, names[i].path);
+        strcat(vertexShaders[i].path, ".vs");
+        FILE*   testFile    =   fopen(vertexShaders[i].path, "r");
+        if      (testFile == NULL) {
+            strcpy(vertexShaders[i].path, basePath);
+            strcat(vertexShaders[i].path, "shaders/sprite_default.vs");
+        }
+        else {
+            fclose(testFile);
+        }
+        LOG_info("Registered Sprite vertex shader", vertexShaders[i].path);
+    }
+
+    for     (int i = entityCount; i < entityCount + spriteCount; ++i) {
+        strcpy(fragmentShaders[i].path, basePath);
+        strcat(fragmentShaders[i].path, "shaders/");
+        strcat(fragmentShaders[i].path, names[i].path);
+        strcat(fragmentShaders[i].path, ".fs");
+        FILE*   testFile    =   fopen(fragmentShaders[i].path, "r");
+        if      (testFile == NULL) {
+            strcpy(fragmentShaders[i].path, basePath);
+            strcat(fragmentShaders[i].path, "shaders/sprite_default.fs");
+        }
+        else {
+            fclose(testFile);
+        }
+        LOG_info("Registered Sprite fragment shader", fragmentShaders[i].path);
+    }
+
+    for     (int i = entityCount; i < entityCount + spriteCount; ++i) {
+        strcpy(animations[i].path, basePath);
+        strcat(animations[i].path, "animations/");
+        strcat(animations[i].path, names[i].path);
+        strcat(animations[i].path, ".eaf");
+        LOG_info("Registered animation", animations[i].path);
+    }
 }
 
 int     RMG_getType         (char*  objectName) { 
