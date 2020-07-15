@@ -1,40 +1,64 @@
 #include "resourcemanager.h"
 
-void    RMG_loadResources   (char*  path) {
-    basePath = path;
-    
-    char entityFile[100];
+void    RMG_loadResources   (char  path[]) {
+    strcpy(basePath, path);
+
+    char    entityFile[100];
     strcpy(entityFile, basePath);
     strcat(entityFile, "entities.txt");
     
-    FILE*   entitiesFile = fopen(entityFile, "r");
-    if(entitiesFile == NULL)
+    char    spriteFile[100];
+    strcpy(spriteFile, basePath);
+    strcat(spriteFile, "sprites.txt");
+
+    FILE*   entitiesFile    =   fopen(entityFile, "r");
+    if      (entitiesFile == NULL)
         LOG_error("File not found exception", "entities.txt could not be found. Terminating.");
     
+    FILE*   spritesFile  =   fopen(spriteFile, "r");
+    if      (spritesFile == NULL)
+        LOG_error("File not found exception", "sprites.txt could not be found. Terminating.");
+
     char    line[100];
     int     lineNumber;
     while   (fgets(line, sizeof(line), entitiesFile) != NULL) {
         ++lineNumber;
-        for     (int i = 0; ;i++) {
-            if      (line[i] == '\n' || line[i] == '\0') {
-                line[i] = '\0';
-                break;
-            }
-        }
         int emptyString = 1;
         for (char* i = line; *i != '\0'; ++i) {
             if  (!isspace(*i)) 
                 emptyString = 0;
         }
         if  (emptyString == 1)
-            continue;
+            break;
+        printf("line: %s\n", line);
         strcpy(names[lineNumber - 1].path, line);
+        size_t lineLen =   strlen(names[lineNumber - 1].path);
+        names[lineNumber - 1].path[lineLen - 1] = '\0';
         types[lineNumber - 1].type     =   0;
         ++entityCount;
-        LOG_info("Registered object", names[lineNumber - 1].path);
+        LOG_info("Registered entity", names[lineNumber - 1].path);
     }
-
     fclose(entitiesFile);
+
+    memset(line, 0, sizeof(line));
+    while   (fgets(line, sizeof(line), spritesFile) != NULL) {
+        ++lineNumber;
+        int     emptyString =   1;
+        for     (char* i = line; *i != '\0'; ++i) {
+            if      (!isspace(*i))
+                emptyString = 0;
+        }
+        if  (emptyString == 1)
+            break; 
+        strcpy(names[lineNumber - 1].path, line);
+        size_t lineLen =   strlen(names[lineNumber - 1].path);
+        assert(lineLen < 100);
+        names[lineNumber - 1].path[lineLen - 1] = '\0';
+        types[lineNumber - 1].type  =   1;
+        ++spriteCount;
+        LOG_info("Registered sprite", names[lineNumber - 1].path);
+    }
+    fclose(spritesFile);
 
     for     (int i = 0; i < entityCount; i++) {
         strcpy(textures[i].path, basePath);

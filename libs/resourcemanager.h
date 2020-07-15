@@ -6,6 +6,7 @@
 
 /* For logging. */
 #include "logger.h"
+#include <assert.h>
 
 /* To use dynamic memory management. */
 #include <stdlib.h>
@@ -18,7 +19,7 @@
 #include <string.h>
 
 /* Contains the OS-specific path set at startup containing the assets base path. */
-char*   basePath;
+char   basePath[150];
 
 /* Structs to simplify access and alignment of the resource-arrays. */
 struct RMGName {
@@ -59,12 +60,13 @@ struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];
 struct AnimationPath    animations[OBJECT_COUNT];
 
 /* Count of various types of objects. */
-int entityCount;
+int     entityCount;
+int     spriteCount;
 
 /* To be called on start
  * sets basePath
  * loads all resources. */
-void    RMG_loadResources   (char*  path);
+void    RMG_loadResources   (char  path[]);
 
 /* Returns the type of object name. */
 int     RMG_getType     (char*  objectName);
