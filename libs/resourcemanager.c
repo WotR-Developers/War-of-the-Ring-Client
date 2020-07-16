@@ -184,7 +184,7 @@ void    RMG_loadResources   (char  path[]) {
 }
 
 int     RMG_getType         (char*  objectName) { 
-    for (int i = 1; i <= entityCount; i++) {
+    for (int i = 1; i <= entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             return types[i].type;             
         }
@@ -192,7 +192,7 @@ int     RMG_getType         (char*  objectName) {
 }
 
 void    RMG_getTexture      (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, textures[i].path);
         }
@@ -200,15 +200,19 @@ void    RMG_getTexture      (char*  dest, char* objectName) {
 }
 
 void    RMG_getModel        (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
+            printf("found %s\n", models[i].path);
             strcpy(dest, models[i].path);
+        }
+        else {
+            printf("not found %s\n", models[i].path);
         }
     }
 }
 
 void    RMG_getVertexShader     (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, vertexShaders[i].path);
         }
@@ -216,7 +220,7 @@ void    RMG_getVertexShader     (char*  dest, char* objectName) {
 }
 
 void    RMG_getFragmentShader   (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, fragmentShaders[i].path);
         }
@@ -224,7 +228,7 @@ void    RMG_getFragmentShader   (char*  dest, char* objectName) {
 }
 
 void    RMG_getAnimation    (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             dest = animations[i].path;
         }

@@ -22,10 +22,13 @@
 
 float objangle;
 struct  Object {
-    mat4    modelMatrix;
     int     textureId;
     int     modelId;
     unsigned    int     shaderId;
+    vec3    position;
+    vec3    scale;
+    vec4    rotation;
+    mat4    modelMatrix;
 };
 
 struct  Object*         objectList;
@@ -40,7 +43,7 @@ void    OBJ_transformObject (int id, float x, float y, float z);
 
 void    OBJ_scaleObject     (int id, float x, float y, float z);
 
-void    OBJ_rotateObject    (int id, float x, float y, float z);
+void    OBJ_rotateObject    (int id, float degrees, float x, float y, float z);
 
 void    OBJ_translateObject (int id, float x, float y, float z);
 

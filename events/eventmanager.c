@@ -3,7 +3,7 @@
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
     RMG_loadResources(gameDirectory);
-    OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
+    OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
     CA3_initCamera();
     PRJ_setFov3d(45.0f);
     aspectRatio = (float)windowWidth / (float)windowHeight;

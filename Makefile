@@ -13,7 +13,7 @@ FLAGSNS=-Wall -Wextra
 default: client
 
 client: main.c $(OBJECTFILES)
-	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(FLAGS) $(LIBS)
+	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(FLAGSNS) $(LIBS)
 
 gamewindow.o: graphics/gamewindow.c graphics/gamewindow.h
 	$(CC) -c graphics/gamewindow.c -o $@

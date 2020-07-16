@@ -43,7 +43,9 @@ int     numModels;
 int     MOD_loadModel       (char*  path, int   type);
 
 /* Internal function to load the data of a PMF file */
-void    loadPMF             (int    id);
+void    loadPmf3d             (int    id);
+
+void    loadPmf2d             (int    id);
 
 /* Draws the Object and binds the OpenGl VAO */
 void    MOD_drawModel       (int    id);
