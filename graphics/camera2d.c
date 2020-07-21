@@ -15,16 +15,15 @@ void    CA2_initCamera     () {
     worldUp2d.z         =   0.0f;
     movementSpeed2d  =   0.05f;
     mouseSensitivity2d   =   0.1f;
+    yaw2d   =   0.0f;
 }
 
 void    CA2_moveForward () {
-    cameraPosition2d.x  += cameraFront2d.x * movementSpeed2d;
-    cameraPosition2d.z  += cameraFront2d.z * movementSpeed2d;
+    cameraPosition2d.y  +=  movementSpeed2d;
 }
 
 void    CA2_moveBackward    () {
-    cameraPosition2d.x  -= cameraFront2d.x * movementSpeed2d;
-    cameraPosition2d.z  -= cameraFront2d.z * movementSpeed2d;
+    cameraPosition2d.y  -=  movementSpeed2d;
 }
 
 void    CA2_strafeRight () {

@@ -14,6 +14,8 @@ int     buttonW;
 int     buttonS;
 int     buttonA;
 int     buttonD;
+int     buttonQ;
+int     buttonE;
 
 float   aspectRatio;
 

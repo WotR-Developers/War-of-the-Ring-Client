@@ -46,6 +46,12 @@ void    EMG_processInput    () {
                     case    SDLK_d:
                         buttonD =   1;
                         break;
+                    case    SDLK_q:
+                        buttonQ =   1;
+                        break;
+                    case    SDLK_e:
+                        buttonE =   1;
+                        break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   1;
                         break;
@@ -64,6 +70,12 @@ void    EMG_processInput    () {
                         break;
                     case    SDLK_d:
                         buttonD =   0;
+                        break;
+                    case    SDLK_q:
+                        buttonQ =   0;
+                        break;
+                    case    SDLK_e:
+                        buttonE =   0;
                         break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   0;
@@ -85,6 +97,10 @@ void    EMG_processInput    () {
         CA2_strafeLeft();
     if  (buttonD)
         CA2_strafeRight();
+    if  (buttonE)
+        CA2_rotateRight();
+    if  (buttonQ)
+        CA2_rotateLeft();
     if  (buttonEsc)
         GWD_closeWindow();
 }
