@@ -22,6 +22,7 @@
 
 float objangle;
 struct  Object {
+    int     type;
     int     textureId;
     int     modelId;
     unsigned    int     shaderId;

@@ -26,8 +26,6 @@ void    PRJ_increaseFov2d   ();
 
 void    PRJ_decreaseFov2d   ();
 
-void    PRJ_setFov2d        (float  fov);
-
 void    PRJ_setMinClipSpace2d   (float  clipSpace);
 
 void    PRJ_setMaxClipSpace2d   (float  clipSpace);

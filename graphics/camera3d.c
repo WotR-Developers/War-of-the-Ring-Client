@@ -2,8 +2,8 @@
 
 void    CA3_initCamera     () {
     cameraPosition.x    =   0.0f;
-    cameraPosition.y    =   0.0f;
-    cameraPosition.z    =   3.0f;
+    cameraPosition.y    =   1.0f;
+    cameraPosition.z    =   0.0f;
     cameraFront.x       =   0.0f;
     cameraFront.y       =   0.0f;
     cameraFront.z       =   -1.0f;

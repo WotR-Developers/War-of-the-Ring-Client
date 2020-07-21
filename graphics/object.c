@@ -11,12 +11,12 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     RMG_getModel(modelPath, name);
     RMG_getVertexShader(vertexShaderPath, name);
     RMG_getFragmentShader(fragmentShaderPath, name);
-    int     type    =   RMG_getType(name);
+    objectList[numObjects - 1].type         =   RMG_getType(name);
     objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
-    if  (type == 0) {
+    if  (objectList[numObjects - 1].type == 0) {
         objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 0);
     }
-    else if (type == 1) {
+    else if (objectList[numObjects - 1].type == 1) {
         objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 1);
     }
     objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
@@ -28,11 +28,14 @@ void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
-        PRJ_getPerspectiveMatrix(projectionMatrix);
+        if  (objectList[numObjects - 1].type == 0)
+            PRJ_getPerspectiveMatrix(projectionMatrix);
+        if  (objectList[numObjects - 1].type == 1)
+            PRJ_getOrthogonalMatrix(projectionMatrix);
         mat4    viewMatrix;
-        CA3_getViewMatrix(viewMatrix);
-        //SHA_pushMatrix("viewMatrix", viewMatrix);
-        //SHA_pushMatrix("projectionMatrix", projectionMatrix);
+        CA2_getViewMatrix(viewMatrix);
+        SHA_pushMatrix("viewMatrix", viewMatrix);
+        SHA_pushMatrix("projectionMatrix", projectionMatrix);
         //SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);
         TEX_bindTexture(objectList[i].textureId);
         MOD_drawModel(objectList[i].modelId);

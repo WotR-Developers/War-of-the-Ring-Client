@@ -364,19 +364,17 @@ void    MAT_getPerspectiveMatrix    (mat4   perspectiveMatrix, float   near, flo
     perspectiveMatrix[3][3] =   0.0f;
 }
 
-void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio) {
-    float   top     =   tan(fov / 2) * near;
-    float   bottom  =   -top;
-    float   right   =   top * aspectRatio;
-    float   left    =   bottom * aspectRatio;
+void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float top, float bottom, float   near, float far) {
+    float   right   =   top;
+    float   left    =   bottom;
     MAT_initMat4(orthogonalMatrix);
     orthogonalMatrix[0][0]  =   2 / (right - left);
     orthogonalMatrix[0][3]  =   -((right + left) / (right - left));
     orthogonalMatrix[1][1]  =   2 / (top - bottom);
-    orthogonalMatrix[1][3]  =   -((top + bottom) / (top - bottom));
+    orthogonalMatrix[1][3]  =   -((top + bottom) / (top - bottom));    
     orthogonalMatrix[2][2]  =   -2 / (far - near);
-    orthogonalMatrix[2][3]  =   -((far + near) / (far - near));
-    orthogonalMatrix[3][3]  =   1;
+    orthogonalMatrix[3][2]  =   -((far + near) / (far - near));
+    orthogonalMatrix[3][3]  =   1.0f;
 }
 
 void    MAT_translateMatrix     (mat4   matrix, vec3    position) {

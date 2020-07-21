@@ -1,6 +1,6 @@
 #include "camera2d.h"
 
-void    CA2_initCam     () {
+void    CA2_initCamera     () {
     cameraPosition2d.x  =   0.0f;
     cameraPosition2d.y  =   1.0f;
     cameraPosition2d.z  =   0.0f;
@@ -22,7 +22,7 @@ void    CA2_moveForward () {
     cameraPosition2d.z  += cameraFront2d.z * movementSpeed2d;
 }
 
-void    CA2_moveBack    () {
+void    CA2_moveBackward    () {
     cameraPosition2d.x  -= cameraFront2d.x * movementSpeed2d;
     cameraPosition2d.z  -= cameraFront2d.z * movementSpeed2d;
 }
@@ -46,9 +46,6 @@ void    CA2_rotateLeft  (){
 }
 
 void    CA2_updateCamera    () {
-    cameraFront2d.x     =   cos(MAT_degToRad(yaw2d)) * cos(MAT_degToRad(pitch2d));
-    cameraFront2d.y     =   sin(MAT_degToRad(pitch2d));
-    cameraFront2d.z     =   sin(MAT_degToRad(yaw2d)) * cos(MAT_degToRad(pitch2d));
     cameraFront2d       =   MAT_getNormalizedVec3(cameraFront2d);
     cameraRight2d       =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraFront2d, worldUp2d));
     cameraUp2d          =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraRight2d, cameraFront2d));

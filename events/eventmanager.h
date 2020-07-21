@@ -6,6 +6,7 @@
 #include "../graphics/object.h"
 #include "../libs/resourcemanager.h"
 #include "../graphics/projection.h"
+#include "../graphics/camera2d.h"
 
 /* Buttons for input system. */
 int     buttonEsc;

@@ -4,12 +4,14 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     GWD_set3d();
     RMG_loadResources(gameDirectory);
     OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
-    CA3_initCamera();
+    CA2_initCamera();
     PRJ_setFov3d(45.0f);
     aspectRatio = (float)windowWidth / (float)windowHeight;
-    PRJ_setMinClipSpace3d(0.1f);
+    PRJ_setMinClipSpace3d(0.0f);
     PRJ_setMaxClipSpace3d(100.0f);
     PRJ_setAspectRatio(aspectRatio);
+    PRJ_setMinClipSpace2d(0.1f);
+    PRJ_setMaxClipSpace2d(100.0f);
 }
 
 void    EMG_doGameTick  () {
@@ -22,7 +24,7 @@ void    EMG_doRenderTick    (float  deltaTime) {
     OBJ_drawObjects(0);
     GWD_updateWindow(deltaTime);
     EMG_processInput();
-    CA3_update(deltaTime);
+    CA2_updateCamera();
 }
 
 void    EMG_processInput    () {
@@ -76,13 +78,13 @@ void    EMG_processInput    () {
     }
     /* Execute code for keys */
     if  (buttonW)
-        CA3_moveForward();
+        CA2_moveForward();
     if  (buttonS)
-        CA3_moveBackward();
+        CA2_moveBackward();
     if  (buttonA)
-        CA3_strafeLeft();
+        CA2_strafeLeft();
     if  (buttonD)
-        CA3_strafeRight();
+        CA2_strafeRight();
     if  (buttonEsc)
         GWD_closeWindow();
 }

@@ -101,7 +101,7 @@ void    MAT_getViewMatrix       (mat4   modelMatrix, vec3   eye, vec3   at, vec3
 
 void    MAT_getPerspectiveMatrix    (mat4 perspectiveMatrix, float   near, float far, float  fov, float  aspectRatio);
 
-void    MAT_getOrthogonalMatrix (mat4   orthogonalMatrix, float   near, float far, float  fov, float  aspectRatio);
+void    MAT_getOrthogonalMatrix (mat4   orthogonalMatrix, float top, float bottom, float   near, float far);
 
 void    MAT_translateMatrix     (mat4   matrix, vec3    position);
 
