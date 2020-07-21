@@ -18,6 +18,8 @@
 #include "../libs/maths.h"
 #include "projection.h"
 
+#include "gamewindow.h"
+
 /* To perform dynamic memory allocations. */
 #include <stdlib.h>
 
@@ -36,11 +38,6 @@ struct  Object {
 struct  Object*         objectList;
 
 int     numObjects;
-
-vec3    testTranslation;
-vec3    testRotation;
-vec3    testScale;
-int     testAngle;
 
 int     OBJ_addObject       (char *name, float x, float y, float z);
 

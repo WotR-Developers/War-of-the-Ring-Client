@@ -10,6 +10,8 @@ int     GWD_createWindow    (char  *title, int   *resX, int   *resY) {
     SDL_GetCurrentDisplayMode(0, &displayMode);
     *resX  =   displayMode.w;
     *resY =   displayMode.h;
+    screenSizeX = displayMode.w;
+    screenSizeY = displayMode.h;
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, displayMode.w, displayMode.h, SDL_WINDOW_OPENGL);
     SDL_SetWindowFullscreen(window, SDL_TRUE);
     glContext = SDL_GL_CreateContext(window);
@@ -21,6 +23,14 @@ int     GWD_createWindow    (char  *title, int   *resX, int   *resY) {
     else {
         return EXIT_SUCCESS;
     }
+}
+
+float   GWD_getScreenSizeX  () {
+    return screenSizeX;
+}
+
+float   GWD_getScreenSizeY  () {
+    return screenSizeY;
 }
 
 void    GWD_updateWindow    (float  deltaTime) {

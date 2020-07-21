@@ -28,6 +28,10 @@ SDL_GLContext   glContext;
 /* 0 = 2D, 1 = 3D. */
 int             mode;
 
+float   screenSizeX;
+
+float   screenSizeY;
+
 /* - Creates Game Window.
  * - Creates window context.
  * - Initializes SDL.
@@ -45,6 +49,10 @@ void    GWD_set2d           ();
 /* - Updates SDL2 to 3D
  * - Calls 2D movement functions */
 void    GWD_set3d           ();
+
+float   GWD_getScreenSizeX  ();
+
+float   GWD_getScreenSizeY  ();
 
 /* Closes the game window. */
 void    GWD_closeWindow     ();

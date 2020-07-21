@@ -13,21 +13,23 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     RMG_getFragmentShader(fragmentShaderPath, name);
     objectList[numObjects - 1].type         =   RMG_getType(name);
     objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
+    MAT_initMat4(objectList[numObjects - 1].modelMatrix);
     if  (objectList[numObjects - 1].type == 0) {
         objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 0);
     }
     else if (objectList[numObjects - 1].type == 1) {
         objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 1);
+        float   scaleFactorX =   (TEX_getWidth(objectList[numObjects - 1].textureId) / GWD_getScreenSizeX()) - 1;
+        float   scaleFactorY =   (TEX_getHeight(objectList[numObjects - 1].textureId) / GWD_getScreenSizeY()) - 1;
+        vec3    scale   =   {.x = scaleFactorX, .y = scaleFactorY};
+        MAT_scaleMatrix(objectList[numObjects - 1].modelMatrix, scale);
     }
     objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
-    MAT_initMat4(objectList[numObjects - 1].modelMatrix);
-    testRotation = (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
     return numObjects - 1;
 }
 
 void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
-        testAngle = 25.0f;
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
         if  (objectList[numObjects - 1].type == 0)
@@ -36,7 +38,6 @@ void    OBJ_drawObjects     (int  mode) {
             PRJ_getOrthogonalMatrix(projectionMatrix);
         mat4    viewMatrix;
         CA2_getViewMatrix(viewMatrix);
-        MAT_rotateMatrix(objectList[i].modelMatrix, testAngle, testRotation);
         SHA_pushMatrix("viewMatrix", viewMatrix);
         SHA_pushMatrix("projectionMatrix", projectionMatrix);
         SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);

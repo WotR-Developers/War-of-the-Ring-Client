@@ -22,6 +22,8 @@
 struct Texture {
     char*       path;
     GLuint      textureBufferID;                            // The OpenGL texture ID
+    int         textureWidth;
+    int         textureHeight;
 };
 
 /* To generate IDs */
@@ -39,6 +41,10 @@ void    constructGLTexData  (int currentID);
 
 /* Binds the texture to the GPU */
 void    TEX_bindTexture     (int id);
+
+int     TEX_getWidth        (int id);
+
+int     TEX_getHeight       (int id);
 
 /* Removes the texture of the texture list */
 void    TEX_removeTexture   (int id);
