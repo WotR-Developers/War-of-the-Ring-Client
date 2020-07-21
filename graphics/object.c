@@ -21,11 +21,13 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     }
     objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
     MAT_initMat4(objectList[numObjects - 1].modelMatrix);
+    testRotation = (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
     return numObjects - 1;
 }
 
 void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
+        testAngle = 25.0f;
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
         if  (objectList[numObjects - 1].type == 0)
@@ -34,9 +36,10 @@ void    OBJ_drawObjects     (int  mode) {
             PRJ_getOrthogonalMatrix(projectionMatrix);
         mat4    viewMatrix;
         CA2_getViewMatrix(viewMatrix);
+        MAT_rotateMatrix(objectList[i].modelMatrix, testAngle, testRotation);
         SHA_pushMatrix("viewMatrix", viewMatrix);
         SHA_pushMatrix("projectionMatrix", projectionMatrix);
-        //SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);
+        SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);
         TEX_bindTexture(objectList[i].textureId);
         MOD_drawModel(objectList[i].modelId);
      }

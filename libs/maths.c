@@ -395,7 +395,7 @@ void    MAT_rotateMatrix        (mat4   matrix, float   angle, vec3 axis) {
     matrix[1][2]  =   axis.y * axis.z * (1 - cos(angle)) - axis.x * sin(angle);
     matrix[2][0]  =   axis.z * axis.x * (1 - cos(angle)) - axis.y * sin(angle);
     matrix[2][1]  =   axis.z * axis.y * (1 - cos(angle)) + axis.x * sin(angle);
-    matrix[2][2]  =   cos(angle) + (axis.z * axis.z) * (1 - cos(angle));
+    matrix[2][2]  =   cos(angle) + (axis.z * axis.z) * (1 - cos(angle)); 
 }
 
 void    MAT_scaleMatrix         (mat4   matrix, vec3    scale) {

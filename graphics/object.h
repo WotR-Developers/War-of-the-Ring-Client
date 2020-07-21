@@ -37,6 +37,11 @@ struct  Object*         objectList;
 
 int     numObjects;
 
+vec3    testTranslation;
+vec3    testRotation;
+vec3    testScale;
+int     testAngle;
+
 int     OBJ_addObject       (char *name, float x, float y, float z);
 
 void    OBJ_drawObjects     (int  mode);
