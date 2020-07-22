@@ -30,6 +30,8 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
 
 void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
+        if  (mode != objectList[i].type)
+            continue;
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
         if  (objectList[i].type == 0)

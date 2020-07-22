@@ -7,7 +7,7 @@ int     MOD_loadModel   (char*  path, int   type) {
     for (int i = 0; i < numModels; i++) {
         if  (strcmp(modelList[i].path, path) == 0) {
             alreadyExisting = 1;
-            numExisting = 1;
+            numExisting = i;
             break;
         }
     }
@@ -24,7 +24,7 @@ int     MOD_loadModel   (char*  path, int   type) {
         }
         return numModels - 1;
     }
-    else {
+    else if (alreadyExisting == 1) {
         return numExisting;
     }
 }

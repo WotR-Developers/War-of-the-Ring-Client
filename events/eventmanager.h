@@ -16,6 +16,11 @@ int     buttonA;
 int     buttonD;
 int     buttonQ;
 int     buttonE;
+int     buttonU;
+int     buttonZ;
+
+/* 0 = battle phase, 1 = turn phase */
+int     phase;
 
 float   aspectRatio;
 
@@ -26,6 +31,10 @@ void    EMG_doGameTick  ();
 void    EMG_doRenderTick    (float  deltaTime);
 
 void    EMG_processInput    ();
+
+void    EMG_startBattlePhase    ();
+
+void    EMG_startTurnPhase      ();
 
 void    EMG_endGame     ();
 

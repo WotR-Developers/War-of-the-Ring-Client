@@ -4,6 +4,7 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     GWD_set3d();
     RMG_loadResources(gameDirectory);
     OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
+    OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
     CA2_initCamera();
     CA3_initCamera();
     PRJ_setFov3d(45.0f);
@@ -22,10 +23,23 @@ void    EMG_doGameTick  () {
 void    EMG_doRenderTick    (float  deltaTime) {
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    OBJ_drawObjects(0);
+    OBJ_drawObjects(phase);
     GWD_updateWindow(deltaTime);
     EMG_processInput();
-    CA3_update(deltaTime);
+    if  (phase == 0)
+        CA3_update(deltaTime);
+    else if (phase == 1)
+        CA2_updateCamera();
+}
+
+void    EMG_startBattlePhase    () {
+    phase   =   0;
+    GWD_set3d();
+}
+
+void    EMG_startTurnPhase      () {
+    phase   =   1;
+    GWD_set2d();
 }
 
 void    EMG_processInput    () {
@@ -53,6 +67,12 @@ void    EMG_processInput    () {
                     case    SDLK_e:
                         buttonE =   1;
                         break;
+                    case    SDLK_z:
+                        buttonZ =   1;
+                        break;
+                    case    SDLK_u:
+                        buttonU =   1;
+                        break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   1;
                         break;
@@ -78,30 +98,53 @@ void    EMG_processInput    () {
                     case    SDLK_e:
                         buttonE =   0;
                         break;
+                    case    SDLK_z:
+                        buttonZ =   0;
+                        break;
+                    case    SDLK_u:
+                        buttonU =   0;
+                        break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   0;
                     break;
                 }
                 break;
             case    SDL_MOUSEMOTION:
-                CA3_processMouse(event.motion.xrel, event.motion.yrel);
+                if  (phase == 0)
+                    CA3_processMouse(event.motion.xrel, event.motion.yrel);
             default:
                 break;
         }
     }
     /* Execute code for keys */
     if  (buttonW)
-        CA3_moveForward();
+        if  (phase == 0)
+            CA3_moveForward();
+        else if (phase == 1)
+            CA2_moveForward();
     if  (buttonS)
-        CA3_moveBackward();
+        if  (phase == 0)
+            CA3_moveBackward();
+        else if (phase == 1)
+            CA2_moveBackward();
     if  (buttonA)
-        CA3_strafeLeft();
+        if  (phase == 0)
+            CA3_strafeLeft();
+        else if (phase == 1)
+            CA2_strafeLeft();
     if  (buttonD)
-        CA3_strafeRight();
+        if  (phase == 0)
+            CA3_strafeRight();
+        else if (phase == 1)
+            CA2_strafeRight();
     if  (buttonE)
         CA3_rotateRight();
     if  (buttonQ)
         CA3_rotateLeft();
+    if  (buttonZ)
+        EMG_startBattlePhase();
+    if  (buttonU)
+        EMG_startTurnPhase();
     if  (buttonEsc)
         GWD_closeWindow();
 }

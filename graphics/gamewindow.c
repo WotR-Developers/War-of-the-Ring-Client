@@ -38,11 +38,13 @@ void    GWD_updateWindow    (float  deltaTime) {
 }
 
 void    GWD_set2d           () {
+    SDL_SetRelativeMouseMode(0);
     mode    =   0;
 }
 
 void    GWD_set3d           () {
     mode    =   1;
+    SDL_SetRelativeMouseMode(1);
 }
 
 
