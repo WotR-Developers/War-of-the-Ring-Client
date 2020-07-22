@@ -32,12 +32,15 @@ void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
-        if  (objectList[numObjects - 1].type == 0)
+        if  (objectList[i].type == 0)
             PRJ_getPerspectiveMatrix(projectionMatrix);
-        if  (objectList[numObjects - 1].type == 1)
+        if  (objectList[i].type == 1) 
             PRJ_getOrthogonalMatrix(projectionMatrix);
         mat4    viewMatrix;
-        CA2_getViewMatrix(viewMatrix);
+        if  (objectList[i].type == 0)
+            CA3_getViewMatrix(viewMatrix);
+        if  (objectList[i].type == 1)
+            CA2_getViewMatrix(viewMatrix);
         SHA_pushMatrix("viewMatrix", viewMatrix);
         SHA_pushMatrix("projectionMatrix", projectionMatrix);
         SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);

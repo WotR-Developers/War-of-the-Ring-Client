@@ -3,11 +3,12 @@
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
     RMG_loadResources(gameDirectory);
-    OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
+    OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
     CA2_initCamera();
+    CA3_initCamera();
     PRJ_setFov3d(45.0f);
     aspectRatio = (float)windowWidth / (float)windowHeight;
-    PRJ_setMinClipSpace3d(0.0f);
+    PRJ_setMinClipSpace3d(0.1f);
     PRJ_setMaxClipSpace3d(100.0f);
     PRJ_setAspectRatio(aspectRatio);
     PRJ_setMinClipSpace2d(0.1f);
@@ -24,7 +25,7 @@ void    EMG_doRenderTick    (float  deltaTime) {
     OBJ_drawObjects(0);
     GWD_updateWindow(deltaTime);
     EMG_processInput();
-    CA2_updateCamera();
+    CA3_update(deltaTime);
 }
 
 void    EMG_processInput    () {
@@ -90,17 +91,17 @@ void    EMG_processInput    () {
     }
     /* Execute code for keys */
     if  (buttonW)
-        CA2_moveForward();
+        CA3_moveForward();
     if  (buttonS)
-        CA2_moveBackward();
+        CA3_moveBackward();
     if  (buttonA)
-        CA2_strafeLeft();
+        CA3_strafeLeft();
     if  (buttonD)
-        CA2_strafeRight();
+        CA3_strafeRight();
     if  (buttonE)
-        CA2_rotateRight();
+        CA3_rotateRight();
     if  (buttonQ)
-        CA2_rotateLeft();
+        CA3_rotateLeft();
     if  (buttonEsc)
         GWD_closeWindow();
 }

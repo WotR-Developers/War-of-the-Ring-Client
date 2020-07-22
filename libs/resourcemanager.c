@@ -30,7 +30,6 @@ void    RMG_loadResources   (char  path[]) {
         }
         if  (emptyString == 1)
             break;
-        printf("line: %s\n", line);
         strcpy(names[lineNumber - 1].path, line);
         size_t lineLen =   strlen(names[lineNumber - 1].path);
         names[lineNumber - 1].path[lineLen - 1] = '\0';
@@ -184,7 +183,7 @@ void    RMG_loadResources   (char  path[]) {
 }
 
 int     RMG_getType         (char*  objectName) { 
-    for (int i = 1; i <= entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
             return types[i].type;             
         }
@@ -202,11 +201,7 @@ void    RMG_getTexture      (char*  dest, char* objectName) {
 void    RMG_getModel        (char*  dest, char* objectName) {
     for (int i = 0; i < entityCount + spriteCount; i++) {
         if  (strcmp(names[i].path, objectName) == 0) {
-            printf("found %s\n", models[i].path);
             strcpy(dest, models[i].path);
-        }
-        else {
-            printf("not found %s\n", models[i].path);
         }
     }
 }
