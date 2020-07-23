@@ -2,31 +2,18 @@
 
 int     MOD_loadModel   (char*  path, int   type) {
     int     alreadyExisting = 0;
-    int     numExisting     = 0;
     /* Check if model is already existing. */
-    for (int i = 0; i < numModels; i++) {
-        if  (strcmp(modelList[i].path, path) == 0) {
-            alreadyExisting = 1;
-            numExisting = i;
-            break;
-        }
+    ++numModels;
+    modelList   =   realloc(modelList, numModels * sizeof(struct Model));
+    modelList[numModels - 1].path   =   path;
+    modelList[numModels - 1].type   =   type;
+    if  (type == 0) {
+        loadPmf3d(numModels - 1);
     }
-    if  (alreadyExisting == 0) {
-        ++numModels;
-        modelList   =   realloc(modelList, numModels * sizeof(struct Model));
-        modelList[numModels - 1].path   =   path;
-        modelList[numModels - 1].type   =   type;
-        if  (type == 0) {
-            loadPmf3d(numModels - 1);
-        }
-        else if (type == 1) {
-            loadPmf2d(numModels - 1);
-        }
-        return numModels - 1;
+    else if (type == 1) {
+        loadPmf2d(numModels - 1);
     }
-    else if (alreadyExisting == 1) {
-        return numExisting;
-    }
+    return numModels - 1;
 }
 
 void    loadPmf3d         (int    id) {

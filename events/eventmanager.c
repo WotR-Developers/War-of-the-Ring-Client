@@ -4,6 +4,7 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     GWD_set3d();
     RMG_loadResources(gameDirectory);
     OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
+    OBJ_addObject("arka", 0.0f, 0.0f, 5.0f);
     OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
     CA2_initCamera();
     CA3_initCamera();

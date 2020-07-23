@@ -3,6 +3,21 @@
 int     OBJ_addObject       (char *name, float x, float y, float z) {
     ++numObjects;
     objectList  =   realloc(objectList, numObjects * sizeof(struct Object));
+    objectList[numObjects - 1].name = name;
+    for     (int i = 0; i < numObjects - 1; ++i) {
+        if  (strcmp(objectList[i].name, name) == 0) {
+            objectList[numObjects - 1].type  =   objectList[i].type;
+            objectList[numObjects - 1].textureId  =   objectList[i].textureId;
+            objectList[numObjects - 1].modelId  =   objectList[i].modelId;
+            objectList[numObjects - 1].shaderId  =   objectList[i].shaderId;
+            MAT_initMat4(objectList[numObjects - 1].modelMatrix);
+            MAT_translateMatrix(objectList[numObjects - 1].modelMatrix, (vec3){x, y, z});
+            return numObjects - 1;
+        }
+        else {
+            continue;
+        }
+    }
     char    texturePath[100];
     char    modelPath[100];
     char    vertexShaderPath[100];
@@ -14,6 +29,7 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     objectList[numObjects - 1].type         =   RMG_getType(name);
     objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
     MAT_initMat4(objectList[numObjects - 1].modelMatrix);
+    MAT_translateMatrix(objectList[numObjects - 1].modelMatrix, (vec3){x, y, z});
     if  (objectList[numObjects - 1].type == 0) {
         objectList[numObjects - 1].modelId      =   MOD_loadModel(modelPath, 0);
     }
@@ -30,9 +46,9 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
 
 void    OBJ_drawObjects     (int  mode) {
      for    (int i = 0; i < numObjects; ++i) {
-        if  (mode != objectList[i].type)
+         if  (mode != objectList[i].type)
             continue;
-        SHA_bindShader(objectList[i].shaderId);
+         SHA_bindShader(objectList[i].shaderId);
         mat4    projectionMatrix;
         if  (objectList[i].type == 0)
             PRJ_getPerspectiveMatrix(projectionMatrix);

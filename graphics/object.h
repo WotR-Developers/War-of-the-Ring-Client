@@ -25,6 +25,7 @@
 
 float objangle;
 struct  Object {
+    char*   name;
     int     type;
     int     textureId;
     int     modelId;
