@@ -30,7 +30,7 @@ typedef float mat4[4][4];
 float   MAT_degToRad    (float  deg);
 float   MAT_radToDeg    (float  rad);
 
-/* Vector functions. */
+/* Vector functions - Pass by reference. */
 
 void    MAT_addVec3 (vec3   *dest, vec3 add);
 void    MAT_addVec4 (vec4   *dest, vec4 add);
@@ -46,6 +46,8 @@ void    MAT_mulVec4 (vec4   *dest, vec4 mul);
 
 void    MAT_crossVec3   (vec3   *dest, vec3 mul);
 void    MAT_crossVec4   (vec4   *dest, vec4 mul);
+
+/* Vector functions - Pass by value. */
 
 vec3    MAT_getAddVec3  (vec3   firstVec, vec3  secondVec);
 vec4    MAT_getAddVec4  (vec4   firstVec, vec4  secondVec);

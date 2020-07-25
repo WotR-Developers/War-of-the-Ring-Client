@@ -21,6 +21,7 @@
 char   basePath[150];
 
 /* Structs to simplify access and alignment of the resource-arrays. */
+
 struct RMGName {
     char    path[100];
 };
@@ -50,6 +51,7 @@ struct AnimationPath {
 };
 
 /* Arrays of the resources. */
+
 struct RMGName      names[OBJECT_COUNT];
 struct Type         types[OBJECT_COUNT];
 struct TexturePath  textures[OBJECT_COUNT];
@@ -58,7 +60,7 @@ struct VertexShaderPath     vertexShaders[OBJECT_COUNT];
 struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];  
 struct AnimationPath    animations[OBJECT_COUNT];
 
-/* Count of various types of objects. */
+/* Counters for the different types of objects. */
 int     entityCount;
 int     spriteCount;
 

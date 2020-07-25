@@ -57,14 +57,12 @@ unsigned    int     SHA_create      (char*  vertexShaderPath, char* fragmentShad
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragmentBoolSuccess);
 
     if  (!vertexBoolSuccess) {
-        printf("[ERROR] Compilation of Vertex Shader failed. \n");
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLogBuffer);
-        printf("[ERROR] %s\n", infoLogBuffer);
+        LOG_error("Compilation of vertex shader failed", infoLogBuffer);
     }
     if  (!vertexBoolSuccess) {
-        printf("[ERROR] Compilation of Fragment Shader failed. \n");
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLogBuffer);
-        printf("[ERROR] %s\n", infoLogBuffer);
+        LOG_error("Compilation of fragment shader failed", infoLogBuffer);
     }
 
     /* Create shader program. */
@@ -76,16 +74,17 @@ unsigned    int     SHA_create      (char*  vertexShaderPath, char* fragmentShad
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &boolLinkingSuccess);
     if  (!boolLinkingSuccess) {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLogBuffer);
-        printf("[ERROR] Linking of shader program failed.\n");
-        printf("[ERROR] %s\n", infoLogBuffer);
+        LOG_error("Linking of shader program failed", infoLogBuffer);
     }
 
     /* Set values and return. */
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
     shaderList[numShaders - 1].shaderProgram    =   shaderProgram;
-
-    printf("Loaded shader program: %u\n", shaderProgram);
+    
+    char    shaderProgramNumber[5];
+    sprintf(shaderProgramNumber, "%u", shaderProgram);
+    LOG_info("Loaded shader program", shaderProgramNumber);
     
     /* Get all uniforms and cach them. */
     glUseProgram(shaderProgram);
@@ -126,7 +125,7 @@ void    SHA_pushMatrix      (char*  name, mat4  matrix) {
     }
     glUniformMatrix4fv(shaderUniform, 1, GL_FALSE, &matrix[0][0]);
     if  (shaderUniform == -1)
-        printf("Uniform: %s not found in shader program: %u\n", name, currentShader);
+        LOG_error("Uniform could not be passed", name);
 }
 
 void    SHA_free            () {

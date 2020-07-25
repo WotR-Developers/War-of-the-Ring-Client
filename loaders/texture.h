@@ -9,14 +9,11 @@
 /* To load images. */
 #include "../libs/ext/stb_image.h"
 
-/* For dynamic memory. */
+/* For dynamic memory management. */
 #include <stdlib.h>
 
 /* For string comparisons. */
 #include <string.h>
-
-/* For debug log. */
-#include <stdio.h>
 
 /* A texture structure which contains all necessary information to pass a texture to OpenGL */
 struct Texture {
@@ -27,7 +24,7 @@ struct Texture {
 };
 
 /* To generate IDs */
-int     textureCount;
+int         textureCount;
 
 /* List of texture to quickly be used with the ID */
 struct      Texture*    textureList;
@@ -42,8 +39,10 @@ void    constructGLTexData  (int currentID);
 /* Binds the texture to the GPU */
 void    TEX_bind            (int id);
 
+/* Returns the width of the texture with the given ID. */
 int     TEX_getWidth        (int id);
 
+/* Returns the height of the texture with the given ID. */
 int     TEX_getHeight       (int id);
 
 /* Removes the texture of the texture list */

@@ -1,4 +1,5 @@
-/* Contains the movement/strafe and functions of the camera */
+/* Contains the movement/strafe functions of the camera 
+ * constructs and returns a view matrix*/
 
 #ifndef THE_FOURTH_AGE_CAMERA2D_H
 #define THE_FOURTH_AGE_CAMERA2D_H

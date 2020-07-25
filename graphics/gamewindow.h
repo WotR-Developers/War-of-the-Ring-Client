@@ -3,8 +3,7 @@
 
 /* This file contains:
  * - Game window creation.
- * - SDL context creation.
- * - Input handling. 
+ * - SDL context creation. 
  * - Buffer swapping.*/
 
 /* For return status of success. */
@@ -31,23 +30,22 @@ float   screenSizeY;
 /* - Creates Game Window.
  * - Creates window context.
  * - Initializes SDL.
- * - Returns success.
- * - Initializes cameras.*/
+ * - Returns success. */
 int     GWD_create          (char  *title, int   *resX, int   *resY);
 
 /* - Swaps the buffers. */
 void    GWD_update          (float  deltaTime);
 
-/* - Updates SDL2 to 2D
- * - Calls 2D movement functions */
+/* - Updates SDL2 to 2D. */
 void    GWD_set2d           ();
 
-/* - Updates SDL2 to 3D
- * - Calls 2D movement functions */
+/* - Updates SDL2 to 3D. */
 void    GWD_set3d           ();
 
+/* Returns the width of the screen as suggested by SDL2. */
 float   GWD_getScreenSizeX  ();
 
+/* Returns the height of the screen as suggested by SDL2. */
 float   GWD_getScreenSizeY  ();
 
 /* Closes the game window. */

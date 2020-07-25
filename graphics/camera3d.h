@@ -1,3 +1,6 @@
+/* Contains Camera movement
+ * constructs and returns a view matrix. */
+
 #ifndef FOURTH_AGE_CAMERA3D_H
 #define FOURTH_AGE_CAMERA3D_H
 

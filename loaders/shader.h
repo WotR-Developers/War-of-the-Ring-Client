@@ -9,19 +9,20 @@
 
 /* To have aceess to memory management. */
 #include <stdlib.h>
-#include <string.h>
 
 /* To do string comparisons. */
 #include <string.h>
 
-/* To read files and make debug log. */
+/* To read files. */
 #include <stdio.h>
-
-#include <stdlib.h>
 
 /* To push matrices as uniforms. */
 #include "../libs/maths.h"
 
+/* For debug logging. */
+#include "../libs/logger.h"
+
+/* A structure containing the name and location of a Uniform, used for caching. */
 struct Uniform {
     char            name[25];
     int             uniformLocation;
@@ -45,7 +46,7 @@ unsigned    int     numShaders;
 /* Current Shader ID to know which Shader to pass to the uniforms */
 unsigned    int     currentShader;
 
-/* Reads shader and returns the ID.
+/* Creates a shader from file and returns the ID.
  * If it is already in the list, returns the ID */
 unsigned int     SHA_create (char*  vertexShaderPath, char* fragmentShaderPath);
 

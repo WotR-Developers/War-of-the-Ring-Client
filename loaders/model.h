@@ -3,7 +3,7 @@
 #ifndef FOURTH_AGE_MODEL
 #define FOURTH_AGE_MODEL
 
-/* For memory management. */
+/* For dynamic memory management. */
 #include <stdlib.h>
 
 /* To create GL data. */
@@ -12,8 +12,11 @@
 /* To make string comparisons. */
 #include <string.h>
 
-/* To read from file and write debug log. */
+/* To read from files. */
 #include <stdio.h>
+
+/* For debug logging. */
+#include "../libs/logger.h"
 
 struct Vertex {
     float   x, y, z;
@@ -37,14 +40,15 @@ struct  Model*   modelList;
 /* To calculate the current ID. */
 int     numModels;
 
-/* Function which gets the path of the model
+/* Creates a Model by calling the appropriate loadPmf function
  * returns the ID of the model
  * If it has already been loaded returns the IDs*/
 int     MOD_create          (char*  path, int   type);
 
-/* Internal function to load the data of a PMF file */
+/* Internal function to load the data of a 3D PMF file */
 void    loadPmf3d           (int    id);
 
+/* Internal function to load the data of a 2D PMF file. */
 void    loadPmf2d           (int    id);
 
 /* Draws the Object and binds the OpenGl VAO */

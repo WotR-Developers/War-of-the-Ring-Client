@@ -31,7 +31,7 @@ void    loadPmf3d       (int    id) {
     char delimiter[]    =   " ";    // Separator between line Positions
 
     if  (!pmfFile)
-        printf("[ERROR] File: %s could not be opened!", modelList[id].path);
+        LOG_error("File could not be opened", modelList[id].path);
    
     while   (fgets(currentLine, 100, pmfFile)) {
         int     linePosition    =   0;  // To switch between x/y/z/normalX/normalY/normalZ/textureX/textureY
@@ -97,7 +97,7 @@ void    loadPmf3d       (int    id) {
             sscanf(currentLine, "%u", &indices[numIndices-1]);
         }
         else {
-            printf("[ERROR] Unexpected loadMode in Model loader. How could this even happen?\n");
+            LOG_error("Impossible error occurred", "Unexpected loadMode in Model loader.");
         }
     }
 
@@ -150,7 +150,7 @@ void    loadPmf2d       (int    id) {
     char    delimiter[]   =   " ";
 
     if  (!pmfFile)
-        printf("Could not load 2d pmf file\n");
+        LOG_error("Could not load 2D PMF file", modelList[id].path);
     
     while   (fgets(currentLine, 100, pmfFile)) {
         int     linePosition    =   0;
@@ -194,7 +194,7 @@ void    loadPmf2d       (int    id) {
             sscanf(currentLine, "%u", &indices[numIndices - 1]);
         }
         else {
-            printf("unexpected error in 2d loading.\n");
+            LOG_error("Impossible error occurred.", "Unexpected load mode.");
         }
     }
 
