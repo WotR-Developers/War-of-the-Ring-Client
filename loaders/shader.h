@@ -47,10 +47,10 @@ unsigned    int     currentShader;
 
 /* Reads shader and returns the ID.
  * If it is already in the list, returns the ID */
-unsigned int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath);
+unsigned int     SHA_create (char*  vertexShaderPath, char* fragmentShaderPath);
 
 /* Binds a shader to OpenGL */
-void    SHA_bindShader      (unsigned int    id);
+void    SHA_bind            (unsigned int    id);
 
 /* Pushes matrix to the shader with the given uniform
  * provided by the name parameter. */

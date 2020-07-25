@@ -1,6 +1,6 @@
 #include "object.h"
 
-int     OBJ_addObject       (char *name, float x, float y, float z) {
+int     OBJ_add             (char *name, float x, float y, float z) {
     ++numObjects;
     objectList  =   realloc(objectList, numObjects * sizeof(struct Object));
     objectList[numObjects - 1].name =   name;
@@ -33,33 +33,33 @@ int     OBJ_addObject       (char *name, float x, float y, float z) {
     RMG_getFragmentShader(fragmentShaderPath, name);
     
     objectList[numObjects - 1].type         =   RMG_getType(name);
-    objectList[numObjects - 1].textureId    =   TEX_genTexture(texturePath);
+    objectList[numObjects - 1].textureId    =   TEX_create(texturePath);
     
     MAT_initMat4(objectList[numObjects - 1].modelMatrix);
     MAT_translateMatrix(objectList[numObjects - 1].modelMatrix, (vec3){x, y, z});
     
     if  (objectList[numObjects - 1].type == 0) {
-        objectList[numObjects - 1].modelId  =   MOD_loadModel(modelPath, 0);
+        objectList[numObjects - 1].modelId  =   MOD_create(modelPath, 0);
     }
     
     else if (objectList[numObjects - 1].type == 1) {
-        objectList[numObjects - 1].modelId  =   MOD_loadModel(modelPath, 1);
+        objectList[numObjects - 1].modelId  =   MOD_create(modelPath, 1);
         float   scaleFactorX    =   (TEX_getWidth(objectList[numObjects - 1].textureId) / GWD_getScreenSizeX()) - 1;
         float   scaleFactorY    =   (TEX_getHeight(objectList[numObjects - 1].textureId) / GWD_getScreenSizeY()) - 1;
         vec3    scale           =   {.x = scaleFactorX, .y = scaleFactorY};
         MAT_scaleMatrix(objectList[numObjects - 1].modelMatrix, scale);
     }
     
-    objectList[numObjects - 1].shaderId     =   SHA_genShader(vertexShaderPath, fragmentShaderPath);
+    objectList[numObjects - 1].shaderId     =   SHA_create(vertexShaderPath, fragmentShaderPath);
     return numObjects - 1;
 }
 
-void    OBJ_drawObjects     (int  mode) {
+void    OBJ_draw            (int  mode) {
     for     (int i = 0; i < numObjects; ++i) {
         if      (mode != objectList[i].type)
             continue;
         
-        SHA_bindShader(objectList[i].shaderId);
+        SHA_bind(objectList[i].shaderId);
         
         mat4    projectionMatrix;
         if  (objectList[i].type == 0)
@@ -77,36 +77,36 @@ void    OBJ_drawObjects     (int  mode) {
         SHA_pushMatrix("projectionMatrix", projectionMatrix);
         SHA_pushMatrix("modelMatrix", objectList[i].modelMatrix);
         
-        TEX_bindTexture(objectList[i].textureId);
-        MOD_drawModel(objectList[i].modelId);
+        TEX_bind(objectList[i].textureId);
+        MOD_draw(objectList[i].modelId);
      }
 }
 
-void    OBJ_transformObject (int id, float x, float y, float z) {
+void    OBJ_transform       (int id, float x, float y, float z) {
     MAT_translateMatrix(objectList[id].modelMatrix, (vec3){x - objectList[id].position.x, y - objectList[id].position.y, z - objectList[id].position.z});
     objectList[id].position =   (vec3){x, y, z};
 }
 
-void    OBJ_scaleObject     (int id, float x, float y, float z) {
+void    OBJ_scale           (int id, float x, float y, float z) {
     MAT_scaleMatrix(objectList[id].modelMatrix, (vec3){x - objectList[id].scale.x, y - objectList[id].scale.y, z - objectList[id].scale.z});
 }
 
-void    OBJ_rotateObject    (int id, float degrees, float x, float y, float z) {
+void    OBJ_rotate          (int id, float degrees, float x, float y, float z) {
     objectList[id].rotation =   (vec4){degrees, x, y, z};
     MAT_rotateMatrix(objectList[id].modelMatrix, degrees, (vec3){x, y, z});
 }
 
-void    OBJ_translateObject (int id, float x, float y, float z) {
+void    OBJ_translate       (int id, float x, float y, float z) {
     objectList[id].position =   (vec3){objectList[id].position.x + x, objectList[id].position.y + y, objectList[id].position.z + z};
     MAT_translateMatrix(objectList[id].modelMatrix, (vec3){x, y, z});
 }
 
-void    OBJ_scaleAddObject  (int id, float x, float y, float z) {
+void    OBJ_addScale        (int id, float x, float y, float z) {
     objectList[id].scale    =   (vec3){objectList[id].scale.x + x, objectList[id].scale.y + y, objectList[id].scale.z + z};
     MAT_scaleMatrix(objectList[id].modelMatrix, (vec3){x, y, z});
 }
 
-void    OBJ_rotateAddObject (int id, float degrees, float x, float y, float z) {
+void    OBJ_addRotate       (int id, float degrees, float x, float y, float z) {
     float   angleT  =   degrees + objectList[id].rotation.x;
     vec3    rot     =   {.x = (x * degrees + objectList[id].rotation.x * objectList[id].rotation.w) / angleT,
                         .y = (y * degrees + objectList[id].rotation.y * objectList[id].rotation.w) / angleT,
@@ -115,7 +115,7 @@ void    OBJ_rotateAddObject (int id, float degrees, float x, float y, float z) {
     objectList[id].rotation =   (vec4){angleT, rot.x, rot.y, rot.z};
 }
 
-void    OBJ_removeObject    (int id) {
+void    OBJ_remove          (int id) {
 
 }
 

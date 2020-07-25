@@ -1,6 +1,6 @@
 #include "shader.h"
 
-unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragmentShaderPath) {
+unsigned    int     SHA_create      (char*  vertexShaderPath, char* fragmentShaderPath) {
     /* Check if already exists. */
     ++numShaders;
     shaderList  =   realloc(shaderList, numShaders * sizeof(struct Shader));
@@ -111,7 +111,7 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     return numShaders - 1;
 }
 
-void    SHA_bindShader      (unsigned   int    id) {
+void    SHA_bind        (unsigned   int    id) {
     glUseProgram(shaderList[id].shaderProgram);
     currentShader   =   shaderList[id].shaderProgram;
 }

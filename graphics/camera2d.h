@@ -21,7 +21,7 @@ float   movementSpeed2d;
 float   mouseSensitivity2d;
 
 /* Initializes variables and matrices to default; to be called at start of program */
-void    CA2_initCamera      ();
+void    CA2_init            ();
 
 /* Moves the camera forwards */
 void    CA2_moveForward     ();
@@ -35,7 +35,7 @@ void    CA2_strafeLeft      ();
 /* Moves the camera rightwards. */
 void    CA2_strafeRight     ();
 
-void    CA2_updateCamera    ();
+void    CA2_update          ();
 
 /* Calculates and returns the view matrix */
 void    CA2_getViewMatrix   (mat4   viewMatrix);

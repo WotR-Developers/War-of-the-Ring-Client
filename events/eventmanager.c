@@ -3,8 +3,8 @@
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
     RMG_loadResources(gameDirectory);
-    CA2_initCamera();
-    CA3_initCamera();
+    CA2_init();
+    CA3_init();
     PRJ_setFov3d(45.0f);
     aspectRatio =   (float)windowWidth / (float)windowHeight;
     PRJ_setMinClipSpace3d(0.1f);
@@ -21,13 +21,13 @@ void    EMG_doGameTick  () {
 void    EMG_doRenderTick    (float  deltaTime) {
     glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    OBJ_drawObjects(phase);
-    GWD_updateWindow(deltaTime);
+    OBJ_draw(phase);
+    GWD_update(deltaTime);
     EMG_processInput();
     if  (phase == 0)
         CA3_update(deltaTime);
     else if (phase == 1)
-        CA2_updateCamera();
+        CA2_update();
 }
 
 void    EMG_startBattlePhase    () {
@@ -116,7 +116,7 @@ void    EMG_processInput    () {
             CA2_strafeRight();
     
     if  (buttonEsc)
-        GWD_closeWindow();
+        GWD_close();
 }
 
 void    EMG_endGame     () {

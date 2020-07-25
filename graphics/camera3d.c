@@ -1,6 +1,6 @@
 #include "camera3d.h"
 
-void    CA3_initCamera     () {
+void    CA3_init            () {
     movementSpeed       =   0.05f;
     mouseSensitivity    =   0.1f;
     cameraPosition      =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};

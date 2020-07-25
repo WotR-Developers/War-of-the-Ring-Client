@@ -40,15 +40,15 @@ int     numModels;
 /* Function which gets the path of the model
  * returns the ID of the model
  * If it has already been loaded returns the IDs*/
-int     MOD_loadModel       (char*  path, int   type);
+int     MOD_create          (char*  path, int   type);
 
 /* Internal function to load the data of a PMF file */
-void    loadPmf3d             (int    id);
+void    loadPmf3d           (int    id);
 
-void    loadPmf2d             (int    id);
+void    loadPmf2d           (int    id);
 
 /* Draws the Object and binds the OpenGl VAO */
-void    MOD_drawModel       (int    id);
+void    MOD_draw            (int    id);
 
 /* Frees dynamic memory. */
 void    MOD_free            ();

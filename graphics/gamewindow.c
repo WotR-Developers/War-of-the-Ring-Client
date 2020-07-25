@@ -1,6 +1,6 @@
 #include "gamewindow.h"
 
-int     GWD_createWindow    (char  *title, int   *resX, int   *resY) {
+int     GWD_create          (char  *title, int   *resX, int   *resY) {
     SDL_Init(SDL_INIT_EVERYTHING);   // Initialize SDL
     
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); 
@@ -37,7 +37,7 @@ float   GWD_getScreenSizeY  () {
     return screenSizeY;
 }
 
-void    GWD_updateWindow    (float  deltaTime) {
+void    GWD_update          (float  deltaTime) {
     SDL_GL_SwapWindow(window);
 }
 
@@ -50,7 +50,7 @@ void    GWD_set3d           () {
 }
 
 
-void    GWD_closeWindow     () {
+void    GWD_close           () {
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

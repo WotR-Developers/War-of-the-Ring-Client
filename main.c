@@ -32,7 +32,7 @@ int main(int    argc, char* argv[]) {
     }
 
     /* Create GWD window */
-    if  ((GWD_createWindow("The Fourth Age", &windowWidth, &windowHeight)) == EXIT_FAILURE) {
+    if  ((GWD_create("The Fourth Age", &windowWidth, &windowHeight)) == EXIT_FAILURE) {
         LOG_error("GWD window could not be created.", "EXIT_FAILURE");
         return -1;
     }

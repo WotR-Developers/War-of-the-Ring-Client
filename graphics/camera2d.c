@@ -1,6 +1,6 @@
 #include "camera2d.h"
 
-void    CA2_initCamera     () {
+void    CA2_init        () {
     movementSpeed2d  =   0.05f;
     mouseSensitivity2d   =   0.1f;
     cameraPosition2d    =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
@@ -27,7 +27,7 @@ void    CA2_strafeLeft  () {
     cameraPosition2d.z  -= cameraRight2d.z * movementSpeed2d;
 }
 
-void    CA2_updateCamera    () {
+void    CA2_update      () {
     cameraFront2d       =   MAT_getNormalizedVec3(cameraFront2d);
     cameraRight2d       =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraFront2d, worldUp2d));
     cameraUp2d          =   MAT_getNormalizedVec3(MAT_getCrossVec3(cameraRight2d, cameraFront2d));

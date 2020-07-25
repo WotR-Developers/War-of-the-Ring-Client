@@ -34,20 +34,20 @@ struct      Texture*    textureList;
 
 /* Returns the ID of the texture to be set in the Object struct and adds it to textureList
  * if it has been already loaded returns the ID*/
-int     TEX_genTexture      (char *path);
+int     TEX_create          (char *path);
 
 /* Internal function constructing the OpenGL buffers */
 void    constructGLTexData  (int currentID);
 
 /* Binds the texture to the GPU */
-void    TEX_bindTexture     (int id);
+void    TEX_bind            (int id);
 
 int     TEX_getWidth        (int id);
 
 int     TEX_getHeight       (int id);
 
 /* Removes the texture of the texture list */
-void    TEX_removeTexture   (int id);
+void    TEX_remove          (int id);
 
 /* Free dynamic memory. */
 void    TEX_free            ();

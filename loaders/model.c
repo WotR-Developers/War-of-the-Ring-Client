@@ -1,6 +1,6 @@
 #include "model.h"
 
-int     MOD_loadModel   (char*  path, int   type) {
+int     MOD_create      (char*  path, int   type) {
     int     alreadyExisting =   0;
     /* Check if model is already existing. */
     ++numModels;
@@ -16,7 +16,7 @@ int     MOD_loadModel   (char*  path, int   type) {
     return numModels - 1;
 }
 
-void    loadPmf3d         (int    id) {
+void    loadPmf3d       (int    id) {
     int     loadMode    =   0;  // 0 = Vertices, 1 = Indices
     FILE*   pmfFile     =   fopen(modelList[id].path, "r");
     char    currentLine[100];
@@ -136,7 +136,7 @@ void    loadPmf3d         (int    id) {
     fclose(pmfFile);
 }
 
-void    loadPmf2d   (int    id) {
+void    loadPmf2d       (int    id) {
     int     loadMode    =   0;
     FILE*   pmfFile     =   fopen(modelList[id].path, "r");
     char    currentLine[100];
@@ -226,7 +226,7 @@ void    loadPmf2d   (int    id) {
     fclose(pmfFile);
 }
 
-void    MOD_drawModel   (int    id) {
+void    MOD_draw        (int    id) {
     glBindVertexArray(modelList[id].VAO);
     glDrawElements(GL_TRIANGLES, modelList[id].numIndices, GL_UNSIGNED_INT, 0);
 }

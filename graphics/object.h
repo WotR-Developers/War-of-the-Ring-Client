@@ -23,7 +23,6 @@
 /* To perform dynamic memory allocations. */
 #include <stdlib.h>
 
-float objangle;
 struct  Object {
     char*   name;
     int     type;
@@ -40,23 +39,23 @@ struct  Object*         objectList;
 
 int     numObjects;
 
-int     OBJ_addObject       (char *name, float x, float y, float z);
+int     OBJ_add             (char *name, float x, float y, float z);
 
-void    OBJ_drawObjects     (int  mode);
+void    OBJ_draw            (int  mode);
 
-void    OBJ_transformObject (int id, float x, float y, float z);
+void    OBJ_transform       (int id, float x, float y, float z);
 
-void    OBJ_scaleObject     (int id, float x, float y, float z);
+void    OBJ_scale           (int id, float x, float y, float z);
 
-void    OBJ_rotateObject    (int id, float degrees, float x, float y, float z);
+void    OBJ_rotate          (int id, float degrees, float x, float y, float z);
 
-void    OBJ_translateObject (int id, float x, float y, float z);
+void    OBJ_translate       (int id, float x, float y, float z);
 
-void    OBJ_scaleAddObject  (int id, float x, float y, float z);
+void    OBJ_addScale        (int id, float x, float y, float z);
 
-void    OBJ_rotateAddObject (int id, float degrees, float x, float y, float z);
+void    OBJ_addRotate       (int id, float degrees, float x, float y, float z);
 
-void    OBJ_removeObject    (int id);
+void    OBJ_remove          (int id);
 
 void    OBJ_free            ();
 

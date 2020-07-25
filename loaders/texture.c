@@ -1,6 +1,6 @@
 #include "texture.h"
 
-int     TEX_genTexture      (char*  path) {
+int     TEX_create          (char*  path) {
     /* Check if already existing. */
     stbi_set_flip_vertically_on_load(1);
     ++textureCount;
@@ -31,12 +31,12 @@ int     TEX_getHeight       (int id) {
     return textureList[id].textureHeight;
 }
 
-void    TEX_bindTexture     (int    id) {
+void    TEX_bind            (int    id) {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureList[id].textureBufferID);
 }
 
-void    TEX_removeTexture   (int    id) {
+void    TEX_remove          (int    id) {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 

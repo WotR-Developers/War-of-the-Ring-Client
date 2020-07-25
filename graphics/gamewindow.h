@@ -33,10 +33,10 @@ float   screenSizeY;
  * - Initializes SDL.
  * - Returns success.
  * - Initializes cameras.*/
-int     GWD_createWindow    (char  *title, int   *resX, int   *resY);
+int     GWD_create          (char  *title, int   *resX, int   *resY);
 
 /* - Swaps the buffers. */
-void    GWD_updateWindow    (float  deltaTime);
+void    GWD_update          (float  deltaTime);
 
 /* - Updates SDL2 to 2D
  * - Calls 2D movement functions */
@@ -51,6 +51,6 @@ float   GWD_getScreenSizeX  ();
 float   GWD_getScreenSizeY  ();
 
 /* Closes the game window. */
-void    GWD_closeWindow     ();
+void    GWD_close           ();
 
 #endif

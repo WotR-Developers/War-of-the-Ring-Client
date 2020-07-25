@@ -21,7 +21,7 @@ float   movementSpeed;
 float   mouseSensitivity;
 
 /* Initializes variables and matrices to default; to be called at start of program */
-void    CA3_initCamera      ();
+void    CA3_init            ();
 
 /* Moves the camera forwards */
 void    CA3_moveForward     ();
