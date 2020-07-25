@@ -25,7 +25,7 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     vertexShaderSource  =   malloc((vsFileSize + 1) * sizeof(char));
     fread(vertexShaderSource, vsFileSize, 1, vertexShaderFile);
     fclose(vertexShaderFile);
-    vertexShaderSource[vsFileSize] = 0;
+    vertexShaderSource[vsFileSize]  =   0;
 
     /* Read line by line fragment shader and add to source. */
     
@@ -35,7 +35,8 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     fragmentShaderSource    =   malloc((fsFileSize + 1) * sizeof(char));
     fread(fragmentShaderSource, fsFileSize, 1, fragmentShaderFile);
     fclose(fragmentShaderFile);
-    fragmentShaderSource[fsFileSize] = 0;
+    fragmentShaderSource[fsFileSize]    =   0;
+
     /* Create and compile shaders, check for success. */
     unsigned int    vertexShader    =   glCreateShader(GL_VERTEX_SHADER);
     unsigned int    fragmentShader  =   glCreateShader(GL_FRAGMENT_SHADER);
@@ -82,7 +83,7 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     /* Set values and return. */
     shaderList[numShaders - 1].vertexName       =   vertexShaderPath;
     shaderList[numShaders - 1].fragmentName     =   fragmentShaderPath;
-    shaderList[numShaders - 1].shaderProgram    = shaderProgram;
+    shaderList[numShaders - 1].shaderProgram    =   shaderProgram;
 
     printf("Loaded shader program: %u\n", shaderProgram);
     
@@ -90,8 +91,8 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
     glUseProgram(shaderProgram);
     int     uniformCount;
     glGetProgramiv(shaderProgram, GL_ACTIVE_UNIFORMS, &uniformCount);
-    shaderList[numShaders - 1].cachedUniforms = malloc(uniformCount * sizeof(struct Uniform));
-    shaderList[numShaders - 1].uniformCount =   uniformCount;
+    shaderList[numShaders - 1].cachedUniforms   =   malloc(uniformCount * sizeof(struct Uniform));
+    shaderList[numShaders - 1].uniformCount     =   uniformCount;
     GLsizei     nameLength;
     GLint       uniformSize;
     GLenum      uniformType;
@@ -100,6 +101,7 @@ unsigned    int     SHA_genShader       (char*  vertexShaderPath, char* fragment
         shaderList[numShaders - 1].cachedUniforms[i].uniformLocation    =   
             glGetUniformLocation(shaderProgram, shaderList[numShaders - 1].cachedUniforms[i].name);
     }
+    
     glUseProgram(0);
 
     /* Free dynamic memory. */
@@ -115,7 +117,7 @@ void    SHA_bindShader      (unsigned   int    id) {
 }
 
 void    SHA_pushMatrix      (char*  name, mat4  matrix) {
-    int shaderUniform = -1;
+    int     shaderUniform   =   -1;
     for     (int i = 0; i < shaderList[numShaders - 1].uniformCount; ++i) {
         if      (strcmp(shaderList[numShaders - 1].cachedUniforms[i].name, name) == 0) {
             shaderUniform   =   shaderList[numShaders - 1].cachedUniforms[i].uniformLocation;

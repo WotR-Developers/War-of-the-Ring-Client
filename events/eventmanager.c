@@ -6,7 +6,7 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     CA2_initCamera();
     CA3_initCamera();
     PRJ_setFov3d(45.0f);
-    aspectRatio = (float)windowWidth / (float)windowHeight;
+    aspectRatio =   (float)windowWidth / (float)windowHeight;
     PRJ_setMinClipSpace3d(0.1f);
     PRJ_setMaxClipSpace3d(100.0f);
     PRJ_setAspectRatio(aspectRatio);
@@ -96,21 +96,25 @@ void    EMG_processInput    () {
             CA3_moveForward();
         else if (phase == 1)
             CA2_moveForward();
+    
     if  (buttonS)
         if  (phase == 0)
             CA3_moveBackward();
         else if (phase == 1)
             CA2_moveBackward();
+    
     if  (buttonA)
         if  (phase == 0)
             CA3_strafeLeft();
         else if (phase == 1)
             CA2_strafeLeft();
+    
     if  (buttonD)
         if  (phase == 0)
             CA3_strafeRight();
         else if (phase == 1)
             CA2_strafeRight();
+    
     if  (buttonEsc)
         GWD_closeWindow();
 }

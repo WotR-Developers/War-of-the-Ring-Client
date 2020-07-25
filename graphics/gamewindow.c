@@ -2,21 +2,25 @@
 
 int     GWD_createWindow    (char  *title, int   *resX, int   *resY) {
     SDL_Init(SDL_INIT_EVERYTHING);   // Initialize SDL
+    
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); 
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    
     SDL_DisplayMode displayMode;
     SDL_GetCurrentDisplayMode(0, &displayMode);
-    *resX  =   displayMode.w;
-    *resY =   displayMode.h;
-    screenSizeX = displayMode.w;
-    screenSizeY = displayMode.h;
-    window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, displayMode.w, displayMode.h, SDL_WINDOW_OPENGL);
+    *resX       =   displayMode.w;
+    *resY       =   displayMode.h;
+    screenSizeX =   displayMode.w;
+    screenSizeY =   displayMode.h;
+    
+    window      =   SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, displayMode.w, displayMode.h, SDL_WINDOW_OPENGL);
     SDL_SetWindowFullscreen(window, SDL_TRUE);
-    glContext = SDL_GL_CreateContext(window);
+    glContext   =   SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, glContext);
     SDL_SetRelativeMouseMode(1);
+    
     if   (window == NULL) {
         return EXIT_FAILURE;
     }

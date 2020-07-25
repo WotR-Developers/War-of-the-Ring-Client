@@ -20,20 +20,20 @@ void    RMG_loadResources   (char  path[]) {
         LOG_error("File not found exception", "sprites.txt could not be found. Terminating.");
 
     char    line[100];
-    int     lineNumber = 0;
+    int     lineNumber  =   0;
     while   (fgets(line, sizeof(line), entitiesFile) != NULL) {
         ++lineNumber;
-        int emptyString = 1;
+        int emptyString =   1;
         for (char* i = line; *i != '\0'; ++i) {
             if  (!isspace(*i)) 
-                emptyString = 0;
+                emptyString =   0;
         }
         if  (emptyString == 1)
             break;
         strcpy(names[lineNumber - 1].path, line);
-        size_t lineLen =   strlen(names[lineNumber - 1].path);
-        names[lineNumber - 1].path[lineLen - 1] = '\0';
-        types[lineNumber - 1].type     =   0;
+        size_t  lineLen =   strlen(names[lineNumber - 1].path);
+        names[lineNumber - 1].path[lineLen - 1] =   '\0';
+        types[lineNumber - 1].type      =   0;
         ++entityCount;
         LOG_info("Registered entity", names[lineNumber - 1].path);
     }
@@ -42,16 +42,16 @@ void    RMG_loadResources   (char  path[]) {
     memset(line, 0, sizeof(line));
     while   (fgets(line, sizeof(line), spritesFile) != NULL) {
         ++lineNumber;
-        int     emptyString =   1;
+        int emptyString =   1;
         for     (char* i = line; *i != '\0'; ++i) {
             if      (!isspace(*i))
-                emptyString = 0;
+                emptyString =   0;
         }
         if  (emptyString == 1)
             break; 
         strcpy(names[lineNumber - 1].path, line);
-        size_t lineLen =   strlen(names[lineNumber - 1].path);
-        names[lineNumber - 1].path[lineLen - 1] = '\0';
+        size_t  lineLen =   strlen(names[lineNumber - 1].path);
+        names[lineNumber - 1].path[lineLen - 1] =   '\0';
         types[lineNumber - 1].type  =   1;
         ++spriteCount;
         LOG_info("Registered sprite", names[lineNumber - 1].path);

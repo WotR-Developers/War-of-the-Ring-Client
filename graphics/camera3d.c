@@ -1,8 +1,8 @@
 #include "camera3d.h"
 
 void    CA3_initCamera     () {
-    movementSpeed   =   0.05f;
-    mouseSensitivity   =   0.1f;
+    movementSpeed       =   0.05f;
+    mouseSensitivity    =   0.1f;
     cameraPosition      =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
     cameraFront         =   (vec3){.x = 0.0f, .y = 0.0f, .z = -1.0f};
     cameraUp            =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
@@ -26,8 +26,8 @@ void    CA3_strafeLeft  () {
 }
 
 void    CA3_processMouse    (double     xpos, double    ypos) {
-    yaw += xpos * mouseSensitivity;
-    pitch -= ypos * mouseSensitivity;
+    yaw     +=  xpos * mouseSensitivity;
+    pitch   -=  ypos * mouseSensitivity;
     if(pitch > 89.0f)
         pitch = 89.0f;
     if(pitch < -89.0f)

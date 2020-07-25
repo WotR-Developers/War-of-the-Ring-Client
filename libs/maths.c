@@ -148,58 +148,58 @@ float   MAT_getMagnitudeVec4    (vec4   vec) {
 
 vec3    MAT_getNormalizedVec3   (vec3   vec) {
     vec3 temp;
-    float magnitude = MAT_getMagnitudeVec3(vec);
+    float magnitude =   MAT_getMagnitudeVec3(vec);
     if  (magnitude == 0.0f) {
         return vec;
     }
-    temp.x = vec.x / magnitude;
-    temp.y = vec.y / magnitude;
-    temp.z = vec.z / magnitude;
+    temp.x  =   vec.x / magnitude;
+    temp.y  =   vec.y / magnitude;
+    temp.z  =   vec.z / magnitude;
     return temp;
 }
 
 vec4    MAT_getNormalizedVec4   (vec4   vec) {
     vec4 temp;
-    float magnitude = MAT_getMagnitudeVec4(vec);
-    temp.x = vec.x / magnitude;
-    temp.y = vec.y / magnitude;
-    temp.z = vec.z / magnitude;
-    temp.w = vec.w / magnitude;
+    float magnitude =   MAT_getMagnitudeVec4(vec);
+    temp.x  =   vec.x / magnitude;
+    temp.y  =   vec.y / magnitude;
+    temp.z  =   vec.z / magnitude;
+    temp.w  =   vec.w / magnitude;
     return temp;
 
 }
 
 vec3    MAT_getCenterVec3   (vec3   firstVec, vec3  secondVec) {
    vec3 temp;
-   temp.x = firstVec.x + secondVec.x;
-   temp.y = firstVec.y + secondVec.y;
-   temp.z = firstVec.z + secondVec.z;
-   temp.x /= 2;
-   temp.y /= 2;
-   temp.z /= 2;
+   temp.x   =   firstVec.x + secondVec.x;
+   temp.y   =   firstVec.y + secondVec.y;
+   temp.z   =   firstVec.z + secondVec.z;
+   temp.x   /=  2;
+   temp.y   /=  2;
+   temp.z   /=  2;
    return temp;
 }
 
 vec4    MAT_getCenterVec4   (vec4   firstVec, vec4  secondVec) {
     vec4 temp;
-    temp.x = firstVec.x + secondVec.x;
-    temp.y = firstVec.y + secondVec.y;
-    temp.z = firstVec.z + secondVec.z;
-    temp.w = firstVec.w + secondVec.w;
-    temp.x /= 2;
-    temp.y /= 2;
-    temp.z /= 2;
-    temp.w /= 2;
+    temp.x  =   firstVec.x + secondVec.x;
+    temp.y  =   firstVec.y + secondVec.y;
+    temp.z  =   firstVec.z + secondVec.z;
+    temp.w  =   firstVec.w + secondVec.w;
+    temp.x  /=  2;
+    temp.y  /=  2;
+    temp.z  /=  2;
+    temp.w  /=  2;
     return temp;
 }
 
 float   MAT_getAngleVec3    (vec3   firstVec, vec3  secondVec) {
-    float v =   firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z;
+    float   v   =   firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z;
     return acos(v / MAT_getMagnitudeVec3(firstVec) / MAT_getMagnitudeVec3(secondVec));
 }
 
 float   MAT_getAngleVec4    (vec4   firstVec, vec4  secondVec) {
-    float v =   firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z + firstVec.w * secondVec.w;
+    float   v   =   firstVec.x * secondVec.x + firstVec.y * secondVec.y + firstVec.z * secondVec.z + firstVec.w * secondVec.w;
     return acos(v / MAT_getMagnitudeVec4(firstVec) / MAT_getMagnitudeVec4(secondVec));
 }
 
@@ -228,7 +228,7 @@ vec4    MAT_getScaleVec4    (vec4   vec, float  scale) {
 }
 
 int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale < 0) 
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -239,7 +239,7 @@ int     MAT_validateParallelismVec3 (vec3   firstVec, vec3  secondVec) {
 }
 
 int     MAT_validateParallelismVec4 (vec4   firstVec, vec4  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale < 0)
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -250,7 +250,7 @@ int     MAT_validateParallelismVec4 (vec4   firstVec, vec4  secondVec) {
 }
 
 int     MAT_validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale > 0) 
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -261,7 +261,7 @@ int     MAT_validateAntiParallelismVec3 (vec3   firstVec, vec3  secondVec) {
 }
 
 int     MAT_validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale > 0) 
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -272,7 +272,7 @@ int     MAT_validateAntiParallelismVec4 (vec4   firstVec, vec4  secondVec) {
 }
 
 int     MAT_validateCounterVec3     (vec3   firstVec, vec3  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale != -1) 
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -283,7 +283,7 @@ int     MAT_validateCounterVec3     (vec3   firstVec, vec3  secondVec) {
 }
 
 int     MAT_validateCounterVec4     (vec4   firstVec, vec4  secondVec) {
-    float firstScale = firstVec.x / secondVec.x;
+    float   firstScale  =   firstVec.x / secondVec.x;
     if  (firstScale != -1) 
         return 0;
     if  ((firstVec.y / secondVec.y) != firstScale)
@@ -313,7 +313,7 @@ void    MAT_multiplyMat4            (mat4   firstMat,   mat4    secondMat) {
 void    MAT_initMat4            (mat4   mat) {
     for     (int i = 0; i < 4; ++i) {
         for     (int j = 0; j < 4; ++j) {
-            if  (i == j)
+            if      (i == j)
                 mat[i][j]  =    1.0f;
             else
                 mat[i][j]   =   0.0f;
@@ -384,8 +384,6 @@ void    MAT_translateMatrix     (mat4   matrix, vec3    position) {
 }
 
 void    MAT_rotateMatrix        (mat4   matrix, float   angle, vec3 axis) {
-    mat4    rotation;
-    MAT_initMat4(rotation);
     axis    =   MAT_getNormalizedVec3(axis);
     matrix[0][0]  =   cos(angle) + (axis.x * axis.x) * (1 - cos(angle));
     matrix[0][1]  =   axis.x * axis.y * (1 - cos(angle)) - axis.z * sin(angle);

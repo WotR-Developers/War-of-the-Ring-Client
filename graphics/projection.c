@@ -29,6 +29,6 @@ void    PRJ_setMaxClipSpace3d   (float  clipSpace) {
 }
 
 void    PRJ_setAspectRatio      (float  aspectRat) {
-    aspectRatio =   aspectRat;
+    aspectRatio     =   aspectRat;
 }
 

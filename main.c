@@ -38,13 +38,13 @@ int main(int    argc, char* argv[]) {
     }
 
      /* Initialize GLEW. */
-    glewExperimental = 1;
-    GLenum openGLInitError = glewInit();
+    glewExperimental    =   1;
+    GLenum  openGLInitError =   glewInit();
     
     /* Check if init of GLEW failed. */
     if  (openGLInitError != GLEW_OK) {
         LOG_error("The OpenGL context could not be created.", (const char*)glewGetErrorString(openGLInitError));
-        closeGame = 1; 
+        closeGame   =   1; 
     }
 
 

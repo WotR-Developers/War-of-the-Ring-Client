@@ -12,7 +12,7 @@ int     TEX_genTexture      (char*  path) {
 
 void    constructGLTexData  (int    currentID) {
     int bitsPerPixel;
-    stbi_uc *textureBuffer = stbi_load(textureList[currentID].path, &textureList[currentID].textureWidth, &textureList[currentID].textureHeight, &bitsPerPixel, 4);
+    stbi_uc *textureBuffer  =   stbi_load(textureList[currentID].path, &textureList[currentID].textureWidth, &textureList[currentID].textureHeight, &bitsPerPixel, 4);
     glGenTextures(1, &textureList[currentID].textureBufferID);
     glBindTexture(GL_TEXTURE_2D, textureList[currentID].textureBufferID);
     int mode    =   GL_RGBA;
