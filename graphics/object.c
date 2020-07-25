@@ -68,24 +68,36 @@ void    OBJ_drawObjects     (int  mode) {
 }
 
 void    OBJ_transformObject (int id, float x, float y, float z) {
+    MAT_translateMatrix(objectList[id].modelMatrix, (vec3){x - objectList[id].position.x, y - objectList[id].position.y, z - objectList[id].position.z});
+    objectList[id].position =   (vec3){x, y, z};
 }
 
 void    OBJ_scaleObject     (int id, float x, float y, float z) {
+    MAT_scaleMatrix(objectList[id].modelMatrix, (vec3){x - objectList[id].scale.x, y - objectList[id].scale.y, z - objectList[id].scale.z});
 }
 
 void    OBJ_rotateObject    (int id, float degrees, float x, float y, float z) {
+    objectList[id].rotation =   (vec4){degrees, x, y, z};
+    MAT_rotateMatrix(objectList[id].modelMatrix, degrees, (vec3){x, y, z});
 }
 
 void    OBJ_translateObject (int id, float x, float y, float z) {
-
+    objectList[id].position = (vec3){objectList[id].position.x + x, objectList[id].position.y + y, objectList[id].position.z + z};
+    MAT_translateMatrix(objectList[id].modelMatrix, (vec3){x, y, z});
 }
 
 void    OBJ_scaleAddObject  (int id, float x, float y, float z) {
-
+    objectList[id].scale = (vec3){objectList[id].scale.x + x, objectList[id].scale.y + y, objectList[id].scale.z + z};
+    MAT_scaleMatrix(objectList[id].modelMatrix, (vec3){x, y, z});
 }
 
 void    OBJ_rotateAddObject (int id, float degrees, float x, float y, float z) {
-
+    float   angleT  =   degrees + objectList[id].rotation.x;
+    vec3    rot =   {.x = (x * degrees + objectList[id].rotation.x * objectList[id].rotation.w) / angleT,
+                     .y = (y * degrees + objectList[id].rotation.y * objectList[id].rotation.w) / angleT,
+                     .z = (z * degrees + objectList[id].rotation.z * objectList[id].rotation.w) / angleT};
+    MAT_rotateMatrix(objectList[id].modelMatrix, angleT, rot);
+    objectList[id].rotation =   (vec4){angleT, rot.x, rot.y, rot.z};
 }
 
 void    OBJ_removeObject    (int id) {

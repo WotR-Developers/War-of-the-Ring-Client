@@ -4,7 +4,7 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     GWD_set3d();
     RMG_loadResources(gameDirectory);
     OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
-    OBJ_addObject("arka", 0.0f, 0.0f, 5.0f);
+    testObject = OBJ_addObject("arka", 0.0f, 0.0f, 5.0f);
     OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
     CA2_initCamera();
     CA3_initCamera();
@@ -26,6 +26,8 @@ void    EMG_doRenderTick    (float  deltaTime) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     OBJ_drawObjects(phase);
     GWD_updateWindow(deltaTime);
+    OBJ_rotateAddObject(testObject, 0.1f, 0.3f, 0.7f, 0.0f);
+    OBJ_translateObject(testObject, 0.0f, 0.0f, 0.002f);   
     EMG_processInput();
     if  (phase == 0)
         CA3_update(deltaTime);
