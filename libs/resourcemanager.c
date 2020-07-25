@@ -58,7 +58,7 @@ void    RMG_loadResources   (char  path[]) {
     }
     fclose(spritesFile);
 
-    for     (int i = 0; i < entityCount; i++) {
+    for     (int i = 0; i < entityCount; ++i) {
         strcpy(textures[i].path, basePath);
         strcat(textures[i].path, "textures/");
         strcat(textures[i].path, names[i].path);
@@ -66,7 +66,7 @@ void    RMG_loadResources   (char  path[]) {
         LOG_info("Registered texture", textures[i].path);
     }
 
-    for     (int i = 0; i < entityCount; i++) {
+    for     (int i = 0; i < entityCount; ++i) {
         strcpy(models[i].path, basePath);
         strcat(models[i].path, "models/");
         strcat(models[i].path, names[i].path);
@@ -75,7 +75,7 @@ void    RMG_loadResources   (char  path[]) {
     }
 
 
-    for     (int i = 0; i < entityCount; i++) {
+    for     (int i = 0; i < entityCount; ++i) {
         strcpy(vertexShaders[i].path, basePath);
         strcat(vertexShaders[i].path, "shaders/");
         strcat(vertexShaders[i].path, names[i].path);
@@ -92,7 +92,7 @@ void    RMG_loadResources   (char  path[]) {
     }
 
 
-    for     (int i = 0; i < entityCount; i++) {
+    for     (int i = 0; i < entityCount; ++i) {
         strcpy(fragmentShaders[i].path, basePath);
         strcat(fragmentShaders[i].path, "shaders/");
         strcat(fragmentShaders[i].path, names[i].path);
@@ -108,7 +108,7 @@ void    RMG_loadResources   (char  path[]) {
         LOG_info("Registered fragment shader", fragmentShaders[i].path);
     }
 
-    for     (int i = 0; i < entityCount; i++) {
+    for     (int i = 0; i < entityCount; ++i) {
         strcpy(animations[i].path, basePath);
         strcat(animations[i].path, "animations/");
         strcat(animations[i].path, names[i].path);
@@ -182,7 +182,7 @@ void    RMG_loadResources   (char  path[]) {
 }
 
 int     RMG_getType         (char*  objectName) { 
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             return types[i].type;             
         }
@@ -190,7 +190,7 @@ int     RMG_getType         (char*  objectName) {
 }
 
 void    RMG_getTexture      (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, textures[i].path);
         }
@@ -198,7 +198,7 @@ void    RMG_getTexture      (char*  dest, char* objectName) {
 }
 
 void    RMG_getModel        (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, models[i].path);
         }
@@ -206,7 +206,7 @@ void    RMG_getModel        (char*  dest, char* objectName) {
 }
 
 void    RMG_getVertexShader     (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, vertexShaders[i].path);
         }
@@ -214,7 +214,7 @@ void    RMG_getVertexShader     (char*  dest, char* objectName) {
 }
 
 void    RMG_getFragmentShader   (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             strcpy(dest, fragmentShaders[i].path);
         }
@@ -222,7 +222,7 @@ void    RMG_getFragmentShader   (char*  dest, char* objectName) {
 }
 
 void    RMG_getAnimation    (char*  dest, char* objectName) {
-    for (int i = 0; i < entityCount + spriteCount; i++) {
+    for (int i = 0; i < entityCount + spriteCount; ++i) {
         if  (strcmp(names[i].path, objectName) == 0) {
             dest = animations[i].path;
         }
