@@ -14,12 +14,6 @@ int     buttonW;
 int     buttonS;
 int     buttonA;
 int     buttonD;
-int     buttonQ;
-int     buttonE;
-int     buttonU;
-int     buttonZ;
-
-int   testObject;
 
 /* 0 = battle phase, 1 = turn phase */
 int     phase;

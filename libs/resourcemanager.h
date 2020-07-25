@@ -6,7 +6,6 @@
 
 /* For logging. */
 #include "logger.h"
-#include <assert.h>
 
 /* To use dynamic memory management. */
 #include <stdlib.h>

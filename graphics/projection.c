@@ -8,26 +8,9 @@ void    PRJ_getOrthogonalMatrix     (mat4   matrix) {
     MAT_getOrthogonalMatrix(matrix, 1.0f, -1.0f, minClipSpace2d, maxClipSpace2d);
 }
 
-void    PRJ_increaseFov3d   () {
-    ++fov3d;
-}
-
-void    PRJ_decreaseFov3d   () {
-    --fov3d;
-}
-
 void    PRJ_setFov3d        (float  fov) {
     fov3d   =   fov;
 }
-
-void    PRJ_increaseFov2d   () {
-    ++fov2d;
-}
-
-void    PRJ_decreaseFov2d   () {
-    --fov2d;
-}
-
 
 void    PRJ_setMinClipSpace2d   (float  clipSpace) {
     minClipSpace2d  =   clipSpace;

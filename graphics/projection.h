@@ -5,7 +5,6 @@
 
 #include "../libs/maths.h"
 
-float   fov2d;
 float   fov3d;
 
 float   minClipSpace2d;
@@ -16,15 +15,7 @@ float   maxClipSpace3d;
 
 float   aspectRatio;
 
-void    PRJ_increaseFov3d   ();
-
-void    PRJ_decreaseFov3d   ();
-
 void    PRJ_setFov3d        (float  fov);
-
-void    PRJ_increaseFov2d   ();
-
-void    PRJ_decreaseFov2d   ();
 
 void    PRJ_setMinClipSpace2d   (float  clipSpace);
 

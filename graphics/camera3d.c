@@ -1,26 +1,16 @@
 #include "camera3d.h"
 
 void    CA3_initCamera     () {
-    cameraPosition.x    =   0.0f;
-    cameraPosition.y    =   1.0f;
-    cameraPosition.z    =   0.0f;
-    cameraFront.x       =   0.0f;
-    cameraFront.y       =   0.0f;
-    cameraFront.z       =   -1.0f;
-    cameraUp.x          =   0.0f;
-    cameraUp.y          =   1.0f;
-    cameraUp.z          =   0.0f;
-    worldUp.x           =   0.0f;
-    worldUp.y           =   1.0f;
-    worldUp.z           =   0.0f;
     movementSpeed   =   0.05f;
     mouseSensitivity   =   0.1f;
-    yaw = 0.0f;
+    cameraPosition      =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
+    cameraFront         =   (vec3){.x = 0.0f, .y = 0.0f, .z = -1.0f};
+    cameraUp            =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
+    worldUp             =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
 }
 
 void    CA3_moveForward     () {
     MAT_addVec3(&cameraPosition, MAT_getScaleVec3(cameraFront, movementSpeed));
-    vec3 temp = MAT_getScaleVec3(cameraFront, movementSpeed);
 }
 
 void    CA3_moveBackward    () {
@@ -33,18 +23,6 @@ void    CA3_strafeRight () {
 
 void    CA3_strafeLeft  () {
     MAT_subVec3(&cameraPosition, MAT_getScaleVec3(cameraRight, movementSpeed));
-}
-
-void    CA3_rotateRight () {
-    yaw += 1.0f;
-}
-
-void    CA3_rotateLeft  (){
-    yaw -= 1.0f;
-}
-
-void    CA3_jump            () {
-    cameraPosition.y    +=  movementSpeed;
 }
 
 void    CA3_processMouse    (double     xpos, double    ypos) {

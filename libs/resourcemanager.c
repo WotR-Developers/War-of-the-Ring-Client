@@ -51,7 +51,6 @@ void    RMG_loadResources   (char  path[]) {
             break; 
         strcpy(names[lineNumber - 1].path, line);
         size_t lineLen =   strlen(names[lineNumber - 1].path);
-        assert(lineLen < 100);
         names[lineNumber - 1].path[lineLen - 1] = '\0';
         types[lineNumber - 1].type  =   1;
         ++spriteCount;

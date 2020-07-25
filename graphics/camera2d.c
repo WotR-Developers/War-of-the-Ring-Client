@@ -1,21 +1,12 @@
 #include "camera2d.h"
 
 void    CA2_initCamera     () {
-    cameraPosition2d.x  =   0.0f;
-    cameraPosition2d.y  =   1.0f;
-    cameraPosition2d.z  =   0.0f;
-    cameraFront2d.x     =   0.0f;
-    cameraFront2d.y     =   0.0f;
-    cameraFront2d.z     =   -1.0f;
-    cameraUp2d.x        =   0.0f;
-    cameraUp2d.y        =   1.0f;
-    cameraUp2d.z        =   0.0f;
-    worldUp2d.x         =   0.0f;
-    worldUp2d.y         =   1.0f;
-    worldUp2d.z         =   0.0f;
     movementSpeed2d  =   0.05f;
     mouseSensitivity2d   =   0.1f;
-    yaw2d   =   0.0f;
+    cameraPosition2d    =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
+    cameraFront2d       =   (vec3){.x = 0.0f, .y = 0.0f, .z = -1.0f};
+    cameraUp2d          =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
+    worldUp2d           =   (vec3){.x = 0.0f, .y = 1.0f, .z = 0.0f};
 }
 
 void    CA2_moveForward () {
@@ -34,14 +25,6 @@ void    CA2_strafeRight () {
 void    CA2_strafeLeft  () {
     cameraPosition2d.x  -= cameraRight2d.x * movementSpeed2d;
     cameraPosition2d.z  -= cameraRight2d.z * movementSpeed2d;
-}
-
-void    CA2_rotateRight () {
-    yaw2d += 1.0f;
-}
-
-void    CA2_rotateLeft  (){
-    yaw2d -= 1.0f;
 }
 
 void    CA2_updateCamera    () {

@@ -19,10 +19,6 @@ float   yaw;
 float   pitch;
 float   movementSpeed;
 float   mouseSensitivity;
-float   xOffSet;
-float   yOffSet;
-float   lastX;
-float   lastY;
 
 /* Initializes variables and matrices to default; to be called at start of program */
 void    CA3_initCamera      ();
@@ -38,17 +34,6 @@ void    CA3_strafeLeft      ();
 
 /* Moves the camera rightwards. */
 void    CA3_strafeRight     ();
-
-/* Rotates the camera to the left. Only called in 2D mode. */
-void    CA3_rotateLeft      ();
-
-/* Rotates the camera to the right. Only called in 2D mode. */
-void    CA3_rotateRight     ();
-
-void    CA3_jump            ();
-
-/* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
-void    CA3_resetCamera     ();
 
 /* Calculates camera for mouse movement. */
 void    CA3_processMouse    (double     xpos, double    ypos);

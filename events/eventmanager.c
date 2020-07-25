@@ -3,9 +3,6 @@
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
     RMG_loadResources(gameDirectory);
-    OBJ_addObject("arka", 0.0f, 0.0f, 0.0f);
-    OBJ_addObject("arka", 0.0f, 0.0f, 5.0f);
-    testObject = OBJ_addObject("map", 0.0f, 0.0f, 0.0f);
     CA2_initCamera();
     CA3_initCamera();
     PRJ_setFov3d(45.0f);
@@ -26,8 +23,6 @@ void    EMG_doRenderTick    (float  deltaTime) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     OBJ_drawObjects(phase);
     GWD_updateWindow(deltaTime);
-    OBJ_rotateAddObject(testObject, 0.1f, 0.0f, 0.0f, 1.0f);
-    //OBJ_translateObject(testObject, 0.0f, 0.0f, 0.0f);   
     EMG_processInput();
     if  (phase == 0)
         CA3_update(deltaTime);
@@ -64,18 +59,6 @@ void    EMG_processInput    () {
                     case    SDLK_d:
                         buttonD =   1;
                         break;
-                    case    SDLK_q:
-                        buttonQ =   1;
-                        break;
-                    case    SDLK_e:
-                        buttonE =   1;
-                        break;
-                    case    SDLK_z:
-                        buttonZ =   1;
-                        break;
-                    case    SDLK_u:
-                        buttonU =   1;
-                        break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   1;
                         break;
@@ -94,18 +77,6 @@ void    EMG_processInput    () {
                         break;
                     case    SDLK_d:
                         buttonD =   0;
-                        break;
-                    case    SDLK_q:
-                        buttonQ =   0;
-                        break;
-                    case    SDLK_e:
-                        buttonE =   0;
-                        break;
-                    case    SDLK_z:
-                        buttonZ =   0;
-                        break;
-                    case    SDLK_u:
-                        buttonU =   0;
                         break;
                     case    SDLK_ESCAPE:
                         buttonEsc   =   0;
@@ -140,14 +111,6 @@ void    EMG_processInput    () {
             CA3_strafeRight();
         else if (phase == 1)
             CA2_strafeRight();
-    if  (buttonE)
-        CA3_rotateRight();
-    if  (buttonQ)
-        CA3_rotateLeft();
-    if  (buttonZ)
-        EMG_startBattlePhase();
-    if  (buttonU)
-        EMG_startTurnPhase();
     if  (buttonEsc)
         GWD_closeWindow();
 }

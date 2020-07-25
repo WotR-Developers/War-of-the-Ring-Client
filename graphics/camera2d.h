@@ -17,12 +17,8 @@ vec3    cameraUp2d;
 vec3    cameraRight2d;
 
 /* The camera variables to be adjusted */
-float   yaw2d;
-float   pitch2d;
 float   movementSpeed2d;
 float   mouseSensitivity2d;
-float   xOffSet2d;
-float   yOffSet2d;
 
 /* Initializes variables and matrices to default; to be called at start of program */
 void    CA2_initCamera      ();
@@ -39,16 +35,7 @@ void    CA2_strafeLeft      ();
 /* Moves the camera rightwards. */
 void    CA2_strafeRight     ();
 
-/* Rotates the camera to the left. Only called in 2D mode. */
-void    CA2_rotateLeft      ();
-
-/* Rotates the camera to the right. Only called in 2D mode. */
-void    CA2_rotateRight     ();
-
 void    CA2_updateCamera    ();
-
-/* Resets the matrices and variables to default. Usually called if changed to 2D or 3D mode. */
-void    CA2_resetCamera     ();
 
 /* Calculates and returns the view matrix */
 void    CA2_getViewMatrix   (mat4   viewMatrix);
