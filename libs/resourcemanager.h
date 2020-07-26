@@ -50,6 +50,25 @@ struct AnimationPath {
     char    path[100];
 };
 
+/* For saving necessary information about the GUIs. */
+
+struct  GUIInformation {
+    char    name[100];
+    float   positionX,  positionY;
+    float   sizeX,      sizeY;
+    struct  GUIElement*     elements;
+    int     elementCount;
+    char    texturePath[100];
+};
+
+
+struct  GUIElement {
+    float   positionX,  positionY;
+    float   sizeX,      sizeY;
+    float   w;
+    char    texturePath[100];
+};
+
 /* Arrays of the resources. */
 
 struct RMGName      names[OBJECT_COUNT];
@@ -59,10 +78,12 @@ struct ModelPath    models[OBJECT_COUNT];
 struct VertexShaderPath     vertexShaders[OBJECT_COUNT];
 struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];  
 struct AnimationPath    animations[OBJECT_COUNT];
+struct GUIInformation   guis[OBJECT_COUNT]; 
 
 /* Counters for the different types of objects. */
 int     entityCount;
 int     spriteCount;
+int     guiCount;
 
 /* To be called on start
  * sets basePath
@@ -70,7 +91,7 @@ int     spriteCount;
 void    RMG_loadResources   (char  path[]);
 
 /* Returns the type of object name. */
-int     RMG_getType     (char*  objectName);
+int     RMG_getType         (char*  objectName);
 
 /* Returns the full texture path of object name. */
 void    RMG_getTexture      (char*  dest, char* objectName);
@@ -86,6 +107,22 @@ void    RMG_getFragmentShader   (char*  dest, char* objectName);
 
 /* Returns the full animation path of object name. */
 void    RMG_getAnimation    (char*  dest, char* objectName);
+
+void    RMG_getGuiPosition  (float  *positionX, float   *positionY, char*   name);
+
+void    RMG_getGuiSize      (float  *sizeX, float   *sizeY, char*   name);
+
+void    RMG_getGuiTexture   (char*  dest,   char*   name);
+
+int     RMG_getGuiElementCount  (char*  name);
+
+float   RMG_getGuiElementW      (char*  name, int   id);
+
+void    RMG_getGuiElementPosition   (float  *positionX, float   *positionY, char*   name, int   id);
+
+void    RMG_getGuiElementSize       (float  *sizeX, float   *sizeY, char*   name, int   id);
+
+void    RMG_getGuiElementTexture    (char*  dest, char* name, int   id);
 
 /* Free pointer which have been dynamically allocated. */
 void    RMG_free            ();
