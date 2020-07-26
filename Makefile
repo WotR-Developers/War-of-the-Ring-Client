@@ -2,8 +2,11 @@
 
 
 CC=c99
-OBJECTFILES=gamewindow.o logger.o time.o resourcemanager.o maths.o model.o shader.o texture.o object.o camera3d.o camera2d.o projection.o eventmanager.o
 LIBS=-lSDL2 -lGLEW -lGL -lm
+EVENTOBJ=eventmanager.o guicallback.o
+GRAPHICOBJ=camera2d.o camera3d.o gamewindow.o gui.o object.o projection.o
+LIBOBJ=logger.o maths.o resourcemanager.o time.o
+LOADEROBJ=model.o shader.o texture.o
 FLAGS=-Wall -Wextra -fsanitize=address -g
 FLAGSNS=-Wall -Wextra
 
@@ -12,8 +15,8 @@ FLAGSNS=-Wall -Wextra
 
 default: client
 
-client: main.c $(OBJECTFILES)
-	$(CC) main.c $(OBJECTFILES) -o TheFourthAge_Client.out $(FLAGSNS) $(LIBS)
+client: main.c $(EVENTOBJ) $(GRAPHICOBJ) $(LIBOBJ) $(LOADEROBJ)
+	$(CC) main.c $(EVENTOBJ) $(GRAPHICOBJ) $(LIBOBJ) $(LOADEROBJ) -o TheFourthAge_Client.out $(FLAGSNS) $(LIBS)
 
 gamewindow.o: graphics/gamewindow.c graphics/gamewindow.h
 	$(CC) -c graphics/gamewindow.c -o $@
@@ -53,6 +56,12 @@ projection.o: graphics/projection.h graphics/projection.c
 
 eventmanager.o: events/eventmanager.h events/eventmanager.c
 	$(CC) -c events/eventmanager.c -o $@
+
+guicallback.o: events/guicallback.h events/guicallback.c
+	$(CC) -c events/guicallback.c -o $@
+
+gui.o: graphics/gui.h graphics/gui.c
+	$(CC) -c graphics/gui.c -o $@
 
 #Other Rules
 
