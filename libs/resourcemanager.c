@@ -1,11 +1,70 @@
 #include "resourcemanager.h"
 
 void    RMG_setBasePath         (char   path[]) {
-
+    strcpy(basePath, path);
 }
 
 void    RMG_registerResources   () {
+    char    unitPath[2 * MAX_PATH_LENGTH];
+    char    settlementPath[2 * MAX_PATH_LENGTH];
+    char    mountPath[2 * MAX_PATH_LENGTH];
+    char    factionPath[2 * MAX_PATH_LENGTH];
+    char    buildingPath[2 * MAX_PATH_LENGTH];
+    char    weaponPath[2 * MAX_PATH_LENGTH];
 
+    strcpy(unitPath, basePath);
+    strcpy(settlementPath, basePath);
+    strcpy(mountPath, basePath);
+    strcpy(factionPath, basePath);
+    strcpy(buildingPath, basePath);
+    strcpy(weaponPath, basePath);
+
+    strcat(unitPath, "units.txt");
+    strcat(settlementPath, "settlements.txt");
+    strcat(mountPath, "mounts.txt");
+    strcat(factionPath, "factions.txt");
+    strcat(buildingPath, "buildings.txt");
+    strcat(weaponPath, "weapons.txt");
+
+    FILE*   unitFile        =   fopen(unitPath, "r");
+    FILE*   settlementFile  =   fopen(settlementPath, "r");
+    FILE*   mountFile       =   fopen(mountPath, "r");
+    FILE*   factionFile     =   fopen(factionPath, "r");
+    FILE*   buildingFile    =   fopen(buildingPath, "r");
+    FILE*   weaponFile      =   fopen(weaponPath, "r");
+
+    if  (!unitFile) {
+        LOG_error("File not found error.", unitPath);
+        return;
+    } 
+    if  (!settlementFile) {
+        LOG_error("File not found error.", settlementPath);
+        return;
+    }
+
+    if  (!mountFile) {
+        LOG_error("File not found error.", mountPath);
+        return;
+    }
+    if  (!factionFile) {
+        LOG_error("File not found error.", factionPath);
+        return;
+    }
+    if  (!buildingFile) {
+        LOG_error("File not found error.", buildingPath);
+        return;
+    }
+    if  (!weaponFile) {
+        LOG_error("File not found error.", weaponPath);
+        return;
+    }
+
+    fclose(unitFile);
+    fclose(settlementFile);
+    fclose(mountFile);
+    fclose(factionFile);
+    fclose(buildingFile);
+    fclose(weaponFile);
 }
 
 void    getNumLinesInFile       (char*  string, char    path[], int *numLines) {
@@ -20,6 +79,7 @@ void    getNumLinesInFile       (char*  string, char    path[], int *numLines) {
             ++(*numLines);
         }
     }
+    return;
 }
 
 void    readFileLine            (char   path[], int pathLen, int    line) {
@@ -33,6 +93,7 @@ void    readFileLine            (char   path[], int pathLen, int    line) {
         else
             continue;
     }
+    return;
 }
 
 void    getJsonString           (char*  string, char*   filePath, char* key) {
@@ -53,6 +114,7 @@ void    getJsonString           (char*  string, char*   filePath, char* key) {
     json_object_object_get_ex(parsed_json, key, &key_content_object);
 
     strncpy(string, json_object_get_string(key_content_object), json_object_get_string_len(key_content_object));
+    return;
 }
 
 void    getJsonFloat            (float* value, char*    filePath, char* key) {
@@ -73,6 +135,7 @@ void    getJsonFloat            (float* value, char*    filePath, char* key) {
     json_object_object_get_ex(parsed_json, key, &key_content_object);
 
     *value  =   (float)json_object_get_double(key_content_object);
+    return;
 }
 
 void    getJsonArrayAtIndex     (char*  string, char*   filePath, char* arrayKey, int   arrayIndex) {
@@ -94,6 +157,7 @@ void    getJsonArrayAtIndex     (char*  string, char*   filePath, char* arrayKey
     json_object_array_get_idx(array_object, arrayIndex);
 
     strncpy(string, json_object_get_string(key_content_object), json_object_get_string_len(key_content_object));
+    return;
 }
 
 struct UnitGeneralInformation   getUnitGeneralInformation   (char*   name) {

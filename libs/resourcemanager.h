@@ -23,13 +23,15 @@
 /* To get access to the definitions to avoid magic numbers. */
 #include "../game_defines.h"
 
+/* Contains the OS-specific path set at startup containing the assets base path. */
+char    basePath[MAX_PATH_LENGTH];
 
-char    unitPaths[UNIT_COUNT][MAX_PATH_LENGTH];
-char    settlementPaths[SETTLEMENT_COUNT][MAX_PATH_LENGTH];
-char    mountPaths[MOUNT_COUNT][MAX_PATH_LENGTH];
-char    factionPaths[FACTION_COUNT][MAX_PATH_LENGTH];
-char    buildingPaths[BUILDING_COUNT][MAX_PATH_LENGTH];
-char    weaponPaths[WEAPON_COUNT][MAX_PATH_LENGTH];
+char    unitPaths[UNIT_COUNT][2 * MAX_PATH_LENGTH];
+char    settlementPaths[SETTLEMENT_COUNT][2 * MAX_PATH_LENGTH];
+char    mountPaths[MOUNT_COUNT][2 * MAX_PATH_LENGTH];
+char    factionPaths[FACTION_COUNT][2 * MAX_PATH_LENGTH];
+char    buildingPaths[BUILDING_COUNT][2 * MAX_PATH_LENGTH];
+char    weaponPaths[WEAPON_COUNT][2 * MAX_PATH_LENGTH];
 
 struct  ShaderInformation {
     char    vsShaderPath[ASSET_STRING_LENGTH];
@@ -171,8 +173,6 @@ struct  WeaponStatsInformation {
     float   stabDamage;
 };
 
-/* Contains the OS-specific path set at startup containing the assets base path. */
-char    basePath[MAX_PATH_LENGTH];
 
 void    RMG_setBasePath         (char   path[]);
 
