@@ -17,6 +17,9 @@
 /* To use string operations. */
 #include <string.h>
 
+/* To read JSON files. */
+#include <json-c/json.h>
+
 #define     ASSET_STRING_LENGTH     30
 #define     MAX_WEAPONS_PER_UNIT    3
 #define     MAX_MENTAL_ATTRIBUTES_PER_UNIT  5
