@@ -2,6 +2,8 @@
 
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
+    RMG_setBasePath(gameDirectory);
+    RMG_registerResources();
     //RMG_loadResources(gameDirectory);
     CA2_init();
     CA3_init();

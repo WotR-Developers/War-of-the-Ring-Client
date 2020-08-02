@@ -58,6 +58,62 @@ void    RMG_registerResources   () {
         LOG_error("File not found error.", weaponPath);
         return;
     }
+    
+    char    buffer[128];
+
+    for     (int i = 0; i < UNIT_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), unitFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(unitPaths[i], basePath);
+        strcat(unitPaths[i], "units/");
+        strcat(unitPaths[i], buffer);
+        strcat(unitPaths[i], ".json");
+    }
+
+    for     (int i = 0; i < SETTLEMENT_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), settlementFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(settlementPaths[i], basePath);
+        strcat(settlementPaths[i], "settlements/");
+        strcat(settlementPaths[i], buffer);
+        strcat(settlementPaths[i], ".json");
+    }
+    
+    for     (int i = 0; i < MOUNT_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), mountFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(mountPaths[i], basePath);
+        strcat(mountPaths[i], "mounts/");
+        strcat(mountPaths[i], buffer);
+        strcat(mountPaths[i], ".json");
+    }
+
+    for     (int i = 0; i < FACTION_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), factionFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(factionPaths[i], basePath);
+        strcat(factionPaths[i], "factions/");
+        strcat(factionPaths[i], buffer);
+        strcat(factionPaths[i], ".json");
+    }
+
+    for     (int i = 0; i < BUILDING_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), buildingFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(buildingPaths[i], basePath);
+        strcat(buildingPaths[i], "buildings/");
+        strcat(buildingPaths[i], buffer);
+        strcat(buildingPaths[i], ".json");
+    }
+
+    for     (int i = 0; i < WEAPON_COUNT; ++i) {
+        fgets(buffer, sizeof(buffer), weaponFile);
+        buffer[(strlen(buffer)) - 1]    =   '\0';
+        strcpy(weaponPaths[i], basePath);
+        strcat(weaponPaths[i], "weapons/");
+        strcat(weaponPaths[i], buffer);
+        strcat(weaponPaths[i], ".json");
+    }
 
     fclose(unitFile);
     fclose(settlementFile);

@@ -2,13 +2,13 @@
 
 
 CC=c99
-LIBS=-lSDL2 -lGLEW -lGL -lm
+LIBS=-lSDL2 -lGLEW -lGL -lm -ljson-c
 EVENTOBJ=eventmanager.o
 GRAPHICOBJ=camera2d.o camera3d.o gamewindow.o object.o projection.o
 LIBOBJ=logger.o maths.o resourcemanager.o time.o
 LOADEROBJ=model.o shader.o texture.o
 FLAGS=-Wall -Wextra -fsanitize=address -g
-FLAGSNS=-Wall -Wextra
+FLAGSNS=-Wall -Wextra -g
 
 #Rules for compiling
 

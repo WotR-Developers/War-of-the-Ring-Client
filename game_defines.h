@@ -3,7 +3,7 @@
 #define     MAX_PATH_LENGTH         200
 
 /* Number of different game elements. */
-#define     UNIT_COUNT              100
+#define     UNIT_COUNT              2
 #define     SETTLEMENT_COUNT        100
 #define     MOUNT_COUNT             100
 #define     FACTION_COUNT           100
