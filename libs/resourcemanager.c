@@ -8,12 +8,31 @@ void    RMG_registerResources   () {
 
 }
 
-void    getNumLinesInFile       (char   path[], int *numLines) {
+void    getNumLinesInFile       (char*  string, char    path[], int *numLines) {
+    FILE*   file    =   fopen(path, "r");
+    if  (!file)
+        LOG_error("File not found exception", path);
 
+    int     charc;
+    while   (!feof(file)) {
+        charc   =   fgetc(file);
+        if      (charc == '\n') {
+            ++(*numLines);
+        }
+    }
 }
 
-void    readFileLine            (char   path[], int line) {
-
+void    readFileLine            (char   path[], int pathLen, int    line) {
+    FILE*   file    =   fopen(path, "r");
+    if  (!file)
+        LOG_error("File not found exception", path);
+    int     turn   =   0;
+    while   (fgets(path, pathLen, file)) {
+        if      (turn == line)
+            break;
+        else
+            continue;
+    }
 }
 
 void    getJsonString           (char*  string, char*   filePath, char* key) {
@@ -24,6 +43,9 @@ void    getJsonString           (char*  string, char*   filePath, char* key) {
     struct json_object*     key_content_object;
 
     jsonFile    =   fopen(filePath, "r");
+    if  (!jsonFile)
+        LOG_error("File not found exception", filePath);
+
     fread(buffer, 10240, 1, jsonFile);
     fclose(jsonFile);
     
@@ -41,6 +63,9 @@ void    getJsonFloat            (float* value, char*    filePath, char* key) {
     struct json_object*     key_content_object;
 
     jsonFile    =   fopen(filePath, "r");
+    if  (!jsonFile)
+        LOG_error("File not found exception", filePath);
+
     fread(buffer, 10240, 1, jsonFile);
     fclose(jsonFile);
     
@@ -58,6 +83,9 @@ void    getJsonArrayAtIndex     (char*  string, char*   filePath, char* arrayKey
     struct json_object*     array_object;
     struct json_object*     key_content_object;
     jsonFile    =   fopen(filePath, "r");
+    if  (!jsonFile)
+        LOG_error("File not found exception", filePath);
+
     fread(buffer, 10240, 1, jsonFile);
     fclose(jsonFile);
     

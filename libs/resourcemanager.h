@@ -20,17 +20,16 @@
 /* To read JSON files. */
 #include <json-c/json.h>
 
-#define     ASSET_STRING_LENGTH     30
-#define     MAX_WEAPONS_PER_UNIT    3
-#define     MAX_MENTAL_ATTRIBUTES_PER_UNIT  5
-#define     MAX_FORMATIONS_PER_UNIT     5
-#define     MAX_ATTRIBUTES_PER_UNIT     5
-#define     MAX_FACTION_DESC_LENGTH     300
-#define     MAX_PREOWNED_SETTLEMENTS    100
-#define     MAX_DIPLOMATIC_COUNT        30
-#define     MAX_NAMES_PER_FACTION       100
-#define     MAX_STAGES_PER_BUILDING     3
-#define     MAX_UNITS_PER_STAGE         10
+/* To get access to the definitions to avoid magic numbers. */
+#include "../game_defines.h"
+
+
+char    unitPaths[UNIT_COUNT][MAX_PATH_LENGTH];
+char    settlementPaths[SETTLEMENT_COUNT][MAX_PATH_LENGTH];
+char    mountPaths[MOUNT_COUNT][MAX_PATH_LENGTH];
+char    factionPaths[FACTION_COUNT][MAX_PATH_LENGTH];
+char    buildingPaths[BUILDING_COUNT][MAX_PATH_LENGTH];
+char    weaponPaths[WEAPON_COUNT][MAX_PATH_LENGTH];
 
 struct  ShaderInformation {
     char    vsShaderPath[ASSET_STRING_LENGTH];
@@ -54,7 +53,7 @@ struct  UnitGeneralInformation {
 
 struct  UnitAssetInformation {
     char    mountName[ASSET_STRING_LENGTH];
-    char    weaponNames[3][ASSET_STRING_LENGTH]; 
+    char    weaponNames[MAX_WEAPONS_PER_UNIT][ASSET_STRING_LENGTH]; 
     char    modelPath[ASSET_STRING_LENGTH];
     char    texturePath[ASSET_STRING_LENGTH];
     char    generalModelPath[ASSET_STRING_LENGTH];
@@ -173,15 +172,15 @@ struct  WeaponStatsInformation {
 };
 
 /* Contains the OS-specific path set at startup containing the assets base path. */
-char    basePath[150];
+char    basePath[MAX_PATH_LENGTH];
 
 void    RMG_setBasePath         (char   path[]);
 
 void    RMG_registerResources   ();
 
-void    getNumLinesInFile       (char   path[], int *numLines);
+void    getNumLinesInFile       (char*  string, char    path[], int *numLines);
 
-void    readFileLine            (char   path[], int line);
+void    readFileLine            (char   path[], int pathLen, int    line);
 
 void    getJsonString           (char*  string, char*   filePath, char* key);
 

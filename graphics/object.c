@@ -27,12 +27,12 @@ int     OBJ_add             (char *name, float x, float y, float z) {
     char    vertexShaderPath    [100];
     char    fragmentShaderPath  [100];
 
-    RMG_getTexture(texturePath, name);
-    RMG_getModel(modelPath, name);
-    RMG_getVertexShader(vertexShaderPath, name);
-    RMG_getFragmentShader(fragmentShaderPath, name);
+    //RMG_getTexture(texturePath, name);
+    //RMG_getModel(modelPath, name);
+    //RMG_getVertexShader(vertexShaderPath, name);
+    //RMG_getFragmentShader(fragmentShaderPath, name);
     
-    objectList[numObjects - 1].type         =   RMG_getType(name);
+    //objectList[numObjects - 1].type         =   RMG_getType(name);
     objectList[numObjects - 1].textureId    =   TEX_create(texturePath);
     
     MAT_initMat4(objectList[numObjects - 1].modelMatrix);
