@@ -49,7 +49,7 @@ int     OBJ_add             (char *name, float x, float y, float z) {
         vec3    scale           =   {.x = scaleFactorX, .y = scaleFactorY};
         MAT_scaleMatrix(objectList[numObjects - 1].modelMatrix, scale);
     }
-    
+
     objectList[numObjects - 1].shaderId     =   SHA_create(vertexShaderPath, fragmentShaderPath);
     return numObjects - 1;
 }

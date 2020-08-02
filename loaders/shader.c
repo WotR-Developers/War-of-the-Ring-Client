@@ -124,8 +124,8 @@ void    SHA_pushMatrix      (char*  name, mat4  matrix) {
         } 
     }
     glUniformMatrix4fv(shaderUniform, 1, GL_FALSE, &matrix[0][0]);
-    if  (shaderUniform == -1)
-        LOG_error("Uniform could not be passed", name);
+    //if  (shaderUniform == -1)
+        //LOG_error("Uniform could not be passed", name);
 }
 
 void    SHA_free            () {

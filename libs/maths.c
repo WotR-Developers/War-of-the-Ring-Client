@@ -374,7 +374,8 @@ void    MAT_getOrthogonalMatrix     (mat4   orthogonalMatrix, float top, float b
     orthogonalMatrix[1][3]  =   -((top + bottom) / (top - bottom));    
     orthogonalMatrix[2][2]  =   -2 / (far - near);
     orthogonalMatrix[3][2]  =   -((far + near) / (far - near));
-    orthogonalMatrix[3][3]  =   1.0f;
+    orthogonalMatrix[2][3]  =   -1.0f;
+    orthogonalMatrix[3][3]  =   0.0f;
 }
 
 void    MAT_translateMatrix     (mat4   matrix, vec3    position) {

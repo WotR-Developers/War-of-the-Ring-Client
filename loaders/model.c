@@ -10,7 +10,7 @@ int     MOD_create      (char*  path, int   type) {
     if  (type == 0) {
         loadPmf3d(numModels - 1);
     }
-    else if (type == 1) {
+    else if (type == 1 || type == 2) {
         loadPmf2d(numModels - 1);
     }
     return numModels - 1;

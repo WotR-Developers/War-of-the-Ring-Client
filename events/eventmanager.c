@@ -2,7 +2,7 @@
 
 void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    windowHeight) {
     GWD_set3d();
-    RMG_loadResources(gameDirectory);
+    //RMG_loadResources(gameDirectory);
     CA2_init();
     CA3_init();
     PRJ_setFov3d(45.0f);
@@ -10,8 +10,10 @@ void    EMG_startGame   (char   gameDirectory[], int    windowWidth, int    wind
     PRJ_setMinClipSpace3d(0.1f);
     PRJ_setMaxClipSpace3d(100.0f);
     PRJ_setAspectRatio(aspectRatio);
-    PRJ_setMinClipSpace2d(0.1f);
+    PRJ_setMinClipSpace2d(0.0f);
     PRJ_setMaxClipSpace2d(100.0f);
+    EMG_startTurnPhase();
+    //OBJ_add("map", 0.0f, 0.0f, 0.0f);
 }
 
 void    EMG_doGameTick  () {

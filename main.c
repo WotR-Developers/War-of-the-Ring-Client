@@ -21,7 +21,6 @@ int     closeGame   =   0;
 int     windowWidth;
 int     windowHeight;
 
-
 int main(int    argc, char* argv[]) {
     printf("Hello Arda!\n");
 
@@ -36,8 +35,8 @@ int main(int    argc, char* argv[]) {
         LOG_error("GWD window could not be created.", "EXIT_FAILURE");
         return -1;
     }
-
-     /* Initialize GLEW. */
+     
+    /* Initialize GLEW. */
     glewExperimental    =   1;
     GLenum  openGLInitError =   glewInit();
     
@@ -55,7 +54,6 @@ int main(int    argc, char* argv[]) {
     LOG_info("Available renderer", (const char*)glGetString(GL_RENDERER));
 
     EMG_startGame(argv[1], windowWidth, windowHeight); 
-
     glEnable(GL_DEPTH_TEST);
 
     /* Main game loop. */

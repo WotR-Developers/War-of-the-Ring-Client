@@ -17,112 +17,224 @@
 /* To use string operations. */
 #include <string.h>
 
+#define     ASSET_STRING_LENGTH     30
+#define     MAX_WEAPONS_PER_UNIT    3
+#define     MAX_MENTAL_ATTRIBUTES_PER_UNIT  5
+#define     MAX_FORMATIONS_PER_UNIT     5
+#define     MAX_ATTRIBUTES_PER_UNIT     5
+#define     MAX_FACTION_DESC_LENGTH     300
+#define     MAX_PREOWNED_SETTLEMENTS    100
+#define     MAX_DIPLOMATIC_COUNT        30
+#define     MAX_NAMES_PER_FACTION       100
+#define     MAX_STAGES_PER_BUILDING     3
+#define     MAX_UNITS_PER_STAGE         10
+
+struct  ShaderInformation {
+    char    vsShaderPath[ASSET_STRING_LENGTH];
+    char    fsShaderPath[ASSET_STRING_LENGTH]; 
+};
+
+struct MentalInformation {
+    float   morale;
+    char    moraleAttributes[MAX_MENTAL_ATTRIBUTES_PER_UNIT][ASSET_STRING_LENGTH];
+    float   heat;
+};
+
+
+
+struct  UnitGeneralInformation {
+    char    name[ASSET_STRING_LENGTH]; 
+    char    type[ASSET_STRING_LENGTH] ;
+    char    category[ASSET_STRING_LENGTH];
+    char    unitClass[ASSET_STRING_LENGTH];
+};
+
+struct  UnitAssetInformation {
+    char    mountName[ASSET_STRING_LENGTH];
+    char    weaponNames[3][ASSET_STRING_LENGTH]; 
+    char    modelPath[ASSET_STRING_LENGTH];
+    char    texturePath[ASSET_STRING_LENGTH];
+    char    generalModelPath[ASSET_STRING_LENGTH];
+    char    generalTexturePath[ASSET_STRING_LENGTH];
+    char    spritePath[ASSET_STRING_LENGTH];
+    struct ShaderInformation    shaders;
+    struct ShaderInformation    spriteShaders;
+};
+
+struct  UnitStatsInformation {
+    float   recruitCost;
+    float   upkeepCost;
+    float   health;
+    float   attack;
+    float   meleeDefense;
+    float   chargeDistance;
+    float   fireDelay;
+    struct MentalInformation    mental;
+    float   movementSpeed;
+    char    formations[MAX_FORMATIONS_PER_UNIT][ASSET_STRING_LENGTH];
+    char    attributes[MAX_ATTRIBUTES_PER_UNIT][ASSET_STRING_LENGTH]; 
+};
+
+
+
+struct  SettlementGeneralInformation {
+    char    name[ASSET_STRING_LENGTH];
+    char    type[ASSET_STRING_LENGTH]; 
+};
+
+struct  SettlementAssetInformation {
+    char    settlementFile[ASSET_STRING_LENGTH];
+    char    spritePath[ASSET_STRING_LENGTH];
+    struct ShaderInformation    shaders;
+};
+
+struct  SettlementStatsInformation {
+    float   positionX;
+    float   positionY;
+};
+
+
+
+struct  MountGeneralInformation {
+    char    name[ASSET_STRING_LENGTH];
+    char    category[ASSET_STRING_LENGTH];
+};
+
+struct  MountAssetInformation {
+    char    modelPath[ASSET_STRING_LENGTH];
+    char    texturePath[ASSET_STRING_LENGTH];
+    struct ShaderInformation    shaders;
+};
+
+struct  MountStatsInformation {
+    float   movementSpeed;
+    float   health;
+    float   chargeDistance;
+    float   chargeBonus;
+    struct MentalInformation    mental;
+};
+
+
+
+struct  FactionGeneralInformation {
+    char    name[ASSET_STRING_LENGTH];
+    char    description[MAX_FACTION_DESC_LENGTH];
+    char    ai[ASSET_STRING_LENGTH]; 
+};
+
+struct  FactionAssetInformation {
+    char    bannerTexturePath[ASSET_STRING_LENGTH]; 
+};
+
+struct  FactionStatsInformation {
+    char    settlements[MAX_PREOWNED_SETTLEMENTS][ASSET_STRING_LENGTH];
+    char    allies[MAX_DIPLOMATIC_COUNT][ASSET_STRING_LENGTH];
+    char    enemies[MAX_DIPLOMATIC_COUNT][ASSET_STRING_LENGTH];
+    char    names[MAX_NAMES_PER_FACTION][ASSET_STRING_LENGTH]; 
+};
+
+
+
+struct  BuildingGeneralInformation {
+    char    name[ASSET_STRING_LENGTH];
+    char    type[ASSET_STRING_LENGTH];
+};
+
+struct  BuildingAssetInformation {
+    char    modelPath[ASSET_STRING_LENGTH];
+    char    texturePath[ASSET_STRING_LENGTH];
+    struct ShaderInformation    shaders;
+};
+
+struct  BuildingStatsInformation {
+    float   buildingCost;
+    float   hitPoints;
+};
+
+
+
+struct  WeaponGeneralInformation {
+    char    name[ASSET_STRING_LENGTH];
+    char    type[ASSET_STRING_LENGTH];
+};
+
+struct  WeaponAssetInformation {
+    char    modelPath[ASSET_STRING_LENGTH];
+    char    texturePath[ASSET_STRING_LENGTH];
+    struct ShaderInformation    shaders;
+};
+
+struct  WeaponStatsInformation {
+    float   struckDamage;
+    float   stabDamage;
+};
+
 /* Contains the OS-specific path set at startup containing the assets base path. */
-char   basePath[150];
+char    basePath[150];
 
-/* Structs to simplify access and alignment of the resource-arrays. */
+void    RMG_setBasePath         (char   path[]);
 
-struct RMGName {
-    char    path[100];
-};
+void    RMG_registerResources   ();
 
-struct Type {
-    int type;
-};
+void    getNumLinesInFile       (char   path[], int *numLines);
 
-struct TexturePath {
-    char    path[100];
-};
+void    readFileLine            (char   path[], int line);
 
-struct ModelPath {
-    char    path[100];
-};
+void    getJsonString           (char*  string, char*   filePath, char* key);
 
-struct VertexShaderPath {
-    char    path[100];
-};
+void    getJsonFloat            (float* value, char*    filePath, char* key);
 
-struct FragmentShaderPath {
-    char    path[100];
-};
-
-struct AnimationPath {
-    char    path[100];
-};
-
-/* For saving necessary information about the GUIs. */
-
-struct  GUIInformation {
-    char    name[100];
-    float   positionX,  positionY;
-    float   sizeX,      sizeY;
-    struct  GUIElement*     elements;
-    int     elementCount;
-    char    texturePath[100];
-};
+void    getJsonArrayAtIndex     (char*  string, char*   filePath, char* arrayKey, int   arrayIndex);
 
 
-struct  GUIElement {
-    float   positionX,  positionY;
-    float   sizeX,      sizeY;
-    float   w;
-    char    texturePath[100];
-};
 
-/* Arrays of the resources. */
+struct UnitGeneralInformation   getUnitGeneralInformation   (char*   name);
 
-struct RMGName      names[OBJECT_COUNT];
-struct Type         types[OBJECT_COUNT];
-struct TexturePath  textures[OBJECT_COUNT];
-struct ModelPath    models[OBJECT_COUNT];
-struct VertexShaderPath     vertexShaders[OBJECT_COUNT];
-struct FragmentShaderPath   fragmentShaders[OBJECT_COUNT];  
-struct AnimationPath    animations[OBJECT_COUNT];
-struct GUIInformation   guis[OBJECT_COUNT]; 
+struct UnitAssetInformation     getUnitAssetInformation     (char*  name);
 
-/* Counters for the different types of objects. */
-int     entityCount;
-int     spriteCount;
-int     guiCount;
+struct UnitStatsInformation     getUnitStatsInformation     (char*  name);
 
-/* To be called on start
- * sets basePath
- * loads all resources. */
-void    RMG_loadResources   (char  path[]);
 
-/* Returns the type of object name. */
-int     RMG_getType         (char*  objectName);
 
-/* Returns the full texture path of object name. */
-void    RMG_getTexture      (char*  dest, char* objectName);
+struct SettlementGeneralInformation     getSettlementGeneralInformation     (char*  name);
 
-/* Returns the full model path of object name. */
-void    RMG_getModel        (char*  dest, char* objectName);
+struct SettlementAssetInformation       getSettlementAssetInformation       (char*  name);
 
-/* Returns the full vertex shader path of object name. */
-void    RMG_getVertexShader     (char*  dest, char* objectName);
+struct SettlementStatsInformation       getSettlementStatsInformation       (char*  name);
 
-/* Returns the full fragment shader path of object name. */
-void    RMG_getFragmentShader   (char*  dest, char* objectName);
 
-/* Returns the full animation path of object name. */
-void    RMG_getAnimation    (char*  dest, char* objectName);
 
-void    RMG_getGuiPosition  (float  *positionX, float   *positionY, char*   name);
+struct MountGeneralInformation      getMountGeneralInformation      (char*  name);
 
-void    RMG_getGuiSize      (float  *sizeX, float   *sizeY, char*   name);
+struct MountAssetInformation        getMountAssetInformation        (char*  name);
 
-void    RMG_getGuiTexture   (char*  dest,   char*   name);
+struct MountStatsInformation        getMountStatsInformation        (char*  name);
 
-int     RMG_getGuiElementCount  (char*  name);
 
-float   RMG_getGuiElementW      (char*  name, int   id);
 
-void    RMG_getGuiElementPosition   (float  *positionX, float   *positionY, char*   name, int   id);
+struct FactionGeneralInformation    getFactionGeneralInformation    (char*  name);
 
-void    RMG_getGuiElementSize       (float  *sizeX, float   *sizeY, char*   name, int   id);
+struct FactionAssetInformation      getFactionAssetInformation      (char*  name);
 
-void    RMG_getGuiElementTexture    (char*  dest, char* name, int   id);
+struct FactionStatsInformation      getFactionStatsInformation      (char*  name);
+
+
+
+struct BuildingGeneralInformation   getBuildingGeneralInformation   (char*  name);
+
+struct BuildingAssetInformation     getBuildingAssetInformation     (char*  name);
+
+struct BuildingStatsInformation     getBuildingStatsInformation     (char*  name);
+
+
+
+struct WeaponGeneralInformation     getWeaponGeneralInformation     (char*  name);
+
+struct WeaponAssetInformation       getWeaponAssetInformation       (char*  name);
+
+struct WeaponStatsInformation       getWeaponStatsInformation       (char*  name);
+
+
 
 /* Free pointer which have been dynamically allocated. */
 void    RMG_free            ();

@@ -3,8 +3,8 @@
 
 CC=c99
 LIBS=-lSDL2 -lGLEW -lGL -lm
-EVENTOBJ=eventmanager.o guicallback.o
-GRAPHICOBJ=camera2d.o camera3d.o gamewindow.o gui.o object.o projection.o
+EVENTOBJ=eventmanager.o
+GRAPHICOBJ=camera2d.o camera3d.o gamewindow.o object.o projection.o
 LIBOBJ=logger.o maths.o resourcemanager.o time.o
 LOADEROBJ=model.o shader.o texture.o
 FLAGS=-Wall -Wextra -fsanitize=address -g
@@ -56,12 +56,6 @@ projection.o: graphics/projection.h graphics/projection.c
 
 eventmanager.o: events/eventmanager.h events/eventmanager.c
 	$(CC) -c events/eventmanager.c -o $@
-
-guicallback.o: events/guicallback.h events/guicallback.c
-	$(CC) -c events/guicallback.c -o $@
-
-gui.o: graphics/gui.h graphics/gui.c
-	$(CC) -c graphics/gui.c -o $@
 
 #Other Rules
 
